@@ -11,7 +11,7 @@ export default class Profile extends Component{
             newPassword:this.newPassword,
             confirmPassword:this.confirmPassword
         };
-        axios.post('profile',User).then(
+        axios.post('/'+localStorage.getItem('token2')+'/profile',User).then(
             res=>{
                 console.log(res)
             }

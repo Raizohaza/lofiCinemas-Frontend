@@ -6,15 +6,11 @@ export default class Home extends Component{
     
     
     render(){
-        if(this.props.user){
+      
             return(
-                <h2>helooo {this.props.user.Name}</h2>
+               <p>hello</p> + localStorage.getItem('token')
             )
         }
-        return(
-            <h2>You are not login</h2>
-            
-        )
       
-    }
+    
 }

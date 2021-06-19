@@ -22,12 +22,17 @@ export default class Nav extends Component{
             buttons = ( 
             <ul className="navbar-nav ml-auto">
                   <li className="nav-item">
-                    <Link to={'/Login'} className="nav-link">Login</Link>
+                    <Link to={'/Dangnhap'} className="nav-link">login</Link>
                   </li>
                   <li className="nav-item"> 
                   <Link to={'/Register'} className="nav-link">Register</Link>
                    </li>
-                  
+                   <li className="nav-item"> 
+                  <Link to={'/detail'} className="nav-link">Detail</Link>
+                   </li>
+                   <li className="nav-item"> 
+                  <Link to={'/homepage'} className="nav-link">Homepage</Link>
+                   </li>
                 </ul>
                 ) 
         }
