@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ReactPlayer from 'react-player';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { 
+    faThumbsUp,
+    faThumbsDown
+} from '@fortawesome/free-solid-svg-icons'
+
 export default class Detail extends Component{
     state = {}
     componentDidMount = e =>{
@@ -16,7 +23,7 @@ export default class Detail extends Component{
             Status:this.status,
             Trailer:this.trailer,
         };
-        axios.get('../hot').then(
+        axios.get('url').then(
             res=>{
                 console.log(res.data);
                 this.setState({
@@ -25,14 +32,9 @@ export default class Detail extends Component{
                     Anh:res.data.Movie[0].Poster
                 })
             }
-         )//.catch(
-        //     err=>{
-        //         console.log(err)
-        //     }
-        // )
+         )
     };
    render(){
-
         if( this.state.Moviee){
             return(
                 <div>
@@ -45,13 +47,23 @@ export default class Detail extends Component{
             )
         };
        return(
-        <div>
-            <ReactPlayer url="https://www.youtube.com/watch?v=zTitoHKsyJg " controls={true}/>
-             {this.state.Ten}
-             <br />
-             {this.state.Mota}
-             <br />
-             {this.state.Anh}
+        <div className='detail'>
+            <ReactPlayer className='trailer' url="https://www.youtube.com/watch?v=zTitoHKsyJg " controls={true}/>
+            <div className="item-info">
+                <div className="infomation">
+                    <img className="poster-avatar" src={this.state.Poster}/>
+                    <p className="item-name">{this.state.Name}</p>
+
+                    <div className="affaction">
+                        <i><FontAwesomeIcon icon={faThumbsUp}/></i>
+                        <i><FontAwesomeIcon icon={faThumbsDown}/></i>
+                    </div>
+                </div>
+                <div className="decription">
+                        {this.state.Decription}
+                </div>
+                
+            </div>
         </div>
        );
    }

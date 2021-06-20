@@ -1,10 +1,15 @@
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
-import React, { Component } from 'react';
+import React from "react";
 
+import Banner from '../banner/Banner';
+import Content from '../content/Content'
 
-class home extends Component{
+import './home.css'
 
-    render(){
-        
-    }
+export default function Home(props){
+    return(
+        <div className='Home'>
+            <Banner/>
+            <Content/>
+        </div>
+    );
 }
