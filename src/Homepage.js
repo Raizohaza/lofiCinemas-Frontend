@@ -1,7 +1,5 @@
 import React, { useState,Component } from 'react';
 import axios from 'axios';
-import ReactPlayer from 'react-player';
-import {Link} from "react-router-dom";
 
 export default class Homepage extends Component{
  
@@ -11,37 +9,37 @@ export default class Homepage extends Component{
             posts:[]
         }
     }
-  
-    handleSubmit = (props) =>{
-       
-        localStorage.setItem('token3',this.props.id);          
-     }
+    handleClick(id) {
+        console.log('this is:', id);
+        axios.post('../movie/'+id)
+        .then(res=>{
+            console.log(res.data)
+        });
+      }
     componentDidMount(){
-        axios.get('../hot')
+        axios.get('../nowplaying')
         .then(res=>{
             console.log(res)
             this.setState({posts:res.data.Movie})
-        })
+        });
     }
-   render(){
-    const {posts}=this.state
-   
-       return(
-           
+    render(){
+        const {posts}=this.state
+        return(
             <div>
-               
-              <form onSubmit={this.handleSubmit}>
-                   {posts.map(post => 
-                   <div key={post.id}> 
-                           <button type='submit'>
-                       <img src={post.Poster}/>
-                       {post.Name}   
-                       </button>                                  
-                    </div>) }
-                    </form>               
-               
-           </div>         
-          
-       );
-   }
+                {
+                    posts.map(post => 
+                        <div key={post.id}> 
+                            
+                        <button type='submit' onClick={() => this.handleClick(post.id)}>
+                            <img src={post.Poster}/>
+                        </button>    
+                        <p>{post.Name} </p>                              
+                        </div>
+                    ) 
+                }
+            </div>         
+            
+        );
+    }
 }
