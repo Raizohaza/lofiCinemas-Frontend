@@ -1,0 +1,73 @@
+.detail{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.item-info{
+    display: flex;
+    margin-top: 1rem;
+    width: 80%;
+    height: auto;
+    margin-bottom: 2rem;
+}
+
+.infomation{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.poster-avatar{
+    width: 20rem;
+    height: 20rem;
+}
+
+.item-name{
+    font-size: 2rem;
+    font-weight: bolder;
+    margin-left: 2rem;
+}
+
+.affaction{
+    margin-left: 1.8rem;
+    margin-bottom: 2rem;
+}
+
+.iconn{
+    font-size: 2rem;
+}
+
+.iconn:hover{
+    color: aquamarine;
+}
+
+.decription{
+    text-align: left;
+    font-size: 1.3rem;
+    width: 500px;
+    margin-top: 1rem;
+    white-space: pre-wrap;
+    -webkit-line-clamp:3
+}
+
+.trailer{
+    width: 80%;
+    height: 40rem;
+}
+
+.btn{
+    border: none;
+    margin-right: 2rem;
+    background-color: white;
+}
+
+.cart{
+    margin-left: 1.8rem;
+    width: 5rem;
+    display: flex;
+    font-size: medium;
+}
+

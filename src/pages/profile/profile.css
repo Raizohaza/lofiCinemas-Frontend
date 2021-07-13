@@ -1,0 +1,55 @@
+.profile{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-direction: column;
+}
+
+.avatar{
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    margin-top: 2rem;
+
+}
+
+.info-user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    width: 100%;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    width: 30%;
+}
+
+.form-control{
+    background: rgba(226, 223, 223, 0.58);
+    border: 0.5px solid #000000;
+    box-sizing: border-box;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.form-control:focus{
+    outline: none;
+}
+
+.btn-submit{
+    margin-top: 2rem;
+    width: 5%;
+    height: 2rem;
+    background: #c1e0ee;
+    border-radius: 20px;
+    border: 0.5px solid #000000;
+}
