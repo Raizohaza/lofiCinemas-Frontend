@@ -1,11 +1,11 @@
 exports.URL = {
     HOME: "/",
     LOGIN: "/login",
-    DETAIL: "/detail/:slug",
-    BOOKING: "/detail/booking/:slug",
-    CHECKOUT: "/payment/:slug",
+    REGISTER: "/register",
+    DETAIL: "/detail/:id",
+    BOOKING: "/detail/booking/:id",
+    RESETPASSWORD: "/reset-password",
     ABOUT: "/aboutUs",
     PROFILE: "/profile",
     SEARCH: "/search",
-    HISTORY: "/history",
   };

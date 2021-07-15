@@ -1,62 +1,54 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
 import ReactPlayer from 'react-player';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
-import { 
-    faThumbsUp,
-    faThumbsDown,
-    faShoppingCart
-} from '@fortawesome/free-solid-svg-icons'
-
+import { getMovieDetails } from "../../redux/action/movieAction";
+import { postBookingShow } from "../../redux/action/movieAction";
 
 import './detail.css'
 
-export default class Detail extends Component{
-    constructor(props)
-    {
-        super(props)
-        this.state={
-           item:[]
-        };
-    }
-    componentDidMount = e =>{
-         
-        const id = localStorage.getItem('id')
-         
-        
-    };
+export default function Detail({match})
+{
+    const [openformLogin, setOpenformLogin] = React.useState(false);
+    const dispatch = useDispatch();
+    const movieDetails = useSelector((state) => state.getMovieDetails);
+    const { loading, error, movies } = movieDetails;
+    useEffect(() => {
+        if (match) {
+          dispatch(getMovieDetails(match.params.id));
+        }
+        if (movies) {
+          dispatch(postBookingShow(movies.id));
+        }
+      }, [dispatch, match, openformLogin]);
 
-
-   render(){
-       return(
-        <div className='detail'>
-            <div className="item-info">
-                <img className="poster-avatar" src={this.state.post.Poster}/>
-                <div className="infomation">  
-                    <p className="item-name">{this.state.post.Name}</p>
-                    <div className="affaction">
-                        <button className='btn'>
-                            <i className='iconn'><FontAwesomeIcon icon={faThumbsUp}/></i>
-                        </button>
-                        <button className='btn'>
-                            <i className='iconn'><FontAwesomeIcon icon={faThumbsDown}/></i>
-                        </button>
+    return(
+        <div className="aw">
+            {loading ? (
+              <h2>Loading...</h2>
+            ) : error ? (
+              <h2>{error}</h2>
+            ) : (
+            <div className='detail'>
+                <div className="item-info">
+                    <img className="poster-avatar" alt="" src={movies.Poster}/>
+                    <div className="infomation">  
+                        <p className="item-name">{movies.Name}</p>
+                        <p className="item-i">Trạng thái: {movies.Status}</p>
+                        <p className="item-i">Thời lượng: {movies.Duration}p</p>
+                        <button className="cart">Đặt vé</button>
                     </div>
-                    <button className='btn cart'>
-                            <i className='iconn'><FontAwesomeIcon icon={faShoppingCart}/></i>
-                            <p>Mua vé</p>
-                    </button>
-                    
                 </div>
+                <div className="decription">             
+                    {movies.Description}
+                </div>
+                <ReactPlayer className='trailer' width='1' height='1' url={movies.Trailer} controls={true}/>
             </div>
-            <div className="decription">             
-                {this.state.post.Decription}
-            </div>
-            <ReactPlayer className='trailer' width='1' height='1' url={this.state.post.Trailer} controls={true}/>
+            )}
         </div>
-       );
-   }
+    );
+  
 }
 

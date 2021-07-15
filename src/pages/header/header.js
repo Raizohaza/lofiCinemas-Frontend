@@ -6,8 +6,7 @@ import {
     faHome,
     faHeart,
     faMap,
-    faUser,
-    faCog
+    faUser
 } from '@fortawesome/free-solid-svg-icons'
 
 import './header.css'
@@ -19,20 +18,19 @@ class header extends Component{
         return(
             <div className="header">
                 <div className="logo">
-                    <img src={LoliCinemas}></img>
+                    <img src={LoliCinemas} alt=""></img>
                 </div>
                 <div className="tool">
                     <Link to='/'>
-                        <i><FontAwesomeIcon icon={faHome}/></i>
+                        <i className="icon-color"><FontAwesomeIcon icon={faHome}/></i>
                     </Link>                   
-                    <i><FontAwesomeIcon icon={faHeart}/></i>
-                    <i><FontAwesomeIcon icon={faMap}/></i>
+                    <i className="icon-color"><FontAwesomeIcon icon={faHeart}/></i>
+                    <i className="icon-color"><FontAwesomeIcon icon={faMap}/></i>
                 </div>
                 <div className="avatar">
-                    <Link to='/login'>
-                        <i><FontAwesomeIcon icon={faUser}/></i>
+                    <Link to='/register'>
+                        <i className="icon-color"><FontAwesomeIcon icon={faUser}/></i>
                     </Link>
-                    <i><FontAwesomeIcon icon={faCog}/></i>
                 </div>
             </div>
                 

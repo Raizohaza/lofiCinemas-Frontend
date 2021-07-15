@@ -42,7 +42,7 @@ class login extends Component {
         }
         return(
             <div className="login" onSubmit={this.handleSubmit}>
-                <img className="logo-login" src={logo}></img>
+                <img className="logo-login" src={logo} alt=""></img>
                 <div className="field-input">
                     <p>Username</p>
                     <input  onChange={e =>this.Username=e.target.value}  className="input" type="text"  />
@@ -59,8 +59,9 @@ class login extends Component {
                     <p className="text-in-button">Login</p>
                 </button>
             
+
                 
-               <Link to='/reset-password'>
+                <Link to='/reset-password'>
                    <p className="stroke-font">Forgot password?</p>
                 </Link>
             </div>

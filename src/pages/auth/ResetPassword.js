@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 import './login.css';
@@ -38,9 +39,11 @@ class RsPassword extends Component{
                 <button  type='submit' className="btn-request">
                     <p className="text-in-button">Send request</p>
                 </button>
-                <button  type='submit' className="btn-cancel">
-                    <p className="text-in-button">Cancel</p>
-                </button>
+                <Link to="/login">
+                    <button  type='submit' className="btn-cancel">
+                        <p className="text-in-button">Cancel</p>
+                    </button>
+                </Link>
                 
             </div>
         );

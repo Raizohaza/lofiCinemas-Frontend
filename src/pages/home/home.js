@@ -8,7 +8,6 @@ import './home.css'
 export default function Home(props){
     return(
         <div className='Home'>
-            <Banner/>
             <Content/>
         </div>
     );

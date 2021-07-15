@@ -31,3 +31,13 @@
     margin-left: 1rem;
 }
 
+.icon-color{
+    color: white;
+    width: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-color:hover{
+    color: rgb(60, 181, 236);
+}
