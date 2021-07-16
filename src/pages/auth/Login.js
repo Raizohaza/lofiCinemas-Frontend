@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 import { Redirect } from "react-router";
@@ -17,22 +17,28 @@ import logo from '../../assets/img/login.jpg'
 
 
 class login extends Component {
-    state = {}
+    
+    constructor(props)
+    {
+        super(props);
+        this.state= {}
+    }
+
     handleSubmit = e =>{
         e.preventDefault();
         const User ={
-            Username:this.Username,
+            Email:this.Email,
             Password:this.Password
         };
-        axios.post('url',{...User})
+        axios.post('https://lofi-cinemas.herokuapp.com/user/login',{...User})
         .then( res=> {
                console.log(res);
-               localStorage.setItem('token',res.data.user.Name);
+               localStorage.setItem('token',res.data.user.Email);
                localStorage.setItem('token2',res.data.user.id);
                this.setState({
                    loggedin:true
                });
-               this.props.setUser(res.data.user);
+               this.props.setState(res.data);
           })
     };
 
@@ -41,12 +47,12 @@ class login extends Component {
             return <Redirect to={'/'}/>;
         }
         return(
-            <div className="login" onSubmit={this.handleSubmit}>
+            <form className="login" onSubmit={this.handleSubmit}>
                 <img className="logo-login" src={logo} alt=""></img>
                 <div className="field-input">
-                    <p>Username</p>
-                    <input  onChange={e =>this.Username=e.target.value}  className="input" type="text"  />
-                    <p>Password</p>
+                    <p>Email:</p>
+                    <input  onChange={e =>this.Email=e.target.value}  className="input" type="email"  />
+                    <p>Password:</p>
                     <input  onChange={e =>this.Password=e.target.value} className="input" type="password" />
                 </div>
                 <p> OR </p>
@@ -64,7 +70,7 @@ class login extends Component {
                 <Link to='/reset-password'>
                    <p className="stroke-font">Forgot password?</p>
                 </Link>
-            </div>
+            </form>
        );
    }
 

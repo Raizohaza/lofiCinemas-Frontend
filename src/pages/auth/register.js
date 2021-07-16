@@ -10,14 +10,16 @@ class register extends Component {
         e.preventDefault();
         const User ={
             Email:this.Email,
-            Username:this.Name,
+            Name:this.Name,
             Password:this.Password,
-            ConfirmPassword:this.Confirmpassword
+            ConfirmPassword:this.ConfirmPassword
         };
-        axios.post('url',User).then(
+        axios.post('https://lofi-cinemas.herokuapp.com/user/register',{...User}).then(
             res=>{
                 console.log(res)
-                alert("Please check your email to confirm");
+                console.log("pass:", this.Password);
+                console.log("cf:", this.ConfirmPassword);
+                
             }
         ).catch(
             err=>{
@@ -28,26 +30,26 @@ class register extends Component {
 
     render(){
        return(
-            <div className="login">
+            <form className="login" onSubmit={this.handleSubmit}>
                <p className="title">Register</p>
                 <div className="field-input">
                     <p>Email</p>
                     <input onChange={e =>this.Email=e.target.value}  className="input" type="email"  />
-                    <p>Username</p>
-                    <input onChange={e =>this.Username=e.target.value}  className="input" type="text"  />
+                    <p>Name</p>
+                    <input onChange={e =>this.Name=e.target.value}  className="input" type="text"  />
                     <p>Password</p>
                     <input onChange={e =>this.Password=e.target.value} className="input" type="password" />
                     <p>Confirm Password</p>
                     <input onChange={e =>this.ConfirmPassword=e.target.value} className="input" type="password" />
                 </div>
                
-                <button  type='submit' className="btn-register">
+                <button type='submit' className="btn-register">
                     <p className="text-in-button">Register</p>
                 </button>
                <Link to='/login'>
                     <p className="stroke-font">Have Account?</p>
                </Link>
-            </div>
+            </form>
        );
    }
 

@@ -7,14 +7,14 @@ function SwiperComponent({ movie }) {
   return (
     <div className="swipercomponent">
       {movie && (
-        <div class="movie-grid">
-          <div class="movie-thumb c-thumb">
+        <div className="movie-grid">
+          <div className="movie-thumb c-thumb">
             <Link to={`detail/${movie.id}`}>
               <img src={movie.Poster} alt="movie" />
             </Link>
           </div>
-          <div class="movie-content bg-one">
-            <h5 class="title">
+          <div className="movie-content bg-one">
+            <h5 className="title">
               <Link className="text-align" to={`detail/${movie.id}`}>{movie.Name}</Link>
             </h5>
           </div>

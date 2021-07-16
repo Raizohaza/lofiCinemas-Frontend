@@ -13,7 +13,7 @@ class RsPassword extends Component{
         const data = {
             Email:this.email
         };
-        axios.post('url',data).then(
+        axios.post('https://lofi-cinemas.herokuapp.com/user/reset',data).then(
             res=>{
                 console.log(res)
             }

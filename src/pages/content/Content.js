@@ -33,9 +33,9 @@ export default function Content(){
     return(
         <div className="col-lg-12">
             {movies && Object.values(movies).length > 0 && movies.Movie.length > 0 && (
-                <div class="article-section padding-bottom">
-                  <div class="section-header-1">
-                    <h2 class="title">Now Playing</h2>
+                <div className="article-section padding-bottom">
+                  <div className="section-header-1">
+                    <h2 className="title">Now Playing</h2>
                   </div>
                   <Swiper                 
                     navigation
@@ -55,7 +55,7 @@ export default function Content(){
                         </SwiperSlide>
                       ))}
                   </Swiper>
-                  <div class="row mb-30-none justify-content-center"></div>
+                  <div className="row mb-30-none justify-content-center"></div>
                 </div>
               )}
         </div>
