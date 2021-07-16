@@ -17,12 +17,10 @@ import logo from '../../assets/img/login.jpg'
 
 
 class login extends Component {
-    
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
-        this.state= {}
-    }
+        this.state = {};
+      }
 
     handleSubmit = e =>{
         e.preventDefault();
@@ -38,7 +36,7 @@ class login extends Component {
                this.setState({
                    loggedin:true
                });
-               this.props.setState(res.data);
+               this.setState(res.data.user);
           })
     };
 
