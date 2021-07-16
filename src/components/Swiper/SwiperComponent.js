@@ -9,8 +9,8 @@ function SwiperComponent({ movie }) {
       {movie && (
         <div class="movie-grid">
           <div class="movie-thumb c-thumb">
-            <Link className="text-align" to={`detail/${movie.id}`}>
-              <img className="img-align" src={movie.Poster} alt="movie" />
+            <Link to={`detail/${movie.id}`}>
+              <img src={movie.Poster} alt="movie" />
             </Link>
           </div>
           <div class="movie-content bg-one">

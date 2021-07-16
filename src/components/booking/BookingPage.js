@@ -1,22 +1,13 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React from 'react';
 
 import './booking.css'
 
 
-export default class BookingPage extends Component{
-
-    constructor(props)
-    {
-        super(props)
-    }
-   
-    render()
-    {
-        const icon = '<-';
+export default function BookingPage()
+{
         return (
             <div className='booking'>
-                <button className='btn-close'>{icon}</button>
+                <button className='btn-close'>X</button>
                 <div className="date">
                     <button className="btn-date">T2</button>
                     <button className="btn-date">T3</button>
@@ -33,6 +24,5 @@ export default class BookingPage extends Component{
                 </div>
             </div>
         );
-    }
 
 }

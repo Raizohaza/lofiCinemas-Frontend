@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
+import { Link } from 'react-router-dom';
 
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -38,7 +39,9 @@ export default function Detail({match})
                         <p className="item-name">{movies.Name}</p>
                         <p className="item-i">Trạng thái: {movies.Status}</p>
                         <p className="item-i">Thời lượng: {movies.Duration}p</p>
-                        <button className="cart">Đặt vé</button>
+                        <Link to={`booking/${movies.id}`}>
+                          <button className="cart">Đặt vé</button>
+                        </Link>
                     </div>
                 </div>
                 <div className="decription">             

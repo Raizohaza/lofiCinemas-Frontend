@@ -4,7 +4,7 @@ import SwiperComponent from '../../components/Swiper/SwiperComponent'
 
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination } from "swiper/core";
+import SwiperCore, { Pagination, Navigation } from "swiper/core";
 
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/swiper.min.css";
@@ -20,7 +20,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import './style.css'
 
-SwiperCore.use([Pagination]);
+SwiperCore.use([Pagination, Navigation]);
 
 export default function Content(){
 
@@ -37,17 +37,20 @@ export default function Content(){
                   <div class="section-header-1">
                     <h2 class="title">Now Playing</h2>
                   </div>
-                  <Swiper
-                    pagination={true}
+                  <Swiper                 
+                    navigation
+                    pagination
                     slidesPerView={4}
-                    spaceBetween={10}
+                    spaceBetween={0}
                     allowTouchMove={true}
                     lazy={true}
                     slidesPerGroup={4}
                   >
                     {movies.Movie &&
                       movies.Movie.map((item, index) => (
-                        <SwiperSlide key={index}>
+                        <SwiperSlide 
+                          key={index}                        
+                        >
                           <SwiperComponent movie={item} />
                         </SwiperSlide>
                       ))}

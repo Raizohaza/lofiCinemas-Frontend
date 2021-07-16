@@ -8,6 +8,7 @@ import DetailRoute from "./detail.router";
 import LoginRoute from "./login.router";
 import ResetRoute from "./reset.router";
 import RegisterRoute from "./register.router";
+import BookingRoute from "./booking.router";
 
 
 
@@ -20,10 +21,11 @@ function Routers() {
     <Router>
       <Header/>
       <HomeRoute/>
-      <DetailRoute/>
       <LoginRoute/>
       <ResetRoute/>
       <RegisterRoute/>
+      <DetailRoute/>
+      <BookingRoute/>
     </Router>
   );
 }
