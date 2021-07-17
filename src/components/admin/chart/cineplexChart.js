@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link,useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { selectCinema} from '../../../features/cinema/cinemaSlice';
 import { selectCineplex} from '../../../features/cineplex/cineplexSlice';
 import { selectShowtime} from '../../../features/showtime/showtimeSlice';

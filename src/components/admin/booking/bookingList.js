@@ -1,7 +1,7 @@
-import {Table,Dropdown,ButtonGroup,Button} from 'react-bootstrap'
+import {Table,Button} from 'react-bootstrap'
 import { useSelector, useDispatch} from 'react-redux';
-import { Link,useHistory } from 'react-router-dom';
-import { selectBooking , getBookingAsync,deleteBookingAsync} from '../../../features/booking/bookingSlice';
+import { useHistory } from 'react-router-dom';
+import { selectBooking , getBookingAsync} from '../../../features/booking/bookingSlice';
 
 export function BookingList() {
     const dispatch = useDispatch();
@@ -22,20 +22,10 @@ export function BookingList() {
       return(
         <tr key={booking.id}>
           <td>{dem++}</td>
-          <td>{booking.Name}</td>             
-          <td>{booking.Address}</td>
-          <td>
-            <Button>
-              <Link to={`/admin/booking/${booking.id}/edit`}>Edit</Link>
-            </Button>
-          </td>
-          <td>
-            <Button onClick={(e)=>{
-              e.preventDefault();
-              dispatch(deleteBookingAsync({id:booking.id}));
-              history.push('/admin/booking');
-            }}>Delete</Button>
-          </td>
+          <td>{booking.DateTime}</td>             
+          <td>{booking.TotalPrice}</td>
+          <td>{booking.UserId}</td>
+          <td>{booking.ShowTimeId}</td>
         </tr>
       );
     }
@@ -49,10 +39,10 @@ export function BookingList() {
           <thead>
             <tr>
               <th>#</th>
-              <th>Name</th>
-              <th>Address</th>
-              <th>Action</th>
-              <th>Delete</th>
+              <th>DateTime</th>
+              <th>TotalPrice</th>
+              <th>UserId</th>
+              <th>ShowTimeId</th>
             </tr>
           </thead>
           <tbody>

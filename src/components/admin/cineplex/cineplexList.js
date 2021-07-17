@@ -1,7 +1,7 @@
-import {Table,Dropdown,ButtonGroup,Button} from 'react-bootstrap'
+import {Table,Button} from 'react-bootstrap'
 import { useSelector, useDispatch} from 'react-redux';
 import { Link,useHistory } from 'react-router-dom';
-import { selectCineplex , getCineplexAsync,getCineplexByIdAsync,deleteCineplexAsync} from '../../../features/cineplex/cineplexSlice';
+import { selectCineplex , getCineplexAsync,deleteCineplexAsync} from '../../../features/cineplex/cineplexSlice';
 
 export function CineplexList() {
     const dispatch = useDispatch();

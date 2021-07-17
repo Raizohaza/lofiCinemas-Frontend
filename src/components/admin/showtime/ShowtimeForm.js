@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch,useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
-import {Table,Dropdown,ButtonGroup,Button} from 'react-bootstrap';
-import { selectCinema ,getCinemaAsync} from '../../../features/cinema/cinemaSlice';
-import { selectMovie ,getMovieAsync} from '../../../features/movie/movieSlice';
+import { useHistory } from "react-router-dom";
+import {Dropdown,ButtonGroup} from 'react-bootstrap';
+import { selectCinema } from '../../../features/cinema/cinemaSlice';
+import { selectMovie } from '../../../features/movie/movieSlice';
 export function ShowtimeForm(curr,action) {
     const dispatch = useDispatch();
     let history = useHistory();

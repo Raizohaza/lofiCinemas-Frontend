@@ -3,8 +3,9 @@ import Map from "./pages/admin/Maps.js";
 import {MovieList} from "./components/admin/movie/movieList.js";
 import {CineplexList} from "./components/admin/cineplex/cineplexList.js";
 import {CinemaList} from "./components/admin/cinema/cinemaList.js";
+import {BookingList} from "./components/admin/booking/bookingList.js";
 import {ShowtimeList} from "./components/admin/showtime/showtimeList.js";
-import { AddMovieForm, MovieForm, EditMovieForm } from './features/movie/movie';
+import { AddMovieForm} from './features/movie/movie';
 const sideBarRoutes = [
   {
     path: "/dashboard",
@@ -46,6 +47,13 @@ const sideBarRoutes = [
     name: "Cinema List",
     icon: "nc-icon nc-tablet-2",
     component: CinemaList,
+    layout: "/admin",
+  },
+  {
+    path: "/booking",
+    name: "Booking List",
+    icon: "nc-icon nc-tablet-2",
+    component: BookingList,
     layout: "/admin",
   },
   {

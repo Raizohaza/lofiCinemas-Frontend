@@ -1,8 +1,8 @@
 import { useState } from "react";
-import {Table,Dropdown,ButtonGroup,Button} from 'react-bootstrap';
+import {Dropdown,ButtonGroup} from 'react-bootstrap';
 import { useDispatch,useSelector } from "react-redux";
-import { Redirect, useHistory } from "react-router-dom";
-import { selectCineplex ,getCineplexAsync} from '../../../features/cineplex/cineplexSlice';
+import { useHistory } from "react-router-dom";
+import { selectCineplex } from '../../../features/cineplex/cineplexSlice';
 export function CinemaForm(curr,action) {
     const dispatch = useDispatch();
     let history = useHistory();

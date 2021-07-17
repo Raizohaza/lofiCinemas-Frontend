@@ -1,7 +1,7 @@
 import Table from 'react-bootstrap/Table'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { selectMovie ,addMovieAsync, getMovieAsync, deleteMovieAsync} from '../../../features/movie/movieSlice';
+import { selectMovie , getMovieAsync, deleteMovieAsync} from '../../../features/movie/movieSlice';
 export function MovieList() {
     const dispatch = useDispatch();
     const history = useHistory();

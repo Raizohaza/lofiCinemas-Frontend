@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import { useLocation } from "react-router-dom";
 import routes from "../../../router.js";
 
 
-import { Navbar, Container, Nav, Dropdown, Button,Form, FormControl} from "react-bootstrap";
+import { Navbar, Container, Nav, Dropdown, Button} from "react-bootstrap";
 function Header() {
   const location = useLocation();
   const mobileSidebarToggle = (e) => {

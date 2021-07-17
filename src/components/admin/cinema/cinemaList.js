@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react';
 import {Table,Dropdown,ButtonGroup,Button} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link,useHistory } from 'react-router-dom';
-import { selectCinema ,addCinemaAsync, getCinemaAsync,deleteCinemaAsync} from '../../../features/cinema/cinemaSlice';
+import { selectCinema , getCinemaAsync,deleteCinemaAsync} from '../../../features/cinema/cinemaSlice';
 import { selectCineplex ,getCineplexAsync} from '../../../features/cineplex/cineplexSlice';
 
 const mapCinemaList = cinemaList => cinemaList.map((cinema) =>

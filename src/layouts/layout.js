@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { useLocation, Route, Switch } from "react-router-dom";
 
 import AdminNavbar from "../components/admin/NavBar/NavBar";
@@ -12,6 +12,7 @@ import { AddCinemaForm, EditCinemaForm } from "features/cinema/cinema";
 import { AddShowtimeForm, EditShowtimeForm } from "features/showtime/showtime";
 import Dashboard from "pages/admin/dashboard";
 import { MovieList } from "components/admin/movie/movieList";
+import { BookingList } from "components/admin/booking/bookingList";
 import { AddMovieForm } from "features/movie/movie";
 import { CineplexList } from "components/admin/cineplex/cineplexList";
 import { CinemaList } from "components/admin/cinema/cinemaList";
@@ -61,6 +62,8 @@ function Admin() {
                 <Route exact path="/admin/showtime" component={ShowtimeList}/>
                 <Route path="/admin/showtime/add" component={AddShowtimeForm}/>
                 <Route path="/admin/showtime/:id/edit" component={EditShowtimeForm}/>
+
+                <Route exact path="/admin/booking" component={BookingList}/>
               </Switch>
             </div>
           </div>
