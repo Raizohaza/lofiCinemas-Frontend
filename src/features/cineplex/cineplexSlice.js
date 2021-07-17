@@ -1,6 +1,5 @@
 import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
 const initialState = {
     cineplexes:[],
     selectedCineplex: null
@@ -56,9 +55,6 @@ export const cineplexSlice = createSlice({
     builder
         .addCase(getCineplexAsync.fulfilled, (state, action) => {
         state.cineplexes = action.payload;
-      })
-      .addCase(deleteCineplexAsync.fulfilled, (state, action) => {
-        useDispatch(getCineplexAsync);
       })
   },
 });

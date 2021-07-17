@@ -1,39 +1,39 @@
 import {Table,Dropdown,ButtonGroup,Button} from 'react-bootstrap'
 import { useSelector, useDispatch} from 'react-redux';
 import { Link,useHistory } from 'react-router-dom';
-import { selectCineplex , getCineplexAsync,getCineplexByIdAsync,deleteCineplexAsync} from '../../../features/cineplex/cineplexSlice';
+import { selectBooking , getBookingAsync,deleteBookingAsync} from '../../../features/booking/bookingSlice';
 
-export function CineplexList() {
+export function BookingList() {
     const dispatch = useDispatch();
-    const cineplexList = useSelector(selectCineplex);
-    //console.log(cineplexList);
-    if(cineplexList.length === 0 || cineplexList.length ===1){
-      dispatch(getCineplexAsync());
+    const bookingList = useSelector(selectBooking);
+    //console.log(bookingList);
+    if(bookingList.length === 0 || bookingList.length ===1){
+      dispatch(getBookingAsync());
       
     }
     let dem = 1;
   let history = useHistory();
 
   function handleClick() {
-    history.push("/admin/cineplex/add");
+    history.push("/admin/booking/add");
   }
-    let components = cineplexList.map((cineplex) =>
+    let components = bookingList.map((booking) =>
     {
       return(
-        <tr key={cineplex.id}>
+        <tr key={booking.id}>
           <td>{dem++}</td>
-          <td>{cineplex.Name}</td>             
-          <td>{cineplex.Address}</td>
+          <td>{booking.Name}</td>             
+          <td>{booking.Address}</td>
           <td>
-          <Button>
-              <Link to={`/admin/cineplex/${cineplex.id}/edit`}>Edit</Link>
-          </Button>
+            <Button>
+              <Link to={`/admin/booking/${booking.id}/edit`}>Edit</Link>
+            </Button>
           </td>
           <td>
             <Button onClick={(e)=>{
               e.preventDefault();
-              dispatch(deleteCineplexAsync({id:cineplex.id}));
-              history.push('/admin/cineplex');
+              dispatch(deleteBookingAsync({id:booking.id}));
+              history.push('/admin/booking');
             }}>Delete</Button>
           </td>
         </tr>

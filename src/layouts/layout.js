@@ -7,9 +7,9 @@ import FixedPlugin from "../components/admin/FixedPlugin/FixedPlugin.js";
 import routes from "../router.js";
 import sidebarImage from "../assets/img/sidebar-3.jpg";
 import { EditMovieForm } from "features/movie/movie";
-import { AddCineplexForm, EditCineplexForm } from '../features/cineplex/cineplex';
-import { AddCinemaForm, EditCinemaForm } from '../features/cinema/cinema';
-import { AddShowtimeForm, EditShowtimeForm } from '../features/showtime/showtime';
+import { AddCineplexForm, EditCineplexForm } from "features/cineplex/cineplex";
+import { AddCinemaForm, EditCinemaForm } from "features/cinema/cinema";
+import { AddShowtimeForm, EditShowtimeForm } from "features/showtime/showtime";
 import Dashboard from "pages/admin/dashboard";
 import { MovieList } from "components/admin/movie/movieList";
 import { AddMovieForm } from "features/movie/movie";
@@ -50,15 +50,15 @@ function Admin() {
                 <Route path="/admin/movie/add" component={AddMovieForm}/>
                 <Route path="/admin/movie/:id/edit" component={EditMovieForm}/>
 
-                <Route path="/admin/cineplex" component={CineplexList}/>
+                <Route exact path="/admin/cineplex" component={CineplexList}/>
                 <Route path="/admin/cineplex/add" component={AddCineplexForm}/>
                 <Route path="/admin/cineplex/:id/edit" component={EditCineplexForm}/>
 
-                <Route path="/admin/cinema" component={CinemaList}/>
+                <Route exact path="/admin/cinema" component={CinemaList}/>
                 <Route path="/admin/cinema/add" component={AddCinemaForm}/>
                 <Route path="/admin/cinema/:id/edit" component={EditCinemaForm}/>
 
-                <Route path="/admin/showtime" component={ShowtimeList}/>
+                <Route exact path="/admin/showtime" component={ShowtimeList}/>
                 <Route path="/admin/showtime/add" component={AddShowtimeForm}/>
                 <Route path="/admin/showtime/:id/edit" component={EditShowtimeForm}/>
               </Switch>

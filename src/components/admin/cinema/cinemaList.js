@@ -17,14 +17,16 @@ const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
       <td>{cinema.Height}</td>
       <td>{cinema.CineplexId}</td>
       <td>
+        <Button>
         <Link to={`/admin/cinema/${cinema.id}/edit`}>Edit</Link>
+        </Button>
       </td>
       <td>
-            <Link onClick={(e)=>{
+            <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteCinemaAsync({id:cinema.id}));
               history.push('/admin/cinema');
-            }}>Delete</Link>
+            }}>Delete</Button>
           </td>
     </tr>
   );

@@ -34,14 +34,16 @@ export function ShowtimeList() {
           <td>{showtime.CinemaId}</td>
           <td>{showtime.MovieId}</td>
           <td>
+            <Button>
             <Link to={`/admin/showtime/${showtime.id}/edit`}>Edit</Link>
+            </Button>
           </td>
           <td>
-            <Link onClick={(e)=>{
+            <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteShowtimeAsync({id:showtime.id}));
               history.push('/admin/showtime');
-            }}>Delete</Link>
+            }}>Delete</Button>
           </td>
         </tr>
       );
