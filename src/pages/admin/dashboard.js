@@ -1,16 +1,10 @@
 import React from "react";
-import ChartistGraph from "react-chartist";
-// react-bootstrap components
+
 import {
-  Button,
   Card,
-  Table,
   Container,
   Row,
   Col,
-  Form,
-  OverlayTrigger,
-  Tooltip,
 } from "react-bootstrap";
 import { CineplexChart } from "../../components/admin/chart/cineplexChart";
 import { MovieChart } from "../../components/admin/chart/movieChart";

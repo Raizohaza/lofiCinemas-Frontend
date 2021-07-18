@@ -14,7 +14,6 @@ import {
     AllMoviesByCineplexReducer,
   } from "./reducers/movieReducer";
 import { loginReducer, registerReducer } from "./reducers/authReducers";
-import { configureStore } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
 import movieReducer from '../features/movie/movieSlice';
 import cineplexReducer from '../features/cineplex/cineplexSlice';

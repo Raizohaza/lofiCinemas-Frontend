@@ -1,12 +1,10 @@
 import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
-import axios from 'axios';
+import API from 'api';
 const initialState = {
     cineplexes:[],
     selectedCineplex: null
 }
-let API = axios.create({
-  baseURL: `http://localhost:5000/`||`http://lofi-cinemas.herokuapp.com/`
-});
+
 export const addCineplexAsync = createAsyncThunk(
   'cineplex/addCineplex',
   async (action) => {

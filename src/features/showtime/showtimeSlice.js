@@ -1,13 +1,11 @@
 
 import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
-import axios from 'axios';
+import API from 'api';
+
 const initialState = {
     showtimes:[],
     selectedShowtime: null
 }
-let API = axios.create({
-  baseURL: `http://localhost:5000/`||`http://lofi-cinemas.herokuapp.com/`
-});
 export const addShowtimeAsync = createAsyncThunk(
   'showtime/addShowtime',
   async (action) => {

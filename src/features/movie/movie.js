@@ -1,7 +1,7 @@
 
 import { useSelector, useDispatch } from 'react-redux';
-import { useParams,useHistory } from 'react-router-dom';
-import { selectMovie,addMovieAsync, getMovieAsync, editMovieAsync,deleteMovieAsync} from './movieSlice';
+import { useParams } from 'react-router-dom';
+import { selectMovie,addMovieAsync, getMovieAsync, editMovieAsync} from './movieSlice';
 import {MovieForm} from '../../components/admin/movie/MovieForm';
 
 export function AddMovieForm(){
@@ -33,7 +33,7 @@ export function EditMovieForm(){
       dispatch(getMovieAsync());
    }
    if(id && movies.length !== 0){
-      curr = movies.find(mov => mov.id == id);
+      curr = movies.find(mov => mov.id === id);
    }
    return(MovieForm(curr,editMovieAsync));
 }
