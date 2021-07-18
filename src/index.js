@@ -1,28 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import './index.css';
 import App from './App';
-import AdminApp from './AdminApp';
+
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import reportWebVitals from './reportWebVitals';
-import {store as adminStore} from './app/store';
-ReactDOM.render
-(
-  <Router>
-    <Switch>
-      <Route path='/admin'>
-        <Provider store={adminStore}>
-          <AdminApp />
-        </Provider>
-      </Route>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </Switch>
-  </Router>,
-  
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,  
   document.getElementById("root")
 );
 

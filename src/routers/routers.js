@@ -9,6 +9,7 @@ import LoginRoute from "./login.router";
 import ResetRoute from "./reset.router";
 import RegisterRoute from "./register.router";
 import BookingRoute from "./booking.router";
+import AdminRoute from "./admin.router";
 import { useLocation} from "react-router-dom";
 import FixedPlugin from "../components/admin/FixedPlugin/FixedPlugin.js";
 import sidebarImage from "../assets/img/sidebar-3.jpg";
@@ -22,7 +23,7 @@ function Routers() {
   const [image, setImage] = React.useState(sidebarImage);
   const [color, setColor] = React.useState("black");
   const [hasImage, setHasImage] = React.useState(true);
-  const location = useLocation();
+  // const location = useLocation();
   const mainPanel = React.useRef(null);
   
   React.useEffect(() => {
@@ -36,7 +37,7 @@ function Routers() {
       var element = document.getElementById("bodyClick");
       element.parentNode.removeChild(element);
     }
-  }, [location]);
+  }, []);
   return (
     <>
     <div>
@@ -48,6 +49,7 @@ function Routers() {
       <RegisterRoute/>
       <DetailRoute/>
       <BookingRoute/>
+      <AdminRoute/>
     </Router>
     
     </div>
