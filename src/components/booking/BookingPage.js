@@ -1,9 +1,21 @@
-import React from 'react';
-
-
+import React,{useState} from 'react';
+import './booking.css';
+import SeatMatrix from "./SeatMatrix";
 
 export default function BookingPage()
 {
+    const [movietest, EditMovietest] = useState({
+		movieNames: {
+			"Bloodshot": 10,
+			"The girl on the Train": 8,
+			"The invisible Man": 11,
+			"Onward": 12,
+			"My Spy": 9
+		},
+		moviePrice: 10,
+		totalSeats: 0,
+		seatNumbers: []
+	})
         return (
             <div className='booking'>
                 <button className='btn-close'>X</button>
@@ -21,6 +33,7 @@ export default function BookingPage()
                     <button className="btn-time">9 A.M</button>
                     <button className="btn-time">10 A.M</button>
                 </div>
+                <div><SeatMatrix value={{ movietest, changeState: EditMovietest }}/></div>
             </div>
         );
 
