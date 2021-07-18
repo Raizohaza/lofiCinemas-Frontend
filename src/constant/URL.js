@@ -8,4 +8,5 @@ exports.URL = {
     ABOUT: "/aboutUs",
     PROFILE: "/profile",
     SEARCH: "/search",
+    ADMIN: "/admin"
   };

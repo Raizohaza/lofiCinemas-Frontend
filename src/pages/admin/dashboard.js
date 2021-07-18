@@ -14,7 +14,6 @@ import {
 } from "react-bootstrap";
 import { CineplexChart } from "../../components/admin/chart/cineplexChart";
 import { MovieChart } from "../../components/admin/chart/movieChart";
-import { CinemaChart } from "../../components/admin/chart/cinemaChart";
 function Dashboard() {
   return (
     <>
