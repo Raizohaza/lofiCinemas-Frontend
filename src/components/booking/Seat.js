@@ -1,18 +1,8 @@
-import React, {useContext,createContext} from 'react';
+import React, {useContext} from 'react'
+import MovieContext from "./contexts/MovieContext"
 
-import './booking.css';
+import "./booking.css"
 
-let MovieContext = createContext({
-	movies: {
-		Bloodshot: 10,
-		"The girl on the Train": 8,
-		"The invisible Man": 11,
-		Onward: 12,
-		"My Spy": 12
-	},
-    seatNumbers: []
-
-})
 const Seat = (props) => {
     const { movies } = useContext(MovieContext)
     const context = useContext(MovieContext)
