@@ -2,6 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import DatePicker  from 'react-datepicker';
+let API = axios.create({
+  baseURL: `http://localhost:5000/`||`http://lofi-cinemas.herokuapp.com/`
+});
 
 const state = (labels,data) =>{
     console.log(labels,data);
@@ -45,8 +48,8 @@ export function CineplexChart(){
     const [startDate, setStartDate] = useState(new Date('2021-7-10'));
     const [endDate, setEndDate] = useState(new Date('2021-7-20'));
     useEffect(() => {
-        const getUserAPI = 'http://localhost:5000/bookingRevenueCineplex';
-        axios.get(getUserAPI).then((res) => {
+        const getUserAPI = '/bookingRevenueCineplex';
+        API.get(getUserAPI).then((res) => {
           setListSale(res.data);
         })
     }, []);
