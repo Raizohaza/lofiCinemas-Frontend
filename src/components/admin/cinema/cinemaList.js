@@ -27,7 +27,7 @@ const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
             <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteCinemaAsync({id:cinema.id}));
-              history.pushState('/admin/cinema');
+              history.push('/admin/cinema');
             }}>Delete</Button>
           </td>
     </tr>
@@ -51,7 +51,6 @@ export function CinemaList() {
         setCinemaState(res);
         }
         getCinema();
-
     },[cinemaList]);
     let history = useHistory();
 
