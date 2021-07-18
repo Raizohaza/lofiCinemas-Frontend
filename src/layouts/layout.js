@@ -41,7 +41,7 @@ function Admin() {
       <>
         <div className="wrapper">
           <Sidebar color={color} image={hasImage ? image : ""} routes={routes} />
-          <div className="main-panel" ref={mainPanel}>
+          <div className="main-panel" style={{overflow: 'scroll'}} ref={mainPanel}>
             <AdminNavbar />
             <div className="content">
               <Switch>
