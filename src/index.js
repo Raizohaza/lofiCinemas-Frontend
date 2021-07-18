@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import './index.css';
 import App from './App';
 import AdminApp from './AdminApp';
@@ -11,10 +11,19 @@ import reportWebVitals from './reportWebVitals';
 ReactDOM.render
 (
   <Router>
-    <Provider store={store}>
-      <App />
-      <AdminApp />
-    </Provider>
+
+    <Switch>
+      <Route path='/admin'>
+        <Provider store={adminStore}>
+          <AdminApp />
+        </Provider>
+      </Route>
+      <Provider store={store}>
+        <App />
+      </Provider>
+      
+    </Switch>
+  
   </Router>,
   
   document.getElementById("root")
