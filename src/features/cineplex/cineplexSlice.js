@@ -4,39 +4,41 @@ const initialState = {
     cineplexes:[],
     selectedCineplex: null
 }
-
+let API = axios.create({
+  baseURL: `http://localhost:5000/`||`http://lofi-cinemas.herokuapp.com/`
+});
 export const addCineplexAsync = createAsyncThunk(
   'cineplex/addCineplex',
   async (action) => {
-      const response = await axios.post(`http://localhost:5000/cineplex/add`,{...action})
+      const response = await API.post(`/cineplex/add`,{...action})
       return response.data;
   }
 );
 export const editCineplexAsync = createAsyncThunk(
   'cineplex/addCineplex',
   async (action) => {
-      const response = await axios.put(`http://localhost:5000/cineplex/`+action.id,{...action})
+      const response = await API.put(`/cineplex/`+action.id,{...action})
       return response.data;
   }
 );
 export const deleteCineplexAsync = createAsyncThunk(
   'cineplex/deleteCineplex',
   async (action) => {
-      const response = await axios.delete(`http://localhost:5000/cineplex/`+action.id,{...action})
+      const response = await API.delete(`/cineplex/`+action.id,{...action})
       return response.data;
   }
 );
 export const getCineplexByIdAsync = createAsyncThunk(
   'cineplex/',
   async (action) => {
-      const response = await axios.get(`http://localhost:5000/cineplex/`+action.id,{...action})
+      const response = await API.get(`/cineplex/`+action.id,{...action})
       return response.data;
   }
 );
 export const getCineplexAsync = createAsyncThunk(
   'cineplex/fetchCineplex',
   async () => {
-      const response = await axios.get(`http://localhost:5000/cineplexes/`)
+      const response = await API.get(`/cineplexes/`)
       response.data.sort((a,b)=> a.id - b.id);
       return response.data;
   }

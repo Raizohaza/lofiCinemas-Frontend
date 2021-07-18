@@ -5,25 +5,27 @@ const initialState = {
     showtimes:[],
     selectedShowtime: null
 }
-
+let API = axios.create({
+  baseURL: `http://localhost:5000/`||`http://lofi-cinemas.herokuapp.com/`
+});
 export const addShowtimeAsync = createAsyncThunk(
   'showtime/addShowtime',
   async (action) => {
-      const response = await axios.post(`http://localhost:5000/showtime/add`,{...action})
+      const response = await API.post(`/showtime/add`,{...action})
       return response.data;
   }
 );
 export const editShowtimeAsync = createAsyncThunk(
   'showtime/addShowtime',
   async (action) => {
-      const response = await axios.put(`http://localhost:5000/showtime/`+action.id,{...action})
+      const response = await API.put(`/showtime/`+action.id,{...action})
       return response.data;
   }
 );
 export const deleteShowtimeAsync = createAsyncThunk(
   'showtime/deleteShowtime',
   async (action) => {
-      const response = await axios.delete(`http://localhost:5000/showtime/`+action.id)
+      const response = await API.delete(`/showtime/`+action.id)
       return response.data;
   }
 );
@@ -31,7 +33,7 @@ export const deleteShowtimeAsync = createAsyncThunk(
 export const getShowtimeAsync = createAsyncThunk(
   'showtime/fetchShowtime',
   async () => {
-      const response = await axios.get(`http://localhost:5000/showtimes/`)
+      const response = await API.get(`/showtimes/`)
       response.data.sort((a,b)=> a.id - b.id);
       console.log(response.data);
       return response.data;

@@ -4,18 +4,20 @@ const initialState = {
     movies:[],
     selectedMovie: null
 }
-
+let API = axios.create({
+  baseURL: `http://localhost:5000/`||`http://lofi-cinemas.herokuapp.com/`
+});
 export const addMovieAsync = createAsyncThunk(
   'movie/addMovie',
   async (action) => {
-      const response = await axios.post(`http://localhost:5000/movie/add`,{...action})
+      const response = await API.post(`/movie/add`,{...action})
       return response.data;
   }
 );
 export const editMovieAsync = createAsyncThunk(
   'movie/editMovie',
   async (action) => {
-      const response = await axios.put(`http://localhost:5000/movie/`+action.id,{...action})
+      const response = await API.put(`/movie/`+action.id,{...action})
       return response.data;
   }
 );
@@ -23,7 +25,7 @@ export const editMovieAsync = createAsyncThunk(
 export const deleteMovieAsync = createAsyncThunk(
   'movie/deleteMovie',
   async (action) => {
-      const response = await axios.delete(`http://localhost:5000/movie/`+action.id)
+      const response = await API.delete(`/movie/`+action.id)
       return response.data;
   }
 );
@@ -31,7 +33,7 @@ export const deleteMovieAsync = createAsyncThunk(
 export const getMovieAsync = createAsyncThunk(
   'movie/fetchMovie',
   async () => {
-      const response = await axios.get(`http://localhost:5000/movies/`)
+      const response = await API.get(`/movies/`)
       response.data.sort((a,b)=> a.id - b.id);
       console.log(response.data);
       return response.data;

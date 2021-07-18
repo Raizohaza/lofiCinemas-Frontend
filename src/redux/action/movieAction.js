@@ -19,6 +19,24 @@ export const getMovies = () => async (dispatch) => {
     });
   }
 };
+export const getMoviesCommingsoon = () => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_MOVIES_REQUEST });
+    const { data } = await axios.get("/commingsoon");
+    dispatch({
+      type: actionTypes.GET_MOVIES_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_MOVIES_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const getMovieDetails = (id_movie) => async (dispatch, getState) => {
   try {

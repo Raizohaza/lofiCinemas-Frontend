@@ -4,32 +4,34 @@ const initialState = {
     bookings:[],
     selectedBooking: null
 }
-
+let API = axios.create({
+  baseURL: `http://localhost:5000/`||`http://lofi-cinemas.herokuapp.com/`
+});
 export const addBookingAsync = createAsyncThunk(
   'booking/addBooking',
   async (action) => {
-      const response = await axios.post(`http://localhost:5000/booking/add`,{...action})
+      const response = await API.post(`/booking/add`,{...action})
       return response.data;
   }
 );
 export const editBookingAsync = createAsyncThunk(
   'booking/addBooking',
   async (action) => {
-      const response = await axios.put(`http://localhost:5000/booking/`+action.id,{...action})
+      const response = await API.put(`/booking/`+action.id,{...action})
       return response.data;
   }
 );
 export const deleteBookingAsync = createAsyncThunk(
   'booking/deleteBooking',
   async (action) => {
-      const response = await axios.delete(`http://localhost:5000/booking/`+action.id)
+      const response = await API.delete(`/booking/`+action.id)
       return response.data;
   }
 );
 export const getBookingAsync = createAsyncThunk(
   'booking/fetchBooking',
   async () => {
-      const response = await axios.get(`http://localhost:5000/booking/`)
+      const response = await API.get(`/booking/`)
       response.data.sort((a,b)=> a.id - b.id);
       console.log(response.data);
       return response.data;
