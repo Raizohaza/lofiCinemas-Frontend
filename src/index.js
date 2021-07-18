@@ -7,15 +7,12 @@ import AdminApp from './AdminApp';
 import { Provider } from "react-redux";
 import store from "./redux/store";
 import reportWebVitals from './reportWebVitals';
-import {store as adminStore} from './app/store';
 
 ReactDOM.render
 (
   <Router>
     <Provider store={store}>
       <App />
-    </Provider>
-    <Provider store={adminStore}>
       <AdminApp />
     </Provider>
   </Router>,

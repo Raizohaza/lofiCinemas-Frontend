@@ -9,8 +9,10 @@ const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
 {
   const dispatch = useDispatch();
   const history = useHistory();
+
   return(
     <tr key={cinema.id}>
+      <td>{cinema.id}</td>
       <td>{cinema.Name}</td>             
       <td>{cinema.Type}</td>
       <td>{cinema.Width}</td>
@@ -25,7 +27,7 @@ const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
             <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteCinemaAsync({id:cinema.id}));
-              history.push('/admin/cinema');
+              history.pushState('/admin/cinema');
             }}>Delete</Button>
           </td>
     </tr>
@@ -50,7 +52,7 @@ export function CinemaList() {
         }
         getCinema();
 
-    },[]);
+    },[cinemaList]);
     let history = useHistory();
 
     function handleClick() {
@@ -84,6 +86,7 @@ export function CinemaList() {
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
+              <th>Id</th>
               <th>Name</th>
               <th>Type</th>
               <th>Width</th>

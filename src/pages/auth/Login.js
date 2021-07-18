@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios';
 import { Redirect } from "react-router";
 import { Link } from 'react-router-dom';
-
 import { 
     faFacebook, 
     faGoogle, 
@@ -21,29 +20,52 @@ class login extends Component {
         super(props);
         this.state = {};
       }
-
     handleSubmit = e =>{
         e.preventDefault();
         const User ={
             Email:this.Email,
-            Password:this.Password
+            Password:this.Password,
+            Role:this.Role
         };
         axios.post('https://lofi-cinemas.herokuapp.com/user/login',{...User})
         .then( res=> {
-               console.log(res);
                localStorage.setItem('token',res.data.user.Email);
                localStorage.setItem('token2',res.data.user.id);
+               localStorage.setItem('token3',res.data.user.Role);
                this.setState({
-                   loggedin:true
+                   loggedin:true,
+                   Role: res.data.user.Role,
                });
                this.setState(res.data.user);
+               console.log(this.state);
           })
     };
-
+    handleClick = e =>{
+        e.preventDefault();
+        axios.get('https://lofi-cinemas.herokuapp.com/user/auth/loginFacebook')
+        .then( res=> {
+            localStorage.setItem('token',res.data.Email);
+            localStorage.setItem('token2',res.data.id);
+            localStorage.setItem('token3',res.data.Role);
+            localStorage.setItem('token3',res.data.facebookId);
+            this.setState({
+                loggedin:true,
+                Role: res.data.Role,
+            });
+            this.setState(res.data.user);
+            console.log(this.state);
+            console.log(res);
+       })
+    }
     render(){
-        if(this.state.loggedin){
+        if(this.state.loggedin&&this.state.Role!=="admin"){
             return <Redirect to={'/'}/>;
         }
+        else if(this.state.loggedin&&this.state.Role==="admin")
+        {
+            return <Redirect  to={`/admin/dashboard`}/>;
+        }
+        else
         return(
             <form className="login" onSubmit={this.handleSubmit}>
                 <img className="logo-login" src={logo} alt=""></img>
@@ -55,7 +77,9 @@ class login extends Component {
                 </div>
                 <p> OR </p>
                 <div className="login-with">
-                        <i className="icon-fb"><FontAwesomeIcon icon={faFacebook}/></i>
+                        <i className="icon-fb">
+                            <FontAwesomeIcon icon={faFacebook} onClick={this.handleClick}/>
+                        </i>
                         <i className="icon-gg"><FontAwesomeIcon icon={faGoogle}/></i>
                         <i className="icon-git"><FontAwesomeIcon icon={faGithub}/></i>
                 </div>

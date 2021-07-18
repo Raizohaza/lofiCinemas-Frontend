@@ -13,9 +13,15 @@ import {
     AllcineplexsReducer,
     AllMoviesByCineplexReducer,
   } from "./reducers/movieReducer";
-   import { loginReducer, registerReducer } from "./reducers/authReducers";
-  
-  const reducer = combineReducers({
+import { loginReducer, registerReducer } from "./reducers/authReducers";
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from '../features/counter/counterSlice';
+import movieReducer from '../features/movie/movieSlice';
+import cineplexReducer from '../features/cineplex/cineplexSlice';
+import cinemaReducer from '../features/cinema/cinemaSlice';
+import showtimeReducer from '../features/showtime/showtimeSlice';
+import bookingReducer from '../features/booking/bookingSlice';  
+const reducer = combineReducers({
     getMovieDetails: getMovieDetailReducer,
     postBookingShow: postBookingShowReducer,
     postBookingSeat: postBookingSeatReducer,
@@ -27,6 +33,12 @@ import {
     getMovies: getMoviesReducer,
     AllCineplex: AllcineplexsReducer,
     AllMoviesByCineplex: AllMoviesByCineplexReducer,
+    counter: counterReducer,
+    movie: movieReducer,
+    cineplex:cineplexReducer,
+    cinema:cinemaReducer,
+    showtime:showtimeReducer,
+    booking:bookingReducer,
   });
   const middleware = [thunk];
   const userLocalStorage = sessionStorage.getItem("users") ? JSON.parse(sessionStorage.getItem("users")) : [];
