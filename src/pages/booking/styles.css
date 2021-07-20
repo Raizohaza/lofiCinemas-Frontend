@@ -7,11 +7,8 @@
     margin-top: 5rem;
 }
 
-.btn-seat{
-    width: 20px;
-    height: 10px;
-}
 
-.btn-seat:focus{
-    background-color: red;
+.selected{
+    display: flex;
+    margin-top: 5rem;
 }
