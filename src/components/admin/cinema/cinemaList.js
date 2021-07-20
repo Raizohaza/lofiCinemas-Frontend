@@ -1,10 +1,10 @@
-import { useState,useEffect } from 'react';
+import { useState,useEffect,Fragment } from 'react';
 import {Table,Dropdown,ButtonGroup,Button} from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link,useHistory } from 'react-router-dom';
 import { selectCinema , getCinemaAsync,deleteCinemaAsync} from '../../../features/cinema/cinemaSlice';
 import { selectCineplex ,getCineplexAsync} from '../../../features/cineplex/cineplexSlice';
-
+import API from 'api';
 const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
 {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
       <td>{cinema.Height}</td>
       <td>{cinema.CineplexId}</td>
       <td>
-        <Button>
+        <Button >
         <Link to={`/admin/cinema/${cinema.id}/edit`}>Edit</Link>
         </Button>
       </td>
@@ -27,7 +27,8 @@ const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
             <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteCinemaAsync({id:cinema.id}));
-              history.push('/admin/cinema');
+              window.location.reload();
+              history.push('/admin/cinema',{update: false});
             }}>Delete</Button>
           </td>
     </tr>
@@ -40,18 +41,27 @@ export function CinemaList() {
     let cinemaList = useSelector(selectCinema);
     const cineplexList = useSelector(selectCineplex);
     const [cinemaState, setCinemaState] = useState(cinemaList);
+    const [loading, setLoading] = useState(true);
     // let selectedCineplex = null;
     if(cinemaList.length === 0 || cinemaList.length ===1){
         dispatch(getCineplexAsync());
         dispatch(getCinemaAsync());
     }
     let components = mapCinemaList(cinemaState);
-    useEffect(() => {async function getCinema(){
+    // useEffect(()=>{const fetchData = async()=>{
+    //     let res = await API.get(`http://localhost:5000/cinemas`);     
+    //     setCinemaState(res);
+    // }
+    // fetchData();
+    // },[]);
+    useEffect(()=>{const fetchData = async ()=>{
+        setLoading(true);
         let res = await cinemaList;
         setCinemaState(res);
-        }
-        getCinema();
-    },[cinemaList]);
+        setLoading(false);
+    }
+    fetchData();
+  },[cinemaList]);
     let history = useHistory();
 
     function handleClick() {
@@ -69,7 +79,11 @@ export function CinemaList() {
           </Dropdown.Item>
         )
       });
+      if (loading) {
+        return <p>loading..</p>;
+      }  
     return (
+      <Fragment>
       <div>
         <Dropdown as={ButtonGroup}>
           
@@ -96,10 +110,11 @@ export function CinemaList() {
             </tr>
           </thead>
           <tbody>
+
             {components}
-          </tbody>
+        </tbody>
       </Table>
       </div>
-      
+      </Fragment>
     );
   }

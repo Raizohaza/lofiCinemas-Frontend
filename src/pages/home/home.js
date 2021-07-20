@@ -7,6 +7,7 @@ export default function Home(props){
     return(
         <div className='Home'>
             <Content/>
+            <Content/>
         </div>
     );
 }

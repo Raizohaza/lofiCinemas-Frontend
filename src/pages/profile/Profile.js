@@ -1,8 +1,10 @@
 import { Component } from "react";
 import axios from 'axios';
 
-
+import { useAlert } from 'react-alert'
 import './profile.css'
+import api from "api";
+
 
 export default class Profile extends Component{
     handleSubmit = e =>{
@@ -10,14 +12,16 @@ export default class Profile extends Component{
         const User ={
             Email:this.Email,
             Name:this.Name,
+            Tel:this.Tel,
             oldPassword:this.oldPassword,
             newPassword:this.newPassword,
             confirmPassword:this.confirmPassword
         };
-        axios.post('/'+localStorage.getItem('token2')+'/profile',User).then(
+        
+        axios.post('http://lofi-cinemas.herokuapp.com/user/'+localStorage.getItem('id')+'/profile',User).then(
             res=>{
                 console.log(res)
-            }
+         }
         ).catch(
             err=>{
                 console.log(err)
@@ -28,12 +32,15 @@ export default class Profile extends Component{
       return(
           <form className='profile' onSubmit={this.handleSubmit}>
               <h3>Change profile</h3>
-              <img className='avatar'></img>
               
               <div className='info-user'>
                 <div className="form-group">
                     <label>New name:</label>
                     <input type="text" onChange={e =>this.Name=e.target.value} className="form-control" placeholder="Name" />
+                </div>
+                <div className="form-group">
+                    <label>Tel</label>
+                    <input type="text" onChange={e =>this.Tel=e.target.value} className="form-control" placeholder="Tel" />
                 </div>
                 <div className="form-group">
                     <label>Old Password</label>
@@ -49,7 +56,8 @@ export default class Profile extends Component{
                 </div>
               </div>
              
-              <button className='btn-submit'>Submit</button>
+              <button className='btn-submit'>
+                Ok</button>
           </form>
       )
   }

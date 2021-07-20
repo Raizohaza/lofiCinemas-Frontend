@@ -29,9 +29,9 @@ class login extends Component {
         };
         axios.post('https://lofi-cinemas.herokuapp.com/user/login',{...User})
         .then( res=> {
-               localStorage.setItem('token',res.data.user.Email);
-               localStorage.setItem('token2',res.data.user.id);
-               localStorage.setItem('token3',res.data.user.Role);
+               localStorage.setItem('Email',res.data.user.Email);
+               localStorage.setItem('id',res.data.user.id);
+               localStorage.setItem('Role',res.data.user.Role);
                this.setState({
                    loggedin:true,
                    Role: res.data.user.Role,
@@ -44,10 +44,10 @@ class login extends Component {
         e.preventDefault();
         axios.get('https://lofi-cinemas.herokuapp.com/user/auth/loginFacebook')
         .then( res=> {
-            localStorage.setItem('token',res.data.Email);
-            localStorage.setItem('token2',res.data.id);
-            localStorage.setItem('token3',res.data.Role);
-            localStorage.setItem('token3',res.data.facebookId);
+            localStorage.setItem('Email',res.data.Email);
+            localStorage.setItem('id',res.data.id);
+            localStorage.setItem('Role',res.data.Role);
+            localStorage.setItem('fbId',res.data.facebookId);
             this.setState({
                 loggedin:true,
                 Role: res.data.Role,

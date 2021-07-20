@@ -9,7 +9,7 @@ import ResetRoute from "./reset.router";
 import RegisterRoute from "./register.router";
 import BookingRoute from "./booking.router";
 import AdminRoute from "./admin.router";
-
+import ProfileRoute from "./profile.router";
 function Routers() {  
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -35,6 +35,7 @@ function Routers() {
       <DetailRoute/>
       <BookingRoute/>
       <AdminRoute/>
+      <ProfileRoute/>
     </Router>
     </div>
 

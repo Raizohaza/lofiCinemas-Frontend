@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {Dropdown,ButtonGroup} from 'react-bootstrap';
 import { useDispatch,useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { selectCinema} from '../../../features/cinema/cinemaSlice';
 import { selectCineplex } from '../../../features/cineplex/cineplexSlice';
 export function CinemaForm(curr,action) {
     const dispatch = useDispatch();
@@ -13,6 +14,8 @@ export function CinemaForm(curr,action) {
     const [CineplexId, setCineplexId] = useState(curr.CinenplexId);
     const [CineplexName, setCineplexName] = useState("");
     const cineplexList = useSelector(selectCineplex);
+    let cinemaList = useSelector(selectCinema);
+    const [cinemaState, setCinemaState] = useState(cinemaList);
     let dropdownItem = cineplexList.map((cineplex)=>{
       return(
         <Dropdown.Item onClick = {(e)=>{
@@ -24,6 +27,12 @@ export function CinemaForm(curr,action) {
         </Dropdown.Item>
       )
     });
+    useEffect(()=>{const fetchData = async ()=>{
+      let res = await cinemaList;     
+      setCinemaState(res);
+      }
+      fetchData();
+   },[cinemaList]);
     return(
        <form onSubmit={(e) => {
          let data = {
@@ -36,8 +45,8 @@ export function CinemaForm(curr,action) {
          }
          e.preventDefault();
          console.log(data);
-         dispatch(action({...data}));
-         history.push("/admin/cinema");   
+         dispatch( action({...data}));
+         history.push("/admin/cinema",{update:true});   
        }
        }>
        <div className="row">

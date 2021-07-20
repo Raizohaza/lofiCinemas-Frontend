@@ -42,6 +42,7 @@ export function ShowtimeList() {
             <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteShowtimeAsync({id:showtime.id}));
+              window.location.reload();
               history.push('/admin/showtime');
             }}>Delete</Button>
           </td>
