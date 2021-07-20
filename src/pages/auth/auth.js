@@ -8,7 +8,7 @@ export default class auth extends Component {
         if(!user) {
             window.location = '/login'
         }
-        else if(user&&localStorage.token3 ==='admin')
+        else if(user&&localStorage.Role ==='admin')
             window.location ='/admin/dashboard'
     }
     render() {

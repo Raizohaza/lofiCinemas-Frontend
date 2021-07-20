@@ -35,11 +35,11 @@ export default class Profile extends Component{
               <div className='info-user'>
                 <div className="form-group">
                     <label>New name:</label>
-                    <input type="text" onChange={e =>this.Name=e.target.value} className="form-control" placeholder="Name" />
+                    <input type="text" value={localStorage.getItem('Name')} onChange={e =>this.Name=e.target.value} className="form-control" placeholder="Name" />
                 </div>
                 <div className="form-group">
                     <label>Tel</label>
-                    <input type="text" onChange={e =>this.Tel=e.target.value} className="form-control" placeholder="Tel" />
+                    <input type="text" value={localStorage.getItem('Tel')} onChange={e =>this.Tel=e.target.value} className="form-control" placeholder="Tel" />
                 </div>
                 <div className="form-group">
                     <label>Old Password</label>
