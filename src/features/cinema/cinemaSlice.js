@@ -3,7 +3,7 @@ import API from 'api';
 
 const initialState = {
     cinemas:[],
-    selectedCinema: null
+    isLoading: false
 }
 export const addCinemaAsync = createAsyncThunk(
   'cinema/addCinema',
@@ -16,14 +16,14 @@ export const editCinemaAsync = createAsyncThunk(
   'cinema/addCinema',
   async (action) => {
       const response = await API.put(`/cinema/`+action.id,{...action})
-      return response.data;
+      return action;
   }
 );
 export const deleteCinemaAsync = createAsyncThunk(
   'cinema/deleteCinema',
   async (action) => {
       const response = await API.delete(`/cinema/`+action.id)
-      return response.data;
+      return action.id;
   }
 );
 export const getCinemaAsync = createAsyncThunk(
@@ -47,8 +47,18 @@ export const cinemaSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        .addCase(getCinemaAsync.fulfilled, (state, action) => {
+      .addCase(getCinemaAsync.fulfilled, (state, action) => {
         state.cinemas = action.payload;
+      })
+      .addCase(deleteCinemaAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.cinemas = state.cinemas.filter(item => item.id !== action.payload);
+      })
+      .addCase(editCinemaAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        let obj = state.cinemas.findIndex(item => item.id == action.payload.id);
+        state.cinemas[obj] = action.payload;
       });
   },
 });

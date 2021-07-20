@@ -2,7 +2,7 @@ import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import API from 'api';
 const initialState = {
     cineplexes:[],
-    selectedCineplex: null
+    isLoading: false
 }
 
 export const addCineplexAsync = createAsyncThunk(
@@ -16,14 +16,14 @@ export const editCineplexAsync = createAsyncThunk(
   'cineplex/addCineplex',
   async (action) => {
       const response = await API.put(`/cineplex/`+action.id,{...action})
-      return response.data;
+      return action;
   }
 );
 export const deleteCineplexAsync = createAsyncThunk(
   'cineplex/deleteCineplex',
   async (action) => {
-      const response = await API.delete(`/cineplex/`+action.id,{...action})
-      return response.data;
+      const response = await API.delete(`/cineplex/`+action.id)
+      return action.id;
   }
 );
 export const getCineplexByIdAsync = createAsyncThunk(
@@ -53,9 +53,19 @@ export const cineplexSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        .addCase(getCineplexAsync.fulfilled, (state, action) => {
+      .addCase(getCineplexAsync.fulfilled, (state, action) => {
         state.cineplexes = action.payload;
       })
+      .addCase(deleteCineplexAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.cineplexes = state.cineplexes.filter(item => item.id !== action.payload);
+      })
+      .addCase(editCineplexAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+
+        let obj = state.cineplexes.findIndex(item => item.id == action.payload.id);
+        state.cineplexes[obj] = action.payload;
+      });
   },
 });
 

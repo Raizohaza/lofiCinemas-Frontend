@@ -1,13 +1,14 @@
+import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
-import { selectMovie , getMovieAsync, deleteMovieAsync} from '../../../features/movie/movieSlice';
+import { selectMovie , getMovieAsync, deleteMovieAsync, reloadMovieList} from '../../../features/movie/movieSlice';
 export function MovieList() {
     const dispatch = useDispatch();
     const history = useHistory();
     const moviesList = useSelector(selectMovie);
-    console.log(moviesList);
-    if(moviesList.length === 0 || moviesList.length ===1){
+    const Loading = useSelector((state) => state.movie.isLoading);
+    if(moviesList.length <1 ){
       dispatch(getMovieAsync());
     }
     let dem = 1;
@@ -25,14 +26,15 @@ export function MovieList() {
           <td>{movie.Description}</td>
           <td>{movie.Status}</td>
           <td>
-            <Link to={`/admin/movie/${movie.id}/edit`}>Edit</Link>
+            <Button>
+              <Link to={`/admin/movie/${movie.id}/edit`}>Edit</Link>
+            </Button>
           </td>
           <td>
-            <Link onClick={(e)=>{
+            <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteMovieAsync({id:movie.id}));
-              history.push('/admin/table');
-            }}>Delete</Link>
+            }}>Delete</Button>
           </td>
         </tr>
       );
@@ -40,7 +42,6 @@ export function MovieList() {
     );
     return (
       <div>
-
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
