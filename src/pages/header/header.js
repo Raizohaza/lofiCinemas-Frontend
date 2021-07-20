@@ -26,55 +26,46 @@ class header extends Component{
                     </Link>                   
                     <i className="icon-color"><FontAwesomeIcon icon={faHeart}/></i>
                     <i className="icon-color"><FontAwesomeIcon icon={faMap}/></i>
-                </div>
-                <div className="avatar"><Dropdown as={Nav.Item}>
-
-              <Dropdown.Toggle
-                aria-expanded={false}
-                aria-haspopup={true}
-                as={Nav.Link}
-                data-toggle="dropdown"
-                id="navbarDropdownMenuLink"
-                variant="default"
-                className="m-0"
-              >
-                <i className="icon-color"><FontAwesomeIcon icon={faUser}/></i>
-              </Dropdown.Toggle>
-              <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
-                <Dropdown.Item>
-                <Link to='/register'>
-                        Register
-                </Link>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                <Link to='/login'>
-                     login
-                </Link>
-                </Dropdown.Item>
-                <Dropdown.Item>
-                <Link to={`/profile/${localStorage.id}`}>
-                     profile
-                </Link>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Something else here
-                </Dropdown.Item>
-                <div className="divider"></div>
-                <Dropdown.Item
-                  href="#pablo"
-                  onClick={(e) => e.preventDefault()}
-                >
-                  Separated link
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>                    
+                    <i className="icon-color">
+                      <Dropdown>                
+                        <Dropdown.Toggle
+                          aria-expanded={false}
+                          aria-haspopup={true}
+                          as={Nav.Link}
+                          data-toggle="dropdown"
+                          id="navbarDropdownMenuLink"
+                          variant="default"
+                          className="m-0"
+                        >
+                          <FontAwesomeIcon icon={faUser} /> 
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">                         
+                          {localStorage.UID ?
+                          <>                          
+                          <Dropdown.Item>
+                            <Link to={`/profile/${localStorage.UID}`}>Profile</Link>
+                          </Dropdown.Item>
+                          <Dropdown.Item>
+                            <Link to={`/`} onClick={(e)=>{
+                              localStorage.clear()
+                              ;}} >Log out</Link>
+                          </Dropdown.Item>
+                          </>
+                          :
+                          <>
+                            <Dropdown.Item>
+                              <Link to='/login'>Login</Link>
+                            </Dropdown.Item>
+                            <Dropdown.Item>
+                              <Link to='/register'>Register</Link>
+                            </Dropdown.Item>
+                          </>
+                          }
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </i>
                 </div>
             </div>
-                
-   
         );
     }
 }
