@@ -28,7 +28,7 @@ export function EditCinemaForm(){
       dispatch(getCinemaAsync());
    }
    if(id && cinemas.length !== 0){
-      curr = cinemas.find(mov => mov.id === id);
+      curr = cinemas.find(mov => mov.id == id);
    }
    return(CinemaForm(curr,editCinemaAsync));
 }

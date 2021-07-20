@@ -33,7 +33,7 @@ export function EditMovieForm(){
       dispatch(getMovieAsync());
    }
    if(id && movies.length !== 0){
-      curr = movies.find(mov => mov.id === id);
+      curr = movies.find(mov => mov.id == id);
    }
    return(MovieForm(curr,editMovieAsync));
 }

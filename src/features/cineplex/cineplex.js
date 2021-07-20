@@ -24,7 +24,7 @@ export function EditCineplexForm(){
       dispatch(getCineplexAsync());
    }
    if(id && cineplexes.length !== 0){
-      curr = cineplexes.find(mov => mov.id === id);
+      curr = cineplexes.find(mov => mov.id == id);
    }
    return(CineplexForm(curr,editCineplexAsync));
 }

@@ -2,7 +2,8 @@ import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import API from 'api';
 const initialState = {
     movies:[],
-    selectedMovie: null
+    isLoading:false,
+    isReload:false
 }
 export const addMovieAsync = createAsyncThunk(
   'movie/addMovie',
@@ -14,16 +15,16 @@ export const addMovieAsync = createAsyncThunk(
 export const editMovieAsync = createAsyncThunk(
   'movie/editMovie',
   async (action) => {
-      const response = await API.put(`/movie/`+action.id,{...action})
-      return response.data;
+      await API.put(`/movie/`+action.id,{...action})
+      return action;
   }
 );
 
 export const deleteMovieAsync = createAsyncThunk(
   'movie/deleteMovie',
   async (action) => {
-      const response = await API.delete(`/movie/`+action.id)
-      return response.data;
+      await API.delete(`/movie/`+action.id);
+      return action.id;
   }
 );
 
@@ -32,7 +33,6 @@ export const getMovieAsync = createAsyncThunk(
   async () => {
       const response = await API.get(`/movies/`)
       response.data.sort((a,b)=> a.id - b.id);
-      console.log(response.data);
       return response.data;
   }
 );
@@ -48,14 +48,32 @@ export const movieSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getMovieAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
       .addCase(getMovieAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
         state.movies = action.payload;
+      })
+      .addCase(deleteMovieAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.movies = state.movies.filter(item => item.id !== action.payload);
+      })
+      .addCase(editMovieAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        
+        let obj = state.movies.findIndex(item => item.id == action.payload.id);
+        state.movies[obj] = action.payload;
       });
   },
 });
 
 export const selectMovie = (state) => state.movie.movies;
 
-export const { getMovie } = movieSlice.actions;
+export const { getMovie,reloadData } = movieSlice.actions;
+
+export const reloadMovieList = () => (dispatch, getState) => {
+  dispatch(getMovieAsync());
+};
 
 export default movieSlice.reducer;
