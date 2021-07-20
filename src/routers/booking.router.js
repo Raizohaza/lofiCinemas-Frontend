@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 import { URL } from "../constant/URL";
-import BookingPage from "../components/booking/BookingPage";
+import BookingPage from "../pages/booking/BookingPage";
 
 function BookingRoute(props) {
   return (

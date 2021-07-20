@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { Link,Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 
 import './login.css'
 
-class register extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {};
-      }
+class register extends Component 
+{
     handleSubmit = e =>{
         
         e.preventDefault();
@@ -21,11 +18,7 @@ class register extends Component {
         axios.post('https://lofi-cinemas.herokuapp.com/user/register',{...User}).then(
             res=>{
                 console.log(res)
-                console.log("pass:", this.Password);
-                console.log("cf:", this.ConfirmPassword);
-                this.setState({
-                    loggedin:true,
-                });
+                
             }
         ).catch(
             err=>{
@@ -34,11 +27,8 @@ class register extends Component {
         )
     };
 
-    render(){
-        if(this.state.loggedin&&this.state.Role!=="admin"){
-            return <Redirect to={'/'}/>;
-        }
-        else
+    render()
+    {
        return(
             <form className="login" onSubmit={this.handleSubmit}>
                <p className="title">Register</p>
