@@ -1,7 +1,6 @@
 import { Component } from "react";
 import axios from 'axios';
 
-import { useAlert } from 'react-alert'
 import './profile.css'
 import api from "api";
 
