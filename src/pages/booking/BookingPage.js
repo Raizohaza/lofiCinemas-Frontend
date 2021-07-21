@@ -8,6 +8,7 @@ import { Nav, Dropdown } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
+import { Button } from 'bootstrap';
 
 
 function analyzeData(showtime, selectedDay){
@@ -31,11 +32,12 @@ export default function BookingPage()
   const [selectedDay, setSelectedDay] = useState();
   const [selectedCineplex, setSelectedCineplex] = useState();
   const [selectedCinema, setSelectedCinema] = useState();
+
+  const [selectedShowtime, setSelectedShowtime] = useState();
   
   useEffect(() => { 
     async function fetchData() {
       const getUserAPI = `/showtime/${id}/movie`;
-      
       API.get(getUserAPI).then((res) => {
         setShowtime(res.data);
         setFShowtime(res.data);
@@ -62,6 +64,8 @@ export default function BookingPage()
       </Dropdown.Item>
     )
   });
+
+
   let uniCineplex = [];
   fShowtime.map(x => uniCineplex.filter(a => a.CineplexId == x.CineplexId).length > 0 ? null : uniCineplex.push(x));
   const cineplexes = uniCineplex.map((cineplex)=>{
@@ -91,7 +95,7 @@ export default function BookingPage()
   const showtimes = selectedCinema ? fShowtime.map((showtime)=>{
     if(showtime.CinemaId == selectedCinema)
     return(
-      <div >
+      <button onClick={ (e) =>{setSelectedShowtime(showtime)} }>
           {selectedCinema}
           <br/>
           {showtime.id}
@@ -99,25 +103,24 @@ export default function BookingPage()
           {showtime.CineplexName}
           <br/>
           {showtime.CinemaName}
-      </div>
+      </button>
     )
 
   }): <div>Please select cinema</div>;
 
+  
 
-
-  console.log("test1: ", test1);
 
   const renderSeatCode = () => 
   {
-    if(test1)
+    if(selectedShowtime)
     {
-    const vertical_size= test1.Height;
-    const arr = new Array(vertical_size * test1.Width).fill("");
+    const vertical_size= selectedShowtime.Height;
+    const arr = new Array(vertical_size * selectedShowtime.Width).fill("");
     const newArr = arr.map((elem, index) => 
     {
-      const charI = String.fromCharCode(65 + ~~(index / test1.Width));
-      const number = ~~(index % test1.Width) + 1;
+      const charI = String.fromCharCode(65 + ~~(index / selectedShowtime.Width));
+      const number = ~~(index % selectedShowtime.Width) + 1;
       return { seat: `${charI}${number}`, available: false };
     });
     return newArr;}
@@ -129,7 +132,7 @@ export default function BookingPage()
     return renderSeatCode().map((elm, _index) => {
       
       return (
-      <div key={_index} style={{ width: `calc(100%/${test1.Width} - 2rem)`, margin: "1rem" }}>
+      <div key={_index} style={{ width: `calc(100%/${selectedShowtime.Width} - 2rem)`, margin: "1rem" }}>
         <div class="single-seat">
           <span class="sit-num">{elm.seat}</span>
         </div>
