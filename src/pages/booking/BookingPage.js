@@ -60,7 +60,9 @@ export default function BookingPage()
       </Dropdown.Item>
     )
   });
-  const cineplexes = fShowtime.map((cineplex)=>{
+  let uniCineplex = [];
+  fShowtime.map(x => uniCineplex.filter(a => a.CineplexId == x.CineplexId).length > 0 ? null : uniCineplex.push(x));
+  const cineplexes = uniCineplex.map((cineplex)=>{
     return(
       <Dropdown.Item onClick={(e) => {
         setSelectedCineplex(cineplex.CineplexId);
@@ -69,15 +71,15 @@ export default function BookingPage()
       </Dropdown.Item>
     )
   });
-  
-  
-  const cinemas = selectedCineplex ? fShowtime.map((cinema)=>{
+  let uniCinema = [];
+  fShowtime.map(x => uniCinema.filter(a => a.CinemaId == x.CinemaId).length > 0 ? null : uniCinema.push(x));
+  const cinemas = selectedCineplex ? uniCinema.map((cinema)=>{
     if(cinema.CineplexId === selectedCineplex)
     return(
       <Dropdown.Item onClick={(e) => {
         setSelectedCinema(cinema.CinemaId);
       }}>
-          {cinema.CinemaName},{cinema.id}
+          {cinema.CinemaName}
       </Dropdown.Item>
     )
   }):<div>Please select cineplex</div>;
