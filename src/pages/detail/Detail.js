@@ -6,13 +6,11 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getMovieDetails } from "../../redux/action/movieAction";
-import { postBookingShow } from "../../redux/action/movieAction";
 
 import './detail.css'
 
 export default function Detail({match})
 {
-    const [openformLogin, setOpenformLogin] = React.useState(false);
     const dispatch = useDispatch();
     const movieDetails = useSelector((state) => state.getMovieDetails);
     const { loading, error, movies } = movieDetails;
@@ -20,10 +18,7 @@ export default function Detail({match})
         if (match) {
           dispatch(getMovieDetails(match.params.id));
         }
-        if (movies) {
-          dispatch(postBookingShow(movies.id));
-        }
-      }, [dispatch, match, openformLogin]);
+      }, [dispatch, match]);
 
     return(
         <div className="aw">

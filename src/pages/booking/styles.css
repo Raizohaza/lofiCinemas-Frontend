@@ -1,151 +1,235 @@
-@import url('https://fonts.googleapis.com/css?family=Exo+2&display=swap');
-
-*,
-*::after,
-*::before {
-  box-sizing: border-box;
+.booking{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 5rem;
 }
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Exo 2', sans-serif;
-  background: #222222;
-  color: white;
-  font-size: 14px;
 
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
+.selected{
+    display: flex;
+    margin-top: 5rem;
 }
 
-.App {
-  text-align: center;
-  display: flex;
-  flex-flow: column;
-  align-items: center;
+
+.seats{
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.Movies {
-  margin-bottom: 24px;
+.column{
+    display: flex;
+    margin-top: 5px;
+    justify-content: center;
+    align-items: center;
 }
 
-.Movies select {
-  appearance: none;
-  background: white;
-  font-size: 14px;
-  margin-left: 12px;
-  border-radius: 4px;
-  padding: 6px 24px;
+.one-seat{
+    height: 3rem;
+    width: 3rem;
 }
 
-.ShowCase {
-  margin: 0 0 48px;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  background: #3b3b3b;
-  padding: 12px;
-  border-radius: 4px;
-  color: #7e7e7e;
+
+
+.list-seat {
+    margin-left: 80px;
 }
 
-.ShowCase li {
-  margin: 0 12px;
+.single-seat {
+    width: 80px;
 }
 
-.Cinema {
-  margin-bottom: 18px;
-  perspective: 400px;
-
-  display: grid;
-  place-items: center;
-  grid-gap: 24px;
+.seat-plan-section {
+    padding-top: 50px !important;
+    margin-top: 100px !important;
+    margin-bottom: -1100px !important;
 }
 
-.Cinema .screen {
-  height: 70px;
-  background: white;
-  width: 100%;
-  transform: rotateX(-30deg) scale(1.1);
-  box-shadow: 0 3px 10px 2px;
+.seat-plan-section .container {
+    height: unset !important;
 }
 
-.Cinema .seats {
-  display: grid;
-  grid-gap: 6px;
-  grid-template-columns: repeat(8, min-content);
-  align-items: center;
+.seat-line 
+{
+    display: flex !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    align-items: center;
 }
 
-.Cinema .seats .seat:nth-of-type(8n + 2) {
-  margin-right: 12px;
+.details-banner {
+    margin-top: -100px !important;
 }
 
-.Cinema .seats .seat:nth-of-type(8n + 6) {
-  margin-right: 12px;
-}
 
-.Cinema .seats .seat:not(.occupied):hover,
-.Cinema .seats .seat:not(.occupied):focus {
-  cursor: pointer;
-  background: #c1eac5;
-  transform: scale(1.2);
-}
 
-.Cinema .seats .seat.selected::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 2px;
-  width: 12px;
-  height: 12px;
-  border-radius: 100%;
-  background: transparent;
-  border: 1px solid #7bc47f;
-  animation: show-off 0.8s;
-  visibility: hidden;
-}
-
-@keyframes show-off {
-  0% {
-    transform: scale(1);
-    opacity: 1;
-    visibility: visible;
+.seat-area .seat-line .single-seat {
+    width: 35px;
+    padding: 2px !important;
+  }
+  .seat-area .seat-line .single-seat img {
+    width: 100%;
   }
 
-  100% {
-    transform: scale(3);
-    opacity: 0;
+
+.seat-area.couple .seat-line .single-seat {
+    padding: 10px;
   }
-}
+  
+  
+  /*  zzzz  */
+  .seat-area.couple .seat-line .single-seat {
+    width: 70px;
+    padding: 4px !important;
+  }
+  
+  .single-seat {
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .single-seat .sit-num {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-transform: uppercase;
+    font-size: 15px;
+    border: 1px solid rgb(34, 34, 34);
+    border-radius: 1.5rem;
+  }
+  
+  
+  .single-seat .sit-num {
+    width: 100%;
+    font-size: 12px;
+    text-align: center;
+  }
 
-.seat {
-  display: inline-block;
-  background: #626262;
-  width: 16px;
-  height: 12px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  transition: transform 0.3s ease-in-out;
 
-  position: relative;
-  top: 1px;
-}
+  .single-seat:hover .sit-num {
+    background-color: red;
+  }
 
-.seat.selected {
-  background: #7bc47f !important;
-}
 
-.seat.occupied {
-  background: #cfcfcf;
-}
+  .lepp{
+      margin-left: 2rem;
+  }
 
-.info .count {
-  color: #7bc47f;
-}
+  .screen-wrapper {
+    margin-top: 3rem;
+    width: 100%;
+    overflow-x: scroll;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  .screen-wrapper .seat-area {
+    width: 800px;
+    margin-bottom: 10px;
+  }
+  .screen-wrapper::-webkit-scrollbar {
+    height: 3px;
+  }
 
-.info .total {
-  color: #7bc47f;
+  .seat-area .seat-line{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .seat-area {
+    margin-bottom: 25px;
+    margin-top: -5px;
+  }
+  
+ 
+  
+  .seat-area .seat-line {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .seat-area.couple {
+    margin-top: -10px;
+    margin-bottom: 70px;
+  }
+  
+
+  @media (max-width: 767px) {
+    .screen-wrapper {
+      width: 100%;
+      overflow-x: scroll;
+    }
+    .screen-wrapper .seat-area {
+      width: 800px;
+      margin-bottom: 10px;
+    }
+    .screen-wrapper::-webkit-scrollbar {
+      height: 3px;
+    }
+  }
+
+  @media (min-width: 576px) {
+    .seat-area {
+      margin-bottom: 55px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .seat-area.couple {
+      margin-bottom: 110px;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .single-seat .sit-num {
+      width: 100%;
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+  
+  
+  
+  @media (max-width: 991px) and (min-width: 768px) {
+    .seat-area.couple .seat-line .single-seat {
+      width: 70px;
+      padding: 4px !important;
+    }
+  }
+
+  @media (max-width: 991px) and (min-width: 768px) {
+    .seat-area.couple .seat-line .single-seat {
+      width: 70px;
+      padding: 4px !important;
+    }
+  }
+
+  @media (max-width: 991px) and (min-width: 768px) {
+    .seat-area .seat-line .single-seat {
+      width: 35px;
+      padding: 2px !important;
+    }
+    .seat-area .seat-line .single-seat img {
+      width: 100%;
+    }
 }

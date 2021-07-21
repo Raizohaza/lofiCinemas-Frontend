@@ -28,11 +28,12 @@ function Routers() {
   return (
     <div>
     <Router>
+      <LoginRoute/>
+      <RegisterRoute/>
       <Header/>
       <HomeRoute/>
-      <LoginRoute/>
       <ResetRoute/>
-      <RegisterRoute/>
+      
       <DetailRoute/>
       <BookingRoute/>
       <AdminRoute/>
