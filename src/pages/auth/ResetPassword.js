@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 import './login.css';
+import api from 'api';
 
 class RsPassword extends Component{
     handleSubmit = e =>{
@@ -13,7 +14,7 @@ class RsPassword extends Component{
         const data = {
             Email:this.email
         };
-        axios.post('https://lofi-cinemas.herokuapp.com/user/reset',data).then(
+        api.post('/user/reset',data).then(
             res=>{
                 console.log(res)
             }

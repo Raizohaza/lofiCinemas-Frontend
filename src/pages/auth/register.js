@@ -3,6 +3,7 @@ import { Link,Redirect } from "react-router-dom";
 import axios from 'axios';
 
 import './login.css'
+import api from 'api';
 
 class register extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ class register extends Component {
             Password:this.Password,
             ConfirmPassword:this.ConfirmPassword
         };
-        axios.post('https://lofi-cinemas.herokuapp.com/user/register',{...User}).then(
+        api.post('/user/register',{...User}).then(
             res=>{
                 console.log(res)
                 console.log("pass:", this.Password);

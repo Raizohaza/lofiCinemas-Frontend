@@ -33,7 +33,6 @@ export function CineplexList() {
             <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteCineplexAsync({id:cineplex.id}));
-              window.location.reload();
               history.push('/admin/cineplex');
             }}>Delete</Button>
           </td>

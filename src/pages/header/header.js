@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useLayoutEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Nav,Dropdown } from 'react-bootstrap';
@@ -12,9 +12,13 @@ import {
 import './header.css'
 import LoliCinemas from '../../assets/img/loli-cinemas.svg'
 
-class header extends Component{
-
-    render(){
+export function Header(){
+    const [cUser,setCuser] = useState({});
+    const [loading,setLoading] = useState(false);
+    useLayoutEffect(()=>{
+      setLoading(true)
+      setCuser({UID:localStorage.UID,Role:localStorage.Role})
+    },[loading])
         return(
             <div className="header">
                 <div className="logo">
@@ -40,21 +44,30 @@ class header extends Component{
                           <FontAwesomeIcon icon={faUser} /> 
                         </Dropdown.Toggle>
                         <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">                         
-                          {localStorage.UID ?
+                          {cUser.UID ?
                           <>                          
                           <Dropdown.Item>
-                            <Link to={`/profile/${localStorage.UID}`}>Profile</Link>
+                            <Link to={`/profile/${cUser.UID}`}>Profile</Link>
                           </Dropdown.Item>
                           <Dropdown.Item>
+                            <Link to={`/history`}>History</Link>
+                          </Dropdown.Item>
+                          {cUser.Role == "admin" ?
+                          <Dropdown.Item>
+                          <Link to={`/admin/dashboard`}>Admin</Link>
+                        </Dropdown.Item> :<div></div>
+                          }
+                          <Dropdown.Item>
                             <Link to={`/`} onClick={(e)=>{
-                              localStorage.clear()
-                              ;}} >Log out</Link>
+                              localStorage.clear()                    
+                              setLoading(false);}} >Log out</Link>
                           </Dropdown.Item>
                           </>
                           :
                           <>
                             <Dropdown.Item>
-                              <Link to='/login'>Login</Link>
+                              <Link to='/login' onClick={(e)=>{                  
+                              setLoading(false);}}>Login</Link>
                             </Dropdown.Item>
                             <Dropdown.Item>
                               <Link to='/register'>Register</Link>
@@ -67,6 +80,4 @@ class header extends Component{
                 </div>
             </div>
         );
-    }
 }
-export default header;

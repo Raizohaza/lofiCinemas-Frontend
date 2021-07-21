@@ -17,7 +17,7 @@ export default class Profile extends Component{
             confirmPassword:this.confirmPassword
         };
         
-        axios.post('http://lofi-cinemas.herokuapp.com/user/'+localStorage.getItem('id')+'/profile',User).then(
+        api.post('/user/'+localStorage.getItem('id')+'/profile',User).then(
             res=>{
                 console.log(res)
          }
@@ -30,8 +30,7 @@ export default class Profile extends Component{
   render(){
       return(
           <form className='profile' onSubmit={this.handleSubmit}>
-              <h3>Change profile</h3>
-              
+              <h3>Change profile</h3>        
               <div className='info-user'>
                 <div className="form-group">
                     <label>New name:</label>

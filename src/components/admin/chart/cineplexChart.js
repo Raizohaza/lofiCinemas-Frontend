@@ -4,7 +4,6 @@ import DatePicker  from 'react-datepicker';
 import API from 'api';
 
 const state = (labels,data) =>{
-    console.log(labels,data);
     return{
     labels: [...labels],
     datasets: [

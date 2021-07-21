@@ -5,6 +5,7 @@ import MovieSelector from "./MovieSelector"
 import SeatAvailability from "./SeatAvailability"
 import SeatMatrix from "./SeatMatrix"
 import PriceCalculator from "./PriceCalculator"
+import Checkout from "pages/booking/checkout"
 
 export default function BookingPage(){
 
@@ -23,12 +24,7 @@ export default function BookingPage(){
 
 	return (
 		<div className="main container">
-			<MovieContext.Provider value={{ movies, changeState: EditMovies }}>
-				<MovieSelector />
-				<SeatMatrix />
-				<SeatAvailability />
-				<PriceCalculator />
-			</MovieContext.Provider>
+			<Checkout/>
 		</div>
 	)
 }
