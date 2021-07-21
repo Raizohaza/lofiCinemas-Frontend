@@ -8,165 +8,105 @@ import { Nav, Dropdown } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
-import { Box } from '@material-ui/core';
 
 
+function analyzeData(showtime, selectedDay){
+  let filteredShowTime = showtime;
 
-function PhanTichData(showtime, selectedDay, selectedCineplex, selectedCinema){
-  
-  let st0 = [];  // showtime da duoc loc
-
-  let plex = [];  // cineplex da duoc loc
-  let ma = [];  // cinema da duoc loc
-
-
-
-  for (let i = 0; i < showtime.length; i++) {
-    let st = showtime[i];
-    let dateShow = new Date(st.DateShow);
-    console.log("dateshow :", dateShow);
-    if(dateShow === selectedDay)
-    {
-        st0.push(st);
-    }
+  if(selectedDay){
+    selectedDay = new Date(selectedDay);
+    filteredShowTime = showtime.filter(st=>{
+      let dateShow = new Date(st.DateShow);
+      return dateShow.getDate() === selectedDay.getDate() ? st: "";
+    })
   }
-
-  for(let i =0; i < st0.length; i++)
-  {
-      let st = st0[i];
-      if( st.CineplexName === selectedCineplex )
-      {
-        plex.push(st);
-      }
-  }
-
-  for(let i =0; i < st0.length; i++)
-  {
-      let st = st0[i];
-      if( st.CinemaName === selectedCinema )
-      {
-        ma.push(st);
-      }
-  }
-
-  return {st0,plex,ma};  
-
-
+  return{filteredShowTime};
 }
-
-
-
-function GetShowTimeSeat(cinema)
-{
-  
-  //let bookedSeat = ticket.map(tic => tic.Seat);
-  let Height = cinema.Height;
-  let Width = cinema.Width;
-  let CinemaSeat = {'row':[]};
-  for (let index = 0; index < Height; index++) {
-      let SeatChar = String.fromCharCode(65+index);
-      for (let j = 0; j < Width; j++) 
-      {
-          const element = SeatChar + (j + 1);
-          CinemaSeat.row.push(element);      
-      }
-  }
-  return CinemaSeat;
-}
-
-
-
-
 
 export default function BookingPage()
 {
   let {id} = useParams();
-
   const [showtime, setShowtime] = useState([]);
+  const [fShowtime, setFShowtime] = useState([]);
   const [selectedDay, setSelectedDay] = useState();
   const [selectedCineplex, setSelectedCineplex] = useState();
   const [selectedCinema, setSelectedCinema] = useState();
-
+  
   useEffect(() => { 
     async function fetchData() {
       const getUserAPI = `/showtime/${id}/movie`;
       
       API.get(getUserAPI).then((res) => {
         setShowtime(res.data);
+        setFShowtime(res.data);
       })
     }
-      fetchData();
+      fetchData()
   }, []);
+
+  useEffect(() => { 
+    async function filteredData(){
+      let {filteredShowTime} = await analyzeData(showtime, selectedDay, selectedCineplex, selectedCinema);
+      setFShowtime(filteredShowTime);
+    }
+    filteredData()
+  }, [selectedDay]);
   
-
-  console.log(showtime);
-
-  const test1 = showtime[1];
-
-  const arr0 =[];
-    
-
-  const arr1=[];
-
-  if(test1)
+  const item = showtime.map((ite)=>
   {
-      
-    for(let i =0; i < test1.Height ; i++)
-    {
-        arr0.push(String.fromCharCode(65+i));
-    }
-   
-
-    
-    for(let i=0; i < test1.Width; i++){
-        arr1.push(i+1);
-    }
-   
-  }
-
-
-  const seats = GetShowTimeSeat({Height: 12, Width: 12});
-
-  console.log("arr0: ", arr0);
-  console.log("arr1: ", arr1);
-
-  const item = showtime.map((ite)=>{
     return(
-      <Dropdown.Item onclick={(e) => {
+      <Dropdown.Item onClick={(e) => {
+        setSelectedDay(ite.DateShow);
       }}>
           {ite.DateShow}
       </Dropdown.Item>
     )
   });
-
-  const cineplexs = showtime.map((cineplex)=>{
+  let uniCineplex = [];
+  fShowtime.map(x => uniCineplex.filter(a => a.CineplexId == x.CineplexId).length > 0 ? null : uniCineplex.push(x));
+  const cineplexes = uniCineplex.map((cineplex)=>{
     return(
-      <Dropdown.Item>
+      <Dropdown.Item onClick={(e) => {
+        setSelectedCineplex(cineplex.CineplexId);
+      }}>
           {cineplex.CineplexName}
       </Dropdown.Item>
     )
   });
 
-  const cinemas = showtime.map((cinema)=>{
+
+  let uniCinema = [];
+  fShowtime.map(x => uniCinema.filter(a => a.CinemaId == x.CinemaId).length > 0 ? null : uniCinema.push(x));
+  const cinemas = selectedCineplex ? uniCinema.map((cinema)=>{
+    if(cinema.CineplexId === selectedCineplex)
     return(
-      <Dropdown.Item>
+      <Dropdown.Item onClick={(e) => {
+        setSelectedCinema(cinema.CinemaId);
+      }}>
           {cinema.CinemaName}
       </Dropdown.Item>
     )
-  });
+  }):<div>Please select cineplex</div>;
 
-  const MapSeat = arr0.map((char) => {
+  const showtimes = selectedCinema ? fShowtime.map((showtime)=>{
+    if(showtime.CinemaId == selectedCinema)
     return(
-      <div className="column">
-        {char}
+      <div >
+          {selectedCinema}
+          <br/>
+          {showtime.id}
+          <br/>
+          {showtime.CineplexName}
+          <br/>
+          {showtime.CinemaName}
       </div>
     )
-  })
+
+  }): <div>Please select cinema</div>;
 
 
 
   console.log("test1: ", test1);
-  console.log("seat: ", seats);
 
   const renderSeatCode = () => 
   {
@@ -199,7 +139,7 @@ export default function BookingPage()
 
     return(
       <div className="booking">
-        <div className="selected">
+        <div className="selected col">
           <Dropdown as={Nav.Item}>
                 <Dropdown.Toggle               
                   as={Nav.Link}
@@ -223,10 +163,10 @@ export default function BookingPage()
                   variant="default"
                   className="lepp"
                 >
-                  <span className="d-lg-none ml-1">Cineplexs</span>
+                  <span className="d-lg-none ml-1">cineplexes</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {cineplexs}
+                  {cineplexes}
                 </Dropdown.Menu>
           </Dropdown>
 
@@ -246,6 +186,12 @@ export default function BookingPage()
           </Dropdown>
         </div>
 
+        <div className="col">
+          {showtimes}
+        </div>
+
+
+
         <div class="screen-wrapper">
                 <div class="seat-area couple">
                   <div class="seat-line">
@@ -253,9 +199,6 @@ export default function BookingPage()
                   </div>
                 </div>
         </div>
-      
-          
-
       </div>
     );
 } 
