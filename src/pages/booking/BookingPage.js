@@ -9,108 +9,99 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
 
+function analyzeData(showtime, selectedDay){
+  let filteredShowTime = showtime;
 
-
-
-
-function PhanTichData(showtime, selectedDay, selectedCineplex, selectedCinema){
-  
-  let st0 = [];  // showtime da duoc loc
-
-  let plex = [];  // cineplex da duoc loc
-  let ma = [];  // cinema da duoc loc
-
-
-
-  for (let i = 0; i < showtime.length; i++) {
-    let st = showtime[i];
-    let dateShow = new Date(st.DateShow);
-    console.log("dateshow :", dateShow);
-    if(dateShow === selectedDay)
-    {
-        st0.push(st);
-    }
+  if(selectedDay){
+    selectedDay = new Date(selectedDay);
+    filteredShowTime = showtime.filter(st=>{
+      let dateShow = new Date(st.DateShow);
+      return dateShow.getDate() === selectedDay.getDate() ? st: "";
+    })
   }
-
-  for(let i =0; i < st0.length; i++)
-  {
-      let st = st0[i];
-      if( st.CineplexName === selectedCineplex )
-      {
-        plex.push(st);
-      }
-  }
-
-  for(let i =0; i < st0.length; i++)
-  {
-      let st = st0[i];
-      if( st.CinemaName === selectedCinema )
-      {
-        ma.push(st);
-      }
-  }
-
-  return {st0,plex,ma};  
-
-
+  return{filteredShowTime};
 }
-
 
 export default function BookingPage()
 {
   let {id} = useParams();
-
   const [showtime, setShowtime] = useState([]);
+  const [fShowtime, setFShowtime] = useState([]);
   const [selectedDay, setSelectedDay] = useState();
   const [selectedCineplex, setSelectedCineplex] = useState();
   const [selectedCinema, setSelectedCinema] = useState();
-
+  
   useEffect(() => { 
     async function fetchData() {
       const getUserAPI = `/showtime/${id}/movie`;
       
       API.get(getUserAPI).then((res) => {
         setShowtime(res.data);
+        setFShowtime(res.data);
       })
     }
-      fetchData();
+      fetchData()
   }, []);
+
+  useEffect(() => { 
+    async function filteredData(){
+      let {filteredShowTime} = await analyzeData(showtime, selectedDay, selectedCineplex, selectedCinema);
+      setFShowtime(filteredShowTime);
+    }
+    filteredData()
+  }, [selectedDay]);
   
-
-  console.log(showtime);
-
-
-
   const item = showtime.map((ite)=>{
     return(
-      <Dropdown.Item onclick={(e) => {
-
-
+      <Dropdown.Item onClick={(e) => {
+        setSelectedDay(ite.DateShow);
       }}>
           {ite.DateShow}
       </Dropdown.Item>
     )
   });
-
-  const cineplexs = showtime.map((cineplex)=>{
+  const cineplexes = fShowtime.map((cineplex)=>{
     return(
-      <Dropdown.Item>
+      <Dropdown.Item onClick={(e) => {
+        setSelectedCineplex(cineplex.CineplexId);
+      }}>
           {cineplex.CineplexName}
       </Dropdown.Item>
     )
   });
-
-  const cinemas = showtime.map((cinema)=>{
+  
+  
+  const cinemas = selectedCineplex ? fShowtime.map((cinema)=>{
+    if(cinema.CineplexId === selectedCineplex)
     return(
-      <Dropdown.Item>
-          {cinema.CinemaName}
+      <Dropdown.Item onClick={(e) => {
+        setSelectedCinema(cinema.CinemaId);
+      }}>
+          {cinema.CinemaName},{cinema.id}
       </Dropdown.Item>
     )
-  });
+  }):<div>Please select cineplex</div>;
+
+  const showtimes = selectedCinema ? fShowtime.map((showtime)=>{
+    if(showtime.CinemaId == selectedCinema)
+    return(
+      <div >
+          {selectedCinema}
+          <br/>
+          {showtime.id}
+          <br/>
+          {showtime.CineplexName}
+          <br/>
+          {showtime.CinemaName}
+      </div>
+    )
+
+  }): <div>Please select cinema</div>;
+
 
     return(
       <div className="booking">
-        <div className="selected">
+        <div className="selected col">
           <Dropdown as={Nav.Item}>
                 <Dropdown.Toggle
                   as={Nav.Link}
@@ -134,10 +125,10 @@ export default function BookingPage()
                   variant="default"
                   className="m-0"
                 >
-                  <span className="d-lg-none ml-1">Cineplexs</span>
+                  <span className="d-lg-none ml-1">cineplexes</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {cineplexs}
+                  {cineplexes}
                 </Dropdown.Menu>
           </Dropdown>
 
@@ -156,7 +147,9 @@ export default function BookingPage()
                 </Dropdown.Menu>
           </Dropdown>
         </div>
-
+        <div className="col">
+        {showtimes}
+        </div>
       </div>
     );
 } 
