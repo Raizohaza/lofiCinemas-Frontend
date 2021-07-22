@@ -10,7 +10,9 @@ import RegisterRoute from "./register.router";
 import BookingRoute from "./booking.router";
 import AdminRoute from "./admin.router";
 import ProfileRoute from "./profile.router";
+
 import HistoryRoute from "./history.router";
+
 function Routers() {  
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -26,7 +28,7 @@ function Routers() {
   }, []);
 
   return (
-    <div>
+    <div className="a">
     <Router>
       <Header/>
       <LoginRoute/>

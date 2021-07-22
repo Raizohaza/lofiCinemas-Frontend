@@ -47,10 +47,3 @@
 .swiper-pagination-bullet {
   background: #f4f4f4 !important;
 }
-.title {
-  color: white;
-  position: relative;
-  width: 100%;
-  padding: 10px 0;
-  z-index: 1;
-}

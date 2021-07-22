@@ -23,7 +23,7 @@ export default function Detail({match})
     return(
         <div className="aw">
             {loading ? (
-              <h2>Loading...</h2>
+              <h2 >Loading...</h2>
             ) : error ? (
               <h2>{error}</h2>
             ) : (
@@ -34,14 +34,15 @@ export default function Detail({match})
                         <p className="item-name">{movies.Name}</p>
                         <p className="item-i">Trạng thái: {movies.Status}</p>
                         <p className="item-i">Thời lượng: {movies.Duration}p</p>
+                             <div className="decription">             
+                                {movies.Description}
+                            </div>
                         <Link to={`booking/${movies.id}`}>
                           <button className="cart">Đặt vé</button>
                         </Link>
                     </div>
                 </div>
-                <div className="decription">             
-                    {movies.Description}
-                </div>
+                
                 <ReactPlayer className='trailer' width='1' height='1' url={movies.Trailer} controls={true}/>
             </div>
             )}
