@@ -29,8 +29,8 @@ function Routers() {
   return (
     <div>
     <Router>
-      <LoginRoute/>
       <Header/>
+      <LoginRoute/>
       <RegisterRoute/>
       <HomeRoute/>
       <ResetRoute/>

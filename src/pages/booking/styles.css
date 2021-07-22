@@ -10,9 +10,51 @@
 
 .selected{
     display: flex;
-    margin-top: 5rem;
+    
 }
 
+.chon-ghe{
+  border: 1px solid #000;
+  border-radius: 1rem;
+}
+
+.btn-st{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: left;
+  border: 1px solid rgb(71, 71, 71);
+  background-color: white;
+}
+
+
+.dropdown .nav-item{
+  width: 5rem;
+}
+
+.mt-2 .dropdown-toggle .nav-link{
+    width: 5rem;
+}
+
+.col{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: none;
+    border-radius: 1rem;
+    width: 20%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-book{
+  width: 10%;
+  background: #c1e0ee;
+  border-radius: 20px;
+  border: 0.5px solid #000000;
+  margin-top: 1rem;
+}
 
 .seats{
     margin-top: 5rem;
@@ -114,7 +156,7 @@
 
 
   .single-seat:hover .sit-num {
-    background-color: red;
+    background-color: rgb(124, 163, 214);
   }
 
 
