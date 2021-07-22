@@ -1,14 +1,13 @@
 import React from "react";
-import Content from '../content/Content';
-import Content2 from '../content2/Content2';
-import './home.css';
-
+import Content from '../content/Content'
+import Checkout from '../booking/checkout'
+import './home.css'
+import Comming from "pages/content/Comming";
 export default function Home(props){
     return(
         <div >
             <Content/>
-            <Content/>
-            <Content2/>
+            <Comming/>
         </div>
     );
 }

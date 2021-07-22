@@ -106,7 +106,6 @@ class login extends Component {
                             icon={true}
                         />
                 </div>
-                <div>{this.state.user}</div>
                 <button  type='submit' className="btn-login">
                     <p className="text-in-button">Login</p>
                 </button>
