@@ -30,8 +30,8 @@ function Routers() {
   return (
     <div className="a">
     <Router>
-      <Header/>
       <LoginRoute/>
+      <Header/>
       <RegisterRoute/>
       <HomeRoute/>
       <ResetRoute/>
