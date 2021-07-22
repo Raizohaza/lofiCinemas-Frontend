@@ -27,7 +27,6 @@ const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
             <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteCinemaAsync({id:cinema.id}));
-              window.location.reload();
               history.push('/admin/cinema',{update: false});
             }}>Delete</Button>
           </td>

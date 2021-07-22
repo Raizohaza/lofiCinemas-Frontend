@@ -8,116 +8,148 @@ import { Nav, Dropdown } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
+import { Button } from 'bootstrap';
 
 
+function analyzeData(showtime, selectedDay){
+  let filteredShowTime = showtime;
 
-
-
-function PhanTichData(showtime, selectedDay, selectedCineplex, selectedCinema){
-  
-  let st0 = [];  // showtime da duoc loc
-
-  let plex = [];  // cineplex da duoc loc
-  let ma = [];  // cinema da duoc loc
-
-
-
-  for (let i = 0; i < showtime.length; i++) {
-    let st = showtime[i];
-    let dateShow = new Date(st.DateShow);
-    console.log("dateshow :", dateShow);
-    if(dateShow === selectedDay)
-    {
-        st0.push(st);
-    }
+  if(selectedDay){
+    selectedDay = new Date(selectedDay);
+    filteredShowTime = showtime.filter(st=>{
+      let dateShow = new Date(st.DateShow);
+      return dateShow.getDate() === selectedDay.getDate() ? st: "";
+    })
   }
-
-  for(let i =0; i < st0.length; i++)
-  {
-      let st = st0[i];
-      if( st.CineplexName === selectedCineplex )
-      {
-        plex.push(st);
-      }
-  }
-
-  for(let i =0; i < st0.length; i++)
-  {
-      let st = st0[i];
-      if( st.CinemaName === selectedCinema )
-      {
-        ma.push(st);
-      }
-  }
-
-  return {st0,plex,ma};  
-
-
+  return{filteredShowTime};
 }
-
 
 export default function BookingPage()
 {
   let {id} = useParams();
-
   const [showtime, setShowtime] = useState([]);
+  const [fShowtime, setFShowtime] = useState([]);
   const [selectedDay, setSelectedDay] = useState();
   const [selectedCineplex, setSelectedCineplex] = useState();
   const [selectedCinema, setSelectedCinema] = useState();
 
+  const [selectedShowtime, setSelectedShowtime] = useState();
+  
   useEffect(() => { 
     async function fetchData() {
       const getUserAPI = `/showtime/${id}/movie`;
-      
       API.get(getUserAPI).then((res) => {
         setShowtime(res.data);
+        setFShowtime(res.data);
       })
     }
-      fetchData();
+      fetchData()
   }, []);
+
+  useEffect(() => { 
+    async function filteredData(){
+      let {filteredShowTime} = await analyzeData(showtime, selectedDay, selectedCineplex, selectedCinema);
+      setFShowtime(filteredShowTime);
+    }
+    filteredData()
+  }, [selectedDay]);
   
-
-  console.log(showtime);
-
-
-
-  const item = showtime.map((ite)=>{
+  const item = showtime.map((ite)=>
+  {
     return(
-      <Dropdown.Item onclick={(e) => {
-
-
+      <Dropdown.Item onClick={(e) => {
+        setSelectedDay(ite.DateShow);
       }}>
           {ite.DateShow}
       </Dropdown.Item>
     )
   });
 
-  const cineplexs = showtime.map((cineplex)=>{
+
+  let uniCineplex = [];
+  fShowtime.map(x => uniCineplex.filter(a => a.CineplexId == x.CineplexId).length > 0 ? null : uniCineplex.push(x));
+  const cineplexes = uniCineplex.map((cineplex)=>{
     return(
-      <Dropdown.Item>
+      <Dropdown.Item onClick={(e) => {
+        setSelectedCineplex(cineplex.CineplexId);
+      }}>
           {cineplex.CineplexName}
       </Dropdown.Item>
     )
   });
 
-  const cinemas = showtime.map((cinema)=>{
+
+  let uniCinema = [];
+  fShowtime.map(x => uniCinema.filter(a => a.CinemaId == x.CinemaId).length > 0 ? null : uniCinema.push(x));
+  const cinemas = selectedCineplex ? uniCinema.map((cinema)=>{
+    if(cinema.CineplexId === selectedCineplex)
     return(
-      <Dropdown.Item>
+      <Dropdown.Item onClick={(e) => {
+        setSelectedCinema(cinema.CinemaId);
+      }}>
           {cinema.CinemaName}
       </Dropdown.Item>
     )
-  });
+  }):<div>Please select cineplex</div>;
+
+  const showtimes = selectedCinema ? fShowtime.map((showtime)=>{
+    if(showtime.CinemaId == selectedCinema)
+    return(
+      <button onClick={ (e) =>{setSelectedShowtime(showtime)} }>
+          {selectedCinema}
+          <br/>
+          {showtime.id}
+          <br/>
+          {showtime.CineplexName}
+          <br/>
+          {showtime.CinemaName}
+      </button>
+    )
+
+  }): <div>Please select cinema</div>;
+
+  
+
+
+  const renderSeatCode = () => 
+  {
+    if(selectedShowtime)
+    {
+    const vertical_size= selectedShowtime.Height;
+    const arr = new Array(vertical_size * selectedShowtime.Width).fill("");
+    const newArr = arr.map((elem, index) => 
+    {
+      const charI = String.fromCharCode(65 + ~~(index / selectedShowtime.Width));
+      const number = ~~(index % selectedShowtime.Width) + 1;
+      return { seat: `${charI}${number}`, available: false };
+    });
+    return newArr;}
+  };
+
+
+  const renderSeat = () => {
+    if(renderSeatCode()!==undefined){
+    return renderSeatCode().map((elm, _index) => {
+      
+      return (
+      <div key={_index} style={{ width: `calc(100%/${selectedShowtime.Width} - 2rem)`, margin: "1rem" }}>
+        <div class="single-seat">
+          <span class="sit-num">{elm.seat}</span>
+        </div>
+      </div>)
+    });}
+  };
 
     return(
       <div className="booking">
-        <div className="selected">
+        <div className="selected col">
           <Dropdown as={Nav.Item}>
-                <Dropdown.Toggle
+                <Dropdown.Toggle               
                   as={Nav.Link}
                   data-toggle="dropdown"
                   id="dropdown-67443507"
                   variant="default"
-                  className="m-0"
+                  className="lepp"
                 >
                   <span className="d-lg-none ml-1">Date Show</span>
                 </Dropdown.Toggle>
@@ -132,12 +164,12 @@ export default function BookingPage()
                   data-toggle="dropdown"
                   id="dropdown-67443507"
                   variant="default"
-                  className="m-0"
+                  className="lepp"
                 >
-                  <span className="d-lg-none ml-1">Cineplexs</span>
+                  <span className="d-lg-none ml-1">cineplexes</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  {cineplexs}
+                  {cineplexes}
                 </Dropdown.Menu>
           </Dropdown>
 
@@ -147,7 +179,7 @@ export default function BookingPage()
                   data-toggle="dropdown"
                   id="dropdown-67443507"
                   variant="default"
-                  className="m-0"
+                  className="lepp"
                 >
                   <span className="d-lg-none ml-1">Cinemas</span>
                 </Dropdown.Toggle>
@@ -157,6 +189,19 @@ export default function BookingPage()
           </Dropdown>
         </div>
 
+        <div className="col">
+          {showtimes}
+        </div>
+
+
+
+        <div class="screen-wrapper">
+                <div class="seat-area couple">
+                  <div class="seat-line">
+                    {renderSeat()}
+                  </div>
+                </div>
+        </div>
       </div>
     );
 } 

@@ -5,6 +5,7 @@ import cineplexReducer from '../features/cineplex/cineplexSlice';
 import cinemaReducer from '../features/cinema/cinemaSlice';
 import showtimeReducer from '../features/showtime/showtimeSlice';
 import bookingReducer from '../features/booking/bookingSlice';
+import userReducer from '../features/user/userSlice';
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
@@ -13,5 +14,6 @@ export const store = configureStore({
     cinema:cinemaReducer,
     showtime:showtimeReducer,
     booking:bookingReducer,
+    user:userReducer,
   },
 });
