@@ -70,14 +70,6 @@ class login extends Component {
     };
 
     render(){
-        if(this.state.loggedin&&this.state.Role!=="admin"){
-            return <Redirect to={'/'}/>;
-        }
-        else if(this.state.loggedin&&this.state.Role==="admin")
-        {
-            return <Redirect  to={`/admin/dashboard`}/>;
-        }
-        else
         return(
             <form className="login" onSubmit={this.handleSubmit}>
                 <img className="logo-login" src={logo} alt=""></img>
@@ -95,8 +87,9 @@ class login extends Component {
                             fields="name,email,picture"
                             callback={this.responseFacebook}
                             icon={<FontAwesomeIcon icon={faFacebook}/>}
-                            onClick={()=>{<Link to={`/`}/>}}
                         />
+                </div>
+                <div className="login-with">
                         <GoogleLogin
                             clientId="552583281067-aeqqgkbg4kdutpdfh5venrvanplmhaev.apps.googleusercontent.com"
                             buttonText="Login"
@@ -106,7 +99,6 @@ class login extends Component {
                             icon={true}
                         />
                 </div>
-                <div>{this.state.user}</div>
                 <button  type='submit' className="btn-login">
                     <p className="text-in-button">Login</p>
                 </button>

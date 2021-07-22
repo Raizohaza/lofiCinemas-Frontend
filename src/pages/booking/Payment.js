@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { PayPalButton } from "react-paypal-button-v2";
 
 export default function PaymentForm() {
   return (
@@ -37,6 +38,24 @@ export default function PaymentForm() {
             autoComplete="cc-csc"
           />
         </Grid>
+        <PayPalButton
+          amount="0.01"
+          // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+          onSuccess={(details, data) => {
+            alert("Transaction completed by " + details.payer.name.given_name);
+
+            // OPTIONAL: Call your server to save the transaction
+            return fetch("/paypal-transaction-complete", {
+              method: "post",
+              body: JSON.stringify({
+                orderId: data.orderID
+              })
+            });
+          }}
+          options={{
+            clientId: "AYwVOEqRJRrnv9NtzOquVA6LcbVsZ_ofukkWyfS_uwqyb4DwC5EviNhiTyMkV7r_ElCuPUwkqZoQxN3g"
+          }}
+        />
         <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveCard" value="yes" />}
