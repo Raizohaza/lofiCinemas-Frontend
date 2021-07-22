@@ -10,6 +10,8 @@ import RegisterRoute from "./register.router";
 import BookingRoute from "./booking.router";
 import AdminRoute from "./admin.router";
 import ProfileRoute from "./profile.router";
+import Footer from "../pages/footer/Footer"
+import './a.css';
 function Routers() {  
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -25,18 +27,18 @@ function Routers() {
   }, []);
 
   return (
-    <div>
+    <div className="a">
     <Router>
+      <Header/>
       <LoginRoute/>
       <RegisterRoute/>
-      <Header/>
       <HomeRoute/>
       <ResetRoute/>
-      
       <DetailRoute/>
       <BookingRoute/>
       <AdminRoute/>
       <ProfileRoute/>
+      <Footer/>
     </Router>
     </div>
 

@@ -26,7 +26,10 @@ class header extends Component{
                     </Link>                   
                     <i className="icon-color"><FontAwesomeIcon icon={faHeart}/></i>
                     <i className="icon-color"><FontAwesomeIcon icon={faMap}/></i>
-                    <i className="icon-color">
+                   
+                </div>
+                <div className="tool2" >
+                <i className="icon-color-so2">
                       <Dropdown>                
                         <Dropdown.Toggle
                           aria-expanded={false}
