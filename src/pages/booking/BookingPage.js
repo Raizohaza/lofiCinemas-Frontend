@@ -8,8 +8,6 @@ import { Nav, Dropdown } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
-import { Button } from 'bootstrap';
-
 
 function analyzeData(showtime, selectedDay){
   let filteredShowTime = showtime;
@@ -34,7 +32,9 @@ export default function BookingPage()
   const [selectedCinema, setSelectedCinema] = useState();
 
   const [selectedShowtime, setSelectedShowtime] = useState();
-  
+  const [bookedSeat, setBookedSeat] = useState([]);
+  const [selectedSeat, setSelectedSeat] = useState([]);
+ 
   useEffect(() => { 
     async function fetchData() {
       const getUserAPI = `/showtime/${id}/movie`;
@@ -53,6 +53,18 @@ export default function BookingPage()
     }
     filteredData()
   }, [selectedDay]);
+
+  useEffect(() => { 
+    async function fetchData(){
+      if(selectedShowtime){
+        const getShowTimeAPI = `/showtime/${selectedShowtime.id}/seat`;
+        API.get(getShowTimeAPI).then((res) => {
+          setBookedSeat(res.data);
+        });
+      }
+    }
+    fetchData()
+  }, [selectedShowtime]);
   
   const item = showtime.map((ite)=>
   {
@@ -95,7 +107,7 @@ export default function BookingPage()
   const showtimes = selectedCinema ? fShowtime.map((showtime)=>{
     if(showtime.CinemaId == selectedCinema)
     return(
-      <button onClick={ (e) =>{setSelectedShowtime(showtime)} }>
+      <button onClick={ (e) =>{setSelectedShowtime(showtime); setSelectedSeat([])}}>
           {selectedCinema}
           <br/>
           {showtime.id}
@@ -107,9 +119,6 @@ export default function BookingPage()
     )
 
   }): <div>Please select cinema</div>;
-
-  
-
 
   const renderSeatCode = () => 
   {
@@ -126,17 +135,45 @@ export default function BookingPage()
     return newArr;}
   };
 
-
+  //fix disabled,selected seat here
   const renderSeat = () => {
     if(renderSeatCode()!==undefined){
     return renderSeatCode().map((elm, _index) => {
-      
+      if(bookedSeat.includes(elm.seat)){
+        return (
+          <div key={_index} style={{ width: `calc(100%/${selectedShowtime.Width} - 2rem)`, margin: "1rem" }}>
+            <div  className="single-seat ">
+              <span onClick={()=>{
+                console.log(elm.seat);
+              }} className="sit-num ">disabled{elm.seat}</span>
+            </div>
+          </div>)
+      }
+      else if(selectedSeat.includes(elm.seat)){
+        return (
+          <div key={_index} style={{ width: `calc(100%/${selectedShowtime.Width} - 2rem)`, margin: "1rem" }}>
+            <div  className="single-seat ">
+            
+              <span onClick={()=>{
+                let arr = [];
+                arr.push(...selectedSeat);
+                arr = arr.filter(item => item !== elm.seat);
+                setSelectedSeat(arr);
+              }} className="sit-num ">selected{elm.seat}</span>
+            </div>
+          </div>)
+      }
+      else
       return (
-      <div key={_index} style={{ width: `calc(100%/${selectedShowtime.Width} - 2rem)`, margin: "1rem" }}>
-        <div class="single-seat">
-          <span class="sit-num">{elm.seat}</span>
-        </div>
-      </div>)
+        <div key={_index} style={{ width: `calc(100%/${selectedShowtime.Width} - 2rem)`, margin: "1rem" }}>
+          <div className="single-seat">
+            <span onClick={()=>{
+              let arr = [];
+              arr.push(...selectedSeat,elm.seat);
+              setSelectedSeat(arr);
+            }} className="sit-num ">{elm.seat}</span>
+          </div>
+        </div>)
     });}
   };
 
@@ -194,14 +231,31 @@ export default function BookingPage()
         </div>
 
 
+        <button onClick={()=>{
+          let prices = selectedSeat.map(item =>45000);
+          let data = {
+            DateTime: new Date(),
+            createdAt: new Date(),
+            updatedAt: new Date(),
+            UserId: localStorage.UID,
+            ShowTimeId: selectedShowtime.id,
+            Seats: selectedSeat,
+            Price: prices
+          }
+            console.log(data);
+            API.post('/booking/add',data).then(res => console.log(res.data));
 
-        <div class="screen-wrapper">
-                <div class="seat-area couple">
-                  <div class="seat-line">
+        }}>
+          Book
+        </button>
+        <div className="screen-wrapper">
+                <div className="seat-area couple">
+                  <div className="seat-line">
                     {renderSeat()}
                   </div>
                 </div>
         </div>
+        
       </div>
     );
 } 
