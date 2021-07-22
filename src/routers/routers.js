@@ -10,9 +10,8 @@ import RegisterRoute from "./register.router";
 import BookingRoute from "./booking.router";
 import AdminRoute from "./admin.router";
 import ProfileRoute from "./profile.router";
-
 import HistoryRoute from "./history.router";
-
+import Footer from "../pages/footer/Footer"
 function Routers() {  
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -28,7 +27,7 @@ function Routers() {
   }, []);
 
   return (
-    <div className="a">
+    <div>
     <Router>
       <Header/>
       <LoginRoute/>
@@ -40,6 +39,7 @@ function Routers() {
       <AdminRoute/>
       <ProfileRoute/>
       <HistoryRoute/>
+      <Footer/>
     </Router>
     </div>
 

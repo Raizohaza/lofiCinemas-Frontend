@@ -12,6 +12,7 @@ class register extends Component
         e.preventDefault();
         const User ={
             Email:this.Email,
+            Tel:this.Tel,
             Name:this.Name,
             Password:this.Password,
             ConfirmPassword:this.ConfirmPassword
@@ -27,7 +28,6 @@ class register extends Component
             }
         )
     };
-
     render()
     {
        return(
@@ -38,13 +38,17 @@ class register extends Component
                     <input onChange={e =>this.Email=e.target.value}  className="input" type="email"  />
                     <p>Name</p>
                     <input onChange={e =>this.Name=e.target.value}  className="input" type="text"  />
+                    <p>Tel</p>
+                    <input onChange={e =>this.Tel=e.target.value}  className="input" type="text"  />
                     <p>Password</p>
                     <input onChange={e =>this.Password=e.target.value} className="input" type="password" />
                     <p>Confirm Password</p>
                     <input onChange={e =>this.ConfirmPassword=e.target.value} className="input" type="password" />
                 </div>
                
-                <button type='submit' className="btn-register">
+                <button type='submit' className="btn-register" onClick={()=>{
+                    this.User?alert("Account create complete"):alert("check you email to complete")
+                }}>
                     <p className="text-in-button">Register</p>
                 </button>
                <Link to='/login'>

@@ -24,18 +24,23 @@ SwiperCore.use([Pagination, Navigation]);
 
 export default function Comming(){
     const dispatch = useDispatch();
-    const moviesList = useSelector(selectMovie);
+    let moviesList = useSelector(selectMovie);
     const Loading = useSelector((state) => state.movie.isLoading);
+    let data =[];
     if(moviesList.length <1 ){
       dispatch(getMovieAsync());
     }
-    console.log(moviesList)
+    moviesList = moviesList.map((moviesList)=>{
+      if(moviesList.Status == "Comming Soon")
+          data.push(moviesList);
+    })
+    console.log(data)
     return(
         <div className="col-lg-12">
-            {moviesList && Object.values(moviesList).length > 0 && (
+            {data && Object.values(data).length > 0 && (
                 <div className="article-section padding-bottom">
                   <div className="section-header-1">
-                    <h2 className="title">Now Playing</h2>
+                    <h2 className="title">Popular</h2>
                   </div>
                   <Swiper                 
                     navigation
@@ -46,8 +51,8 @@ export default function Comming(){
                     lazy={true}
                     slidesPerGroup={4}
                   >
-                    {moviesList &&
-                      moviesList.map((item, index) => ( 
+                    {data &&
+                      data.map((item, index) => ( 
                         <SwiperSlide key={index}>
                           <SwiperComponent movie={item} />
                         </SwiperSlide>
