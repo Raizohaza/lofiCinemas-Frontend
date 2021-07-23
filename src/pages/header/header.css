@@ -21,9 +21,10 @@
 }
 .tool2{
    
-    justify-content: right;
+    justify-content: center;
     color: white;
     font-size: 1.5rem;
+    margin-right: 3rem;
 }
 
 .avatar{
@@ -47,9 +48,6 @@
 .icon-color-so2{
     color: white;
     width: 10rem;
-    
-  
-    justify-content:right;
 }
 
 .icon-color:hover{

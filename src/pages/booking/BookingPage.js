@@ -250,15 +250,14 @@ export default function BookingPage()
         }}>
           Book
         </button>
+        {selectedShowtime&&selectedCinema&&selectedCineplex?
         <div className="screen-wrapper">
                 <div className="seat-area couple">
                   <div className="seat-line">
                     {renderSeat()}
                   </div>
                 </div>
-        </div>
-        {selectedShowtime&&selectedCinema&&selectedCineplex?
-          <Checkout/>:<></>
+        </div>:<Checkout/>
         }
       </div>
     );
