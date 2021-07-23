@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {Table,Button} from 'react-bootstrap'
 import { useSelector, useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -7,19 +7,12 @@ import { selectBooking , getBookingAsync} from '../../features/booking/bookingSl
 export default function BookingList() {
     const dispatch = useDispatch();
     let bookingList = useSelector(selectBooking);
-
     //console.log(bookingList);
     if(bookingList.length === 0 || bookingList.length ===1){
       dispatch(getBookingAsync());
-      
     }
     let dem = 1;
-    let history = useHistory();
     let data =[];
-    function handleClick() {
-    history.push("/admin/booking/add");
-    }
-
     bookingList = bookingList.map((bookingList)=>{
       if(localStorage.UID == bookingList.UserId)
           data.push(bookingList);
@@ -39,9 +32,6 @@ export default function BookingList() {
     );
     return (
       <div>
-        <Button onClick={handleClick}>
-        Add
-        </Button>
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>

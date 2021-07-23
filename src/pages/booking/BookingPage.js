@@ -8,6 +8,8 @@ import { Nav, Dropdown } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
+import Checkout from './checkout';
+import bookingSlice from 'features/booking/bookingSlice';
 
 function analyzeData(showtime, selectedDay){
   let filteredShowTime = showtime;
@@ -244,7 +246,7 @@ export default function BookingPage()
           }
             console.log(data);
             API.post('/booking/add',data).then(res => console.log(res.data));
-
+           
         }}>
           Book
         </button>
@@ -255,7 +257,9 @@ export default function BookingPage()
                   </div>
                 </div>
         </div>
-        
+        {selectedShowtime&&selectedCinema&&selectedCineplex?
+          <Checkout/>:<></>
+        }
       </div>
     );
 } 
