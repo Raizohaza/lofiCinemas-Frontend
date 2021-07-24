@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useHistory } from 'react-router-dom';
 
 import API from 'api';
 
@@ -8,8 +8,7 @@ import { Nav, Dropdown } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
-import Checkout from './checkout';
-import bookingSlice from 'features/booking/bookingSlice';
+
 
 function analyzeData(showtime, selectedDay){
   let filteredShowTime = showtime;
@@ -36,7 +35,7 @@ export default function BookingPage()
   const [selectedShowtime, setSelectedShowtime] = useState();
   const [bookedSeat, setBookedSeat] = useState([]);
   const [selectedSeat, setSelectedSeat] = useState([]);
- 
+  let history = useHistory();
   useEffect(() => { 
     async function fetchData() {
       const getUserAPI = `/showtime/${id}/movie`;
@@ -231,8 +230,6 @@ export default function BookingPage()
         <div className="col">
           {showtimes}
         </div>
-
-
         <button onClick={()=>{
           let prices = selectedSeat.map(item =>45000);
           let data = {
@@ -246,19 +243,18 @@ export default function BookingPage()
           }
             console.log(data);
             API.post('/booking/add',data).then(res => console.log(res.data));
-           
-        }}>
+          } 
+        }
+        >
           Book
         </button>
-        {selectedShowtime&&selectedCinema&&selectedCineplex?
         <div className="screen-wrapper">
                 <div className="seat-area couple">
                   <div className="seat-line">
                     {renderSeat()}
                   </div>
                 </div>
-        </div>:<Checkout/>
-        }
+        </div>
       </div>
     );
 } 
