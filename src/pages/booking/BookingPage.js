@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { useParams,useHistory } from 'react-router-dom';
-
 import API from 'api';
 
-import { Nav, Dropdown } from "react-bootstrap";
+import { Nav, Dropdown, ButtonGroup } from "react-bootstrap";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
-
-
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 function analyzeData(showtime, selectedDay){
   let filteredShowTime = showtime;
-
   if(selectedDay){
     selectedDay = new Date(selectedDay);
     filteredShowTime = showtime.filter(st=>{
@@ -22,7 +18,6 @@ function analyzeData(showtime, selectedDay){
   }
   return{filteredShowTime};
 }
-
 export default function BookingPage()
 {
   let {id} = useParams();
@@ -31,11 +26,10 @@ export default function BookingPage()
   const [selectedDay, setSelectedDay] = useState();
   const [selectedCineplex, setSelectedCineplex] = useState();
   const [selectedCinema, setSelectedCinema] = useState();
-
   const [selectedShowtime, setSelectedShowtime] = useState();
   const [bookedSeat, setBookedSeat] = useState([]);
   const [selectedSeat, setSelectedSeat] = useState([]);
-  let history = useHistory();
+
   useEffect(() => { 
     async function fetchData() {
       const getUserAPI = `/showtime/${id}/movie`;
@@ -46,7 +40,6 @@ export default function BookingPage()
     }
       fetchData()
   }, []);
-
   useEffect(() => { 
     async function filteredData(){
       let {filteredShowTime} = await analyzeData(showtime, selectedDay, selectedCineplex, selectedCinema);
@@ -54,6 +47,8 @@ export default function BookingPage()
     }
     filteredData()
   }, [selectedDay]);
+
+
 
   useEffect(() => { 
     async function fetchData(){
@@ -66,7 +61,7 @@ export default function BookingPage()
     }
     fetchData()
   }, [selectedShowtime]);
-  
+
   const item = showtime.map((ite)=>
   {
     return(
@@ -77,8 +72,6 @@ export default function BookingPage()
       </Dropdown.Item>
     )
   });
-
-
   let uniCineplex = [];
   fShowtime.map(x => uniCineplex.filter(a => a.CineplexId == x.CineplexId).length > 0 ? null : uniCineplex.push(x));
   const cineplexes = uniCineplex.map((cineplex)=>{
@@ -90,8 +83,6 @@ export default function BookingPage()
       </Dropdown.Item>
     )
   });
-
-
   let uniCinema = [];
   fShowtime.map(x => uniCinema.filter(a => a.CinemaId == x.CinemaId).length > 0 ? null : uniCinema.push(x));
   const cinemas = selectedCineplex ? uniCinema.map((cinema)=>{
@@ -104,7 +95,6 @@ export default function BookingPage()
       </Dropdown.Item>
     )
   }):<div>Please select cineplex</div>;
-
   const showtimes = selectedCinema ? fShowtime.map((showtime)=>{
     if(showtime.CinemaId == selectedCinema)
     return(
@@ -121,6 +111,8 @@ export default function BookingPage()
 
   }): <div>Please select cinema</div>;
 
+
+  console.log("this is showtime:", showtime);
   const renderSeatCode = () => 
   {
     if(selectedShowtime)
@@ -135,7 +127,6 @@ export default function BookingPage()
     });
     return newArr;}
   };
-
   //fix disabled,selected seat here
   const renderSeat = () => {
     if(renderSeatCode()!==undefined){
@@ -177,10 +168,10 @@ export default function BookingPage()
         </div>)
     });}
   };
-
     return(
       <div className="booking">
         <div className="selected col">
+          <div>
           <Dropdown as={Nav.item}>
                 <Dropdown.Toggle               
                   as={Nav.item}
@@ -189,42 +180,47 @@ export default function BookingPage()
                   className="mt-2"
                   variant="dark"
                 >
-                  <span >Date Show</span>
+                <span>Date Show</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {item}
                 </Dropdown.Menu>
           </Dropdown>
+          </div>
 
-          <Dropdown as={Nav.item}>
-                <Dropdown.Toggle
-                  as={Nav.item}
-                  data-toggle="dropdown"
-                  id="dropdown-split-basic"
-                  className="mt-2"
-                  variant="dark"
-                >
-                  <span >cineplexes</span>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {cineplexes}
-                </Dropdown.Menu>
-          </Dropdown>
+          <div>
+            <Dropdown as={Nav.item}>
+                  <Dropdown.Toggle
+                    as={Nav.item}
+                    data-toggle="dropdown"
+                    id="dropdown-split-basic"
+                    className="mt-2"
+                    variant="dark"
+                  >
+                    <span>Cineplexes</span>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {cineplexes}
+                  </Dropdown.Menu>
+            </Dropdown>
+          </div>
 
-          <Dropdown as={Nav.item}>
-                <Dropdown.Toggle
-                  as={Nav.item}
-                  data-toggle="dropdown"
-                  id="dropdown-split-basic"
-                  className="mt-2"
-                  variant="dark"
-                >
-                  <span >Cinemas</span>
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  {cinemas}
-                </Dropdown.Menu>
-          </Dropdown>
+          <div>
+            <Dropdown as={Nav.item}>
+                  <Dropdown.Toggle
+                    as={Nav.item}
+                    data-toggle="dropdown"
+                    id="dropdown-split-basic"
+                    className="mt-2"
+                    variant="dark"
+                  >
+                    <span>Cinemas</span>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {cinemas}
+                  </Dropdown.Menu>
+            </Dropdown>
+          </div>
         </div>
 
         <div className="col">
@@ -259,4 +255,4 @@ export default function BookingPage()
         
       </div>
     );
-} 
+}
