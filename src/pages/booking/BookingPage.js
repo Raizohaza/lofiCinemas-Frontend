@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams,useHistory } from 'react-router-dom';
 
 import API from 'api';
 
@@ -8,6 +8,7 @@ import { Nav, Dropdown } from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
+
 
 function analyzeData(showtime, selectedDay){
   let filteredShowTime = showtime;
@@ -34,7 +35,7 @@ export default function BookingPage()
   const [selectedShowtime, setSelectedShowtime] = useState();
   const [bookedSeat, setBookedSeat] = useState([]);
   const [selectedSeat, setSelectedSeat] = useState([]);
- 
+  let history = useHistory();
   useEffect(() => { 
     async function fetchData() {
       const getUserAPI = `/showtime/${id}/movie`;
@@ -107,14 +108,14 @@ export default function BookingPage()
   const showtimes = selectedCinema ? fShowtime.map((showtime)=>{
     if(showtime.CinemaId == selectedCinema)
     return(
-      <button onClick={ (e) =>{setSelectedShowtime(showtime); setSelectedSeat([])}}>
-          {selectedCinema}
-          <br/>
-          {showtime.id}
-          <br/>
-          {showtime.CineplexName}
-          <br/>
-          {showtime.CinemaName}
+      <button className="btn-st" onClick={ (e) =>{setSelectedShowtime(showtime); setSelectedSeat([])}}>
+          <p>Thông tin vé</p>
+          <p>ID: {showtime.id}</p>
+          <p>Ngày: {showtime.DateShow}</p>          
+          <p>Cụm: {showtime.CineplexName}</p>        
+          <p>Rạp: {showtime.CinemaName}</p>
+          <p>Xuất chiếu: {showtime.TimeBegin}</p>
+          <p className="chon-ghe">Chọn ghế</p>
       </button>
     )
 
@@ -145,7 +146,7 @@ export default function BookingPage()
             <div  className="single-seat ">
               <span onClick={()=>{
                 console.log(elm.seat);
-              }} className="sit-num ">disabled{elm.seat}</span>
+              }} className="sit-num " style={{ background: "gray" }}>{elm.seat}</span>
             </div>
           </div>)
       }
@@ -159,7 +160,7 @@ export default function BookingPage()
                 arr.push(...selectedSeat);
                 arr = arr.filter(item => item !== elm.seat);
                 setSelectedSeat(arr);
-              }} className="sit-num ">selected{elm.seat}</span>
+              }} className="sit-num " style={{ background: "blue" }}>{elm.seat}</span>
             </div>
           </div>)
       }
@@ -180,45 +181,45 @@ export default function BookingPage()
     return(
       <div className="booking">
         <div className="selected col">
-          <Dropdown as={Nav.Item}>
+          <Dropdown as={Nav.item}>
                 <Dropdown.Toggle               
-                  as={Nav.Link}
+                  as={Nav.item}
                   data-toggle="dropdown"
-                  id="dropdown-67443507"
-                  variant="default"
-                  className="lepp"
+                  id="dropdown-split-basic"
+                  className="mt-2"
+                  variant="dark"
                 >
-                  <span className="d-lg-none ml-1">Date Show</span>
+                  <span >Date Show</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {item}
                 </Dropdown.Menu>
           </Dropdown>
 
-          <Dropdown as={Nav.Item}>
+          <Dropdown as={Nav.item}>
                 <Dropdown.Toggle
-                  as={Nav.Link}
+                  as={Nav.item}
                   data-toggle="dropdown"
-                  id="dropdown-67443507"
-                  variant="default"
-                  className="lepp"
+                  id="dropdown-split-basic"
+                  className="mt-2"
+                  variant="dark"
                 >
-                  <span className="d-lg-none ml-1">cineplexes</span>
+                  <span >cineplexes</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {cineplexes}
                 </Dropdown.Menu>
           </Dropdown>
 
-          <Dropdown as={Nav.Item}>
+          <Dropdown as={Nav.item}>
                 <Dropdown.Toggle
-                  as={Nav.Link}
+                  as={Nav.item}
                   data-toggle="dropdown"
-                  id="dropdown-67443507"
-                  variant="default"
-                  className="lepp"
+                  id="dropdown-split-basic"
+                  className="mt-2"
+                  variant="dark"
                 >
-                  <span className="d-lg-none ml-1">Cinemas</span>
+                  <span >Cinemas</span>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {cinemas}
@@ -229,9 +230,15 @@ export default function BookingPage()
         <div className="col">
           {showtimes}
         </div>
-
-
-        <button onClick={()=>{
+        <div className="screen-wrapper">
+                <div className="seat-area couple">
+                  <div className="seat-line">
+                    {renderSeat()}
+                  </div>
+                </div>
+        </div>
+        
+        {selectedShowtime && <button className="btn-book" onClick={()=>{
           let prices = selectedSeat.map(item =>45000);
           let data = {
             DateTime: new Date(),
@@ -244,17 +251,11 @@ export default function BookingPage()
           }
             console.log(data);
             API.post('/booking/add',data).then(res => console.log(res.data));
-
-        }}>
-          Book
-        </button>
-        <div className="screen-wrapper">
-                <div className="seat-area couple">
-                  <div className="seat-line">
-                    {renderSeat()}
-                  </div>
-                </div>
-        </div>
+          } 
+        
+        }>
+        Đặt vé
+        </button>}
         
       </div>
     );

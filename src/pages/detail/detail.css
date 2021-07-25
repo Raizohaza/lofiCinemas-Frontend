@@ -18,22 +18,23 @@
     height: auto;
     margin-bottom: 2rem;
     background-color: #4d4949;
+    border-radius: 1rem;
     background-size: cover;
     padding: 0.5rem;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
 }
 
 .infomation{
-    color: white;
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
 .poster-avatar{
-    width: 23rem;
-    height: 23rem;
+    width: 20rem;
+    height: 20rem;
+    border-radius: 1rem;
 }
 
 .item-name{
@@ -52,7 +53,6 @@
 }
 
 .decription{
-    color: white;
     text-align: left;
     width: 80%;
     margin-top: 1rem;
@@ -63,7 +63,6 @@
 }
 
 .trailer{
-    color: white;
     width: 60%;
     height: 30rem;
     margin-bottom: 2rem;

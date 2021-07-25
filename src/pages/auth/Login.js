@@ -91,7 +91,6 @@ class login extends Component {
                 <div className="login-with">
                         <FacebookLogin
                             appId="835649640710124"
-                            autoLoad={true}
                             fields="name,email,picture"
                             callback={this.responseFacebook}
                             icon={<FontAwesomeIcon icon={faFacebook}/>}

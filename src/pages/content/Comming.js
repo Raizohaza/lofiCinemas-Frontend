@@ -34,7 +34,6 @@ export default function Comming(){
       if(moviesList.Status == "Comming Soon")
           data.push(moviesList);
     })
-    console.log(data)
     return(
         <div className="col-lg-12">
             {data && Object.values(data).length > 0 && (
