@@ -9,7 +9,7 @@ import Grid from '@material-ui/core/Grid';
 let arr = [];
 
 const products = [
-  { name: localStorage.Email, desc: localStorage.Seats, price: 45000+'x' + localStorage.Seats.split(",").length },
+  { name: localStorage.Email, desc: localStorage.Seats, price: 45000+'x' },
   { name: 'Shipping', desc: '', price: 'Free' },
 ];
 const addresses = ['Thong Nhat', 'P13', 'Go Vap', '99999', 'HCM'];
