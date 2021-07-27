@@ -16,11 +16,11 @@ import Review from './review';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
+    <Typography variant="body2">
+      {'Click '}
+      <Link color="inherit" href="/">
+        Here
+      </Link>{' to go home '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -93,6 +93,7 @@ export default function Checkout() {
 
   return (
     <React.Fragment>
+
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
@@ -112,6 +113,7 @@ export default function Checkout() {
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
                 </Typography>
+                <Copyright />
               </React.Fragment>
             ) : (
               <React.Fragment>
@@ -135,8 +137,9 @@ export default function Checkout() {
             )}
           </React.Fragment>
         </Paper>
-        <Copyright />
+        
       </main>
     </React.Fragment>
+    
   );
 }

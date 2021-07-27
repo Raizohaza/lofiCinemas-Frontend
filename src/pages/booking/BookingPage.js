@@ -169,7 +169,6 @@ export default function BookingPage()
     });}
   };
     return(
-      <Grid item xs={12} md={6}>
       <div className="booking">
         <div className="selected col">
           <div>
@@ -264,6 +263,5 @@ export default function BookingPage()
         </button>}
         
       </div>
-      </Grid>
     );
 }

@@ -6,11 +6,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
+let arr = [];
+
 const products = [
-  { name: 'ticket 1', desc: 'movie1', price: '$9.99' },
-  { name: 'ticket 2', desc: 'movie2', price: '$3.45' },
-  { name: 'ticket 3', desc: 'movie3', price: '$6.51' },
-  { name: 'ticket 4', desc: 'movie4', price: '$14.11' },
+  { name: localStorage.Email, desc: localStorage.Seats, price: 45000+'x' + localStorage.Seats.split(",").length },
   { name: 'Shipping', desc: '', price: 'Free' },
 ];
 const addresses = ['Thong Nhat', 'P13', 'Go Vap', '99999', 'HCM'];
@@ -51,7 +50,7 @@ export default function Review() {
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+            {localStorage.Price}
           </Typography>
         </ListItem>
       </List>
