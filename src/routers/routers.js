@@ -11,6 +11,7 @@ import BookingRoute from "./booking.router";
 import AdminRoute from "./admin.router";
 import ProfileRoute from "./profile.router";
 import HistoryRoute from "./history.router";
+import Cineplexrouter from "./Cineplex.router";
 import Footer from "../pages/footer/Footer"
 import CheckoutRoute from "./checkout.router";
 function Routers() {  
@@ -41,6 +42,7 @@ function Routers() {
       <ProfileRoute/>
       <HistoryRoute/>
       <CheckoutRoute/>
+      <Cineplexrouter/>
       <Footer/>
     </Router>
     </div>

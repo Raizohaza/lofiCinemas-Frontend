@@ -27,9 +27,10 @@ export function Header(){
                 <div className="tool">
                     <Link to='/'>
                         <i className="icon-color"><FontAwesomeIcon icon={faHome}/></i>
-                    </Link>                   
+                    </Link>
+                    <Link to='/cineplex'>
                     <i className="icon-color"><FontAwesomeIcon icon={faMap}/></i>
-                   
+                      </Link>               
                 </div>
                 <div className="tool2" >
                   <i className="icon-color-so2">

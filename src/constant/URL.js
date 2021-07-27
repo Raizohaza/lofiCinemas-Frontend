@@ -11,5 +11,6 @@ exports.URL = {
     SEARCH: "/search",
     ADMIN: "/admin",
     CHECKOUT:"/detail/booking/checkout",
-    HISTORY:"/history"
+    CINEPLEX:"/cineplex",
+    HISTORY:"/history",
   };
