@@ -17,8 +17,7 @@ export default function AddressForm() {
           <TextField
             required
             id="firstName"
-            name="firstName"
-            label="First name"
+            value={localStorage.Email}
             fullWidth
             autoComplete="given-name"
           />
@@ -27,8 +26,7 @@ export default function AddressForm() {
           <TextField
             required
             id="lastName"
-            name="lastName"
-            label="Last name"
+            value={localStorage.Tel}
             fullWidth
             autoComplete="family-name"
           />
@@ -37,8 +35,7 @@ export default function AddressForm() {
           <TextField
             required
             id="address1"
-            name="address1"
-            label="Address line 1"
+            value={localStorage.DateTime}
             fullWidth
             autoComplete="shipping address-line1"
           />
@@ -47,21 +44,16 @@ export default function AddressForm() {
           <TextField
             required
             id="city"
-            name="city"
-            label="City"
+            value={localStorage.Seats}
             fullWidth
             autoComplete="shipping address-level2"
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
-        </Grid>
-        <Grid item xs={12} sm={6}>
           <TextField
             required
             id="country"
-            name="country"
-            label="Country"
+            value={localStorage.Price}
             fullWidth
             autoComplete="shipping country"
           />
@@ -72,14 +64,7 @@ export default function AddressForm() {
             label="Use this address for payment details"
           />
         </Grid>
-        
       </Grid>
-      <Button
-        variant="contained"
-        color="primary"
-        >
-         Next
-    </Button>
     </React.Fragment>
   );
 }

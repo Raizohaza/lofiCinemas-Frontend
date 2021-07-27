@@ -10,5 +10,6 @@ exports.URL = {
     PROFILE: "/profile/:id",
     SEARCH: "/search",
     ADMIN: "/admin",
+    CHECKOUT:"/detail/booking/checkout",
     HISTORY:"/history"
   };

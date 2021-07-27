@@ -12,6 +12,7 @@ import AdminRoute from "./admin.router";
 import ProfileRoute from "./profile.router";
 import HistoryRoute from "./history.router";
 import Footer from "../pages/footer/Footer"
+import CheckoutRoute from "./checkout.router";
 function Routers() {  
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -39,6 +40,7 @@ function Routers() {
       <AdminRoute/>
       <ProfileRoute/>
       <HistoryRoute/>
+      <CheckoutRoute/>
       <Footer/>
     </Router>
     </div>

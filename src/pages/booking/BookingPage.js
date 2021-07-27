@@ -1,12 +1,12 @@
 import API from 'api';
 
 import { Nav, Dropdown, ButtonGroup } from "react-bootstrap";
-
+import Grid from '@material-ui/core/Grid';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import './styles.css'
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 function analyzeData(showtime, selectedDay){
   let filteredShowTime = showtime;
   if(selectedDay){
@@ -29,7 +29,7 @@ export default function BookingPage()
   const [selectedShowtime, setSelectedShowtime] = useState();
   const [bookedSeat, setBookedSeat] = useState([]);
   const [selectedSeat, setSelectedSeat] = useState([]);
-
+  let history = useHistory();
   useEffect(() => { 
     async function fetchData() {
       const getUserAPI = `/showtime/${id}/movie`;
@@ -169,6 +169,7 @@ export default function BookingPage()
     });}
   };
     return(
+      <Grid item xs={12} md={6}>
       <div className="booking">
         <div className="selected col">
           <div>
@@ -234,8 +235,11 @@ export default function BookingPage()
                 </div>
         </div>
         
-        {selectedShowtime && <button className="btn-book" onClick={()=>{
+        {selectedShowtime&&localStorage.UID && <button className="btn-book" onClick={()=>{
           let prices = selectedSeat.map(item =>45000);
+          let sumPrice = 0;
+          let Sum = selectedSeat.map(item => sumPrice+=45000);
+          console.log(sumPrice);
           let data = {
             DateTime: new Date(),
             createdAt: new Date(),
@@ -246,13 +250,20 @@ export default function BookingPage()
             Price: prices
           }
             console.log(data);
-            API.post('/booking/add',data).then(res => console.log(res.data));
+            API.post('/booking/add',data).then(res =>{
+              localStorage.setItem('DateTime',data.DateTime)
+              localStorage.setItem('ShowTimeId',data.ShowTimeId)
+              localStorage.setItem('Seats',data.Seats)
+              localStorage.setItem('Price',sumPrice)
+              console.log(res.data)
+            });
+            history.push('checkout');
           } 
-        
         }>
         Đặt vé
         </button>}
         
       </div>
+      </Grid>
     );
 }
