@@ -10,5 +10,7 @@ exports.URL = {
     PROFILE: "/profile/:id",
     SEARCH: "/search",
     ADMIN: "/admin",
-    HISTORY:"/history"
+    CINEPLEX:"/cineplex",
+    HISTORY:"/history",
+    
   };

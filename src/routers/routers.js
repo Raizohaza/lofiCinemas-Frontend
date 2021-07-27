@@ -11,6 +11,7 @@ import BookingRoute from "./booking.router";
 import AdminRoute from "./admin.router";
 import ProfileRoute from "./profile.router";
 import HistoryRoute from "./history.router";
+import Cineplexrouter from "./Cineplex.router";
 import Footer from "../pages/footer/Footer"
 function Routers() {  
   React.useEffect(() => {
@@ -39,6 +40,7 @@ function Routers() {
       <AdminRoute/>
       <ProfileRoute/>
       <HistoryRoute/>
+      <Cineplexrouter/>
       <Footer/>
     </Router>
     </div>
