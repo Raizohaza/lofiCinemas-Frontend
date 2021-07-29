@@ -6,3 +6,19 @@
     height: 10rem;
     width: 10rem;
 }
+
+.card{
+  cursor: pointer;
+  font-family: "Heebo", sans-serif;
+  text-align: center;
+  border-radius: 3px;
+  background: #eeeeee;
+  transition: background 0.1s;
+  
+}
+.main_content{
+  display: grid;
+  width: 50%;
+  grid-template-columns: 40% 40% 40% 40%;
+  grid-gap: 80px;
+}
