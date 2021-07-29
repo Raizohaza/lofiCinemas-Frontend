@@ -7,9 +7,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 
 let arr = [];
-
+let length = 0;
+if(localStorage.Seats)
+{
+  length = localStorage.Seats.split(",").length;
+}
 const products = [
-  { name: localStorage.Email, desc: localStorage.Seats, price: 45000+'x' },
+  { name: localStorage.Email, desc: localStorage.Seats, price: 45000+'x'+length },
   { name: 'Shipping', desc: '', price: 'Free' },
 ];
 const addresses = ['Thong Nhat', 'P13', 'Go Vap', '99999', 'HCM'];
