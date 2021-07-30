@@ -66,22 +66,39 @@ export default function Cineplex(props){
   }
  
   return(
-      <div  >
-         <h2 className="title">CHOoSE A CINEPLEX</h2>
-                    
-                <div className="main_content">
-                {cineplex.map((user)=>
-                  <div  key={user.id}>
-                     <div className="card"  >
-                            <img src={user.img}/>
-                            <Link to={`detail/booking/${user.id}`}>
-                            <h2>{user.name}</h2>
-                            </Link>
-                     </div>
-                  </div>
-                  )};
-                </div>
-                  
-        </div>     
-  );     
+        <Swiper                 
+        navigation
+        pagination
+        slidesPerView={3}
+        spaceBetween={0}
+        allowTouchMove={true}
+        lazy={true}
+        slidesPerGroup={1}>
+
+
+        {cineplex.map(user=>(
+        <SwiperSlide key={user.id}>
+
+
+                <div className="swipercomponent">
+        {user && (
+            <div className="movie-grid">
+            <div className="movie-thumb c-thumb">
+            <Link to={`detail/booking/${user.id}`}>
+            <img src={user.img} alt="movie" />
+
+            </Link>
+            </div>
+            <div className="movie-content bg-one">
+            <h5 className="title">
+            <Link className="text-align" to={`detail/booking/${user.id}`}>{user.name}</Link>
+            </h5>
+            </div>
+            </div>
+        )}
+        </div>
+        </SwiperSlide>
+        ))}
+      </Swiper> 
+    );     
 }
