@@ -13,7 +13,6 @@ import "swiper/swiper.min.css";
 import { selectMovie , getMovieAsync} from '../../features/movie/movieSlice';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getMovies as listMovies } from "../../redux/action/movieAction";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

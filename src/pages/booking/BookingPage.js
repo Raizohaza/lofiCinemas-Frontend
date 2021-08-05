@@ -12,7 +12,7 @@ export default function BookingPage()
 
   return(
     <div className="booking container">
-      {FilterShowtimeByCinema(id,setSelectedShowtime)}
+      {FilterShowtime(id,setSelectedShowtime)}
       
       {BookingSeat(selectedShowtime)}
       

@@ -15,14 +15,14 @@ export const addCineplexAsync = createAsyncThunk(
 export const editCineplexAsync = createAsyncThunk(
   'cineplex/addCineplex',
   async (action) => {
-      const response = await API.put(`/cineplex/`+action.id,{...action})
+      await API.put(`/cineplex/`+action.id,{...action})
       return action;
   }
 );
 export const deleteCineplexAsync = createAsyncThunk(
   'cineplex/deleteCineplex',
   async (action) => {
-      const response = await API.delete(`/cineplex/`+action.id)
+      await API.delete(`/cineplex/`+action.id)
       return action.id;
   }
 );

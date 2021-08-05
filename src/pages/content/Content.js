@@ -5,19 +5,14 @@ import SwiperComponent from '../../components/Swiper/SwiperComponent'
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getNowPlayingMovieAsync } from 'features/movie/movieSlice';
 
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/swiper.min.css";
-
-
-
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getMovies as listMovies } from "../../redux/action/movieAction";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
 import './style.css'
 
 SwiperCore.use([Pagination, Navigation]);
@@ -25,14 +20,17 @@ SwiperCore.use([Pagination, Navigation]);
 export default function Content(){
 
     const dispatch = useDispatch();
-    const { movies } = useSelector((state) => state.getMovies);
+    const movies = useSelector((state) => state.movie.nowPlaying);
     useEffect(() => {
-        dispatch(listMovies());
-      }, [dispatch]);
+      async function fn(){
+        dispatch(getNowPlayingMovieAsync());
+      }
+      fn();
+      }, []);
 
     return(
         <div className="col-lg-12">
-            {movies && Object.values(movies).length > 0 && movies.Movie.length > 0 && (
+            {movies && Object.values(movies).length > 0 && movies.length > 0 && (
                 <div className="article-section padding-bottom">
                   <div className="section-header-1">
                     <h2 className="title">Now Playing</h2>
@@ -46,8 +44,8 @@ export default function Content(){
                     lazy={true}
                     slidesPerGroup={4}
                   >
-                    {movies.Movie &&
-                      movies.Movie.map((item, index) => (
+                    {movies &&
+                      movies.map((item, index) => (
                         <SwiperSlide 
                           key={index}                        
                         >

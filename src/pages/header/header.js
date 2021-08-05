@@ -1,10 +1,9 @@
-import React, { Component, useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Nav,Dropdown } from 'react-bootstrap';
 import { 
     faHome,
-    faHeart,
     faMap,
     faUser
 } from '@fortawesome/free-solid-svg-icons'

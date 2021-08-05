@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link,useHistory } from 'react-router-dom';
 import { selectCinema , getCinemaAsync,deleteCinemaAsync} from '../../../features/cinema/cinemaSlice';
 import { selectCineplex ,getCineplexAsync} from '../../../features/cineplex/cineplexSlice';
-import API from 'api';
+
 const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
 {
   const dispatch = useDispatch();

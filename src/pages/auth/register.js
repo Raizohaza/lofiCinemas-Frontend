@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
-import axios from 'axios';
 
 import './login.css'
 import api from 'api';
@@ -15,7 +14,8 @@ class register extends Component
             Tel:this.Tel,
             Name:this.Name,
             Password:this.Password,
-            ConfirmPassword:this.ConfirmPassword
+            ConfirmPassword:this.ConfirmPassword,
+            Role:'user'
         };
         api.post('/user/register',{...User}).then(
             res=>{

@@ -1,5 +1,4 @@
 import { Component } from "react";
-import axios from 'axios';
 
 import './profile.css'
 import api from "api";

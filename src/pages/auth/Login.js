@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import axios from 'axios';
+
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { 
-    faFacebook, 
-    faGoogle, 
-    faGithub } from '@fortawesome/free-brands-svg-icons'
+    faFacebook,
+    } from '@fortawesome/free-brands-svg-icons'
 import FacebookLogin from 'react-facebook-login';
 
 import './login.css'
@@ -21,6 +20,23 @@ class login extends Component {
         super(props);
         this.state = {};
       }
+    componentDidUpdate(prevProps) {
+    // Typical usage (don't forget to compare props):
+    if (this.props.User !== prevProps.User) {
+        localStorage.setItem('UID',this.props.User.id);
+        localStorage.setItem('Email',this.props.User.Email);
+        localStorage.setItem('Name',this.props.User.Name);
+        localStorage.setItem('Tel',this.props.User.Tel);
+        localStorage.setItem('Role',this.props.User.Role);
+        this.setState({
+            loggedIn:this.props.loggedIn,
+            Role: this.props.role,
+        });
+        this.setState(this.props.User);
+        console.log(this.props.User);
+        
+    }
+    }
     responseFacebook(res) {
         localStorage.setItem('UID',res.id);
         localStorage.setItem('Email',res.email);
@@ -45,35 +61,20 @@ class login extends Component {
             Password:this.Password,
             Role:this.Role
         };
-        api.post('/user/login',{...User})
-        .then( res=> {
-            
-            if(res)
-               {
-               localStorage.setItem('UID',res.data.user.id);
-               localStorage.setItem('Email',res.data.user.Email);
-               localStorage.setItem('Name',res.data.user.Name);
-               localStorage.setItem('Tel',res.data.user.Tel);
-               localStorage.setItem('Role',res.data.user.Role);
-               this.setState({
-                   loggedin:true,
-                   Role: res.data.user.Role,
-               });
-               this.setState(res.data.user);
-               console.log(this.state);
-            }
-            else
-                console.log('error')
-          })
-        // this.props.dispatch(userLogin(User))
-        // console.log(this.state)
+        this.props.dispatch(userLogin(User));
+        console.log(this.props);
+        // this.setState({
+        //     loggedIn:this.props.loggedIn,
+        //     Role: this.props.role,
+        // });
+        // this.setState(this.props.User);
     };
 
     render(){
-        if(this.state.loggedin&&this.state.Role!=="admin"){
+        if(this.state.loggedIn&&this.state.Role!=="admin"){
             return <Redirect to={'/'}/>;
         }
-        else if(this.state.loggedin&&this.state.Role==="admin")
+        else if(this.state.loggedIn&&this.state.Role==="admin")
         {
             return <Redirect  to={`/admin/dashboard`}/>;
         }
@@ -115,8 +116,9 @@ class login extends Component {
        );
    }
 }
-// const mapStateToProps = (state) => ({
-//     User: state.user.User
-// });
-// export default connect(mapStateToProps)(login);
-export default login
+const mapStateToProps = (state) => ({
+    User: {...state.user.User},
+    loggedIn: state.user.loggedIn,
+    role: state.user.role
+});
+export default connect(mapStateToProps)(login);

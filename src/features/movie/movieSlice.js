@@ -1,9 +1,12 @@
 import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import API from 'api';
 const initialState = {
+    coming:[],
     movies:[],
     isLoading:false,
-    isReload:false
+    isReload:false,
+    hot:[],
+    nowPlaying:[]
 }
 export const addMovieAsync = createAsyncThunk(
   'movie/addMovie',
@@ -31,12 +34,29 @@ export const deleteMovieAsync = createAsyncThunk(
 export const getMovieAsync = createAsyncThunk(
   'movie/fetchMovie',
   async () => {
-      const response = await API.get(`/movies/`)
+      const response = await API.get(`/movies`);
       response.data.sort((a,b)=> a.id - b.id);
       return response.data;
   }
 );
 
+export const getComingMovieAsync = createAsyncThunk(
+  'movie/fetchComingMovie',
+  async () => {
+      const response = await API.get(`/comingsoon`);
+      response.data.Movie.sort((a,b)=> a.id - b.id);
+      return response.data.Movie;
+  }
+);
+
+export const getNowPlayingMovieAsync = createAsyncThunk(
+  'movie/fetchNowPlayingMovie',
+  async () => {
+      const response = await API.get(`/nowplaying`);
+      response.data.Movie.sort((a,b)=> a.id - b.id);
+      return response.data.Movie;
+  }
+);
 
 export const movieSlice = createSlice({
   name: 'movie',
@@ -54,6 +74,14 @@ export const movieSlice = createSlice({
       .addCase(getMovieAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         state.movies = action.payload;
+      })
+      .addCase(getComingMovieAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.coming = action.payload;
+      })
+      .addCase(getNowPlayingMovieAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.nowPlaying = action.payload;
       })
       .addCase(deleteMovieAsync.fulfilled, (state, action) => {
         state.isLoading = false;

@@ -9,12 +9,6 @@ import "slick-carousel/slick/slick-theme.css";
 import API from 'api';
 import './home.css'
 
-import SwiperComponent from '../../components/Swiper/SwiperComponent'
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Pagination, Navigation } from "swiper/core";
-import { useSelector, useDispatch } from "react-redux";
-import { getMovies as listMovies } from "../../redux/action/movieAction";
-
 import './style.css'
 const cineplex = [
   {
@@ -60,22 +54,18 @@ export default function Cineplex(props){
     }
       fetchData()
   }, []);
-
-  function handleClick() {
-    <Link to='/booking'></Link>
-  }
  
   return(
     <div  >
     <h2 className="title">CHOOSE A CINEPLEX</h2>
 
            <div className="main_content">
-           {cineplex.map((user)=>
-             <div  key={user.id}>
+           {cineplex.map((cineplex)=>
+             <div  key={cineplex.id}>
                 <div className="card"  >
-                       <img src={user.img}/>
-                       <Link to={`detail/booking/${user.id}`}>
-                       <h2>{user.name}</h2>
+                       <img src={cineplex.img} alt={cineplex.id}/>
+                       <Link to={`detail/booking/${cineplex.id}`}>
+                       <h2>{cineplex.name}</h2>
                        </Link>
                 </div>
              </div>

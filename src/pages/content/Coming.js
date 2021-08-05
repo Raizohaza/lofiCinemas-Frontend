@@ -1,45 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { getComingMovieAsync } from '../../features/movie/movieSlice';
+import { useSelector, useDispatch } from "react-redux";
 
 import SwiperComponent from '../../components/Swiper/SwiperComponent'
-
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
-
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/swiper.min.css";
-
-
-import { selectMovie , getMovieAsync} from '../../features/movie/movieSlice';
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getMovies as listMovies } from "../../redux/action/movieAction";
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import './style.css'
-
+import './style.css';
 SwiperCore.use([Pagination, Navigation]);
 
-export default function Comming(){
+export default function Coming(){
     const dispatch = useDispatch();
-    let moviesList = useSelector(selectMovie);
+    let moviesList = useSelector((state) => state.movie.coming);
     const Loading = useSelector((state) => state.movie.isLoading);
-    let data =[];
-    if(moviesList.length <1 ){
-      dispatch(getMovieAsync());
-    }
-    moviesList = moviesList.map((moviesList)=>{
-      if(moviesList.Status == "Comming Soon")
-          data.push(moviesList);
-    })
+    
+    useEffect(()=>{
+      async function fn(){
+        dispatch(getComingMovieAsync());
+      }
+      fn();
+      
+    },[])
     return(
         <div className="col-lg-12">
-            {data && Object.values(data).length > 0 && (
+            {moviesList && Object.values(moviesList).length > 0 && (
                 <div className="article-section padding-bottom">
                   <div className="section-header-1">
-                    <h2 className="title">Popular</h2>
+                    <h2 className="title">Coming Soon</h2>
                   </div>
                   <Swiper                 
                     navigation
@@ -50,8 +40,8 @@ export default function Comming(){
                     lazy={true}
                     slidesPerGroup={4}
                   >
-                    {data &&
-                      data.map((item, index) => ( 
+                    {moviesList &&
+                      moviesList.map((item, index) => ( 
                         <SwiperSlide key={index}>
                           <SwiperComponent movie={item} />
                         </SwiperSlide>
@@ -61,8 +51,5 @@ export default function Comming(){
                 </div>
               )}
         </div>
-            
-        
     );
-        
 }

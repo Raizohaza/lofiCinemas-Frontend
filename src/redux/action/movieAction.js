@@ -19,10 +19,10 @@ export const getMovies = () => async (dispatch) => {
     });
   }
 };
-export const getMoviesCommingsoon = () => async (dispatch) => {
+export const getMoviesComingSoon = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_MOVIES_REQUEST });
-    const { data } = await axios.get("/commingsoon");
+    const { data } = await axios.get("/comingSoon");
     dispatch({
       type: actionTypes.GET_MOVIES_SUCCESS,
       payload: data,
