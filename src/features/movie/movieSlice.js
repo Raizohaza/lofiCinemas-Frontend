@@ -6,7 +6,8 @@ const initialState = {
     isLoading:false,
     isReload:false,
     hot:[],
-    nowPlaying:[]
+    nowPlaying:[],
+    selectedMovie:{}
 }
 export const addMovieAsync = createAsyncThunk(
   'movie/addMovie',
@@ -28,6 +29,14 @@ export const deleteMovieAsync = createAsyncThunk(
   async (action) => {
       await API.delete(`/movie/`+action.id);
       return action.id;
+  }
+);
+
+export const getMovieByIdAsync = createAsyncThunk(
+  'movie/getMovieById',
+  async (action) => {
+      const res = await API.get(`/movie/`+action);
+      return res.data;
   }
 );
 
@@ -75,6 +84,13 @@ export const movieSlice = createSlice({
         state.isLoading = false;
         state.movies = action.payload;
       })
+      .addCase(getMovieByIdAsync.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(getMovieByIdAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.selectedMovie = action.payload;
+      })
       .addCase(getComingMovieAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         state.coming = action.payload;
@@ -97,6 +113,7 @@ export const movieSlice = createSlice({
 });
 
 export const selectMovie = (state) => state.movie.movies;
+
 
 export const { getMovie,reloadData } = movieSlice.actions;
 

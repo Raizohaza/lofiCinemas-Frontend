@@ -1,31 +1,31 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getMovieDetails } from "../../redux/action/movieAction";
+import { getMovieByIdAsync } from 'features/movie/movieSlice';
 
 import './detail.css'
 
-export default function Detail({match})
+export default function Detail()
 {
     const dispatch = useDispatch();
-    const movieDetails = useSelector((state) => state.getMovieDetails);
-    const { loading, error, movies } = movieDetails;
+    let {id} = useParams();
+    const movies = useSelector((state) => state.movie.selectedMovie);
+    const isLoading = useSelector((state) => state.movie.isLoading);
     useEffect(() => {
-        if (match) {
-          dispatch(getMovieDetails(match.params.id));
+        if (id) {
+          dispatch(getMovieByIdAsync(id));
         }
-      }, [dispatch, match]);
-
+      }, [dispatch, id]);
+    console.log(movies);
+    console.log(id);
     return(
         <div className="aw">
-            {loading ? (
+            {isLoading ? (
               <h2 >Loading...</h2>
-            ) : error ? (
-              <h2>{error}</h2>
             ) : (
             <div className='detail'>
                 <div className="item-info">

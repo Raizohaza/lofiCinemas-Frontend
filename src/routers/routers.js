@@ -5,6 +5,7 @@ import {Header} from "../pages/header/header"
 import HomeRoute from "./home.router";
 import DetailRoute from "./detail.router";
 import LoginRoute from "./login.router";
+import VerifyRoute from "./verify.router";
 import ResetRoute from "./reset.router";
 import RegisterRoute from "./register.router";
 import BookingRoute from "./booking.router";
@@ -41,6 +42,7 @@ function Routers() {
       <AdminRoute/>
       <ProfileRoute/>
       <HistoryRoute/>
+      <VerifyRoute/>
       <CheckoutRoute/>
       <Cineplexrouter/>
       <Footer/>

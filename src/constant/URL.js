@@ -13,4 +13,5 @@ exports.URL = {
     CHECKOUT:"/detail/booking/checkout",
     CINEPLEX:"/cineplex",
     HISTORY:"/history",
+    VERIFY:"/verify",
   };
