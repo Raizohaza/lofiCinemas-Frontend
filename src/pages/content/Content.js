@@ -38,11 +38,11 @@ export default function Content(){
                   <Swiper                 
                     navigation
                     pagination
-                    slidesPerView={4}
+                    slidesPerView={6}
                     spaceBetween={0}
                     allowTouchMove={true}
                     lazy={true}
-                    slidesPerGroup={4}
+                    slidesPerGroup={6}
                   >
                     {movies &&
                       movies.map((item, index) => (
