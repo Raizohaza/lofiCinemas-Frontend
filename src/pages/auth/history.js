@@ -5,14 +5,15 @@ import { selectBooking , getBookingAsync} from '../../features/booking/bookingSl
 export default function BookingList() {
     const dispatch = useDispatch();
     let bookingList = useSelector(selectBooking);
-    //console.log(bookingList);
+    let curUser =  useSelector(state=> state.user);
+ 
     if(bookingList.length === 0 || bookingList.length ===1){
       dispatch(getBookingAsync());
     }
     let dem = 1;
     let data =[];
     bookingList = bookingList.map((bookingList)=>{
-      if(localStorage.UID == bookingList.UserId)
+      if(curUser.User.id == bookingList.UserId)
           data.push(bookingList);
     })
     let components = data.map((booking) =>

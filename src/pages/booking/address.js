@@ -4,8 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
+import { useSelector } from 'react-redux';
 export default function AddressForm() {
+  let curUser =  useSelector(state=> state.user);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -16,7 +17,7 @@ export default function AddressForm() {
           <TextField
             required
             id="firstName"
-            value={localStorage.Email}
+            value={curUser.User.Email}
             fullWidth
             autoComplete="given-name"
           />
@@ -25,7 +26,7 @@ export default function AddressForm() {
           <TextField
             required
             id="lastName"
-            value={localStorage.Tel}
+            value={curUser.User.Tel}
             fullWidth
             autoComplete="family-name"
           />
