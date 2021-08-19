@@ -55,10 +55,11 @@ export function CinemaForm(curr,action) {
             CineplexId: CineplexId,
          }
          e.preventDefault();
-         console.log(data);
-         dispatch( action({...data}));
-         dispatch(getCinemaAsync());
-         history.push("/admin/cinema",{update:true});   
+         dispatch(action({...data}));
+         setTimeout(() => {
+            dispatch(getCinemaAsync());
+            history.push("/admin/cinema");   
+         }, 100);
        }
        }>
        <div className="row">

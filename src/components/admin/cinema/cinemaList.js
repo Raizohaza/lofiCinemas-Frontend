@@ -9,7 +9,6 @@ const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
 {
   const dispatch = useDispatch();
   const history = useHistory();
-
   return(
     <tr key={cinema.id}>
       <td>{cinema.id}</td>
@@ -27,7 +26,7 @@ const mapCinemaList = cinemaList => cinemaList.map((cinema) =>
             <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteCinemaAsync({id:cinema.id}));
-              history.push('/admin/cinema',{update: false});
+              history.push('/admin/cinema');
             }}>Delete</Button>
           </td>
     </tr>
@@ -41,17 +40,20 @@ export function CinemaList() {
     const cineplexList = useSelector(selectCineplex);
     const [cinemaState, setCinemaState] = useState(cinemaList);
     const [loading, setLoading] = useState(true);
-
-    if(cinemaList.length === 0 || cinemaList.length ===1){
+    useEffect(()=>{
+      const fetchData = async ()=>{
         dispatch(getCineplexAsync());
-        dispatch(getCinemaAsync());
-    }
+        dispatch(getCinemaAsync()); 
+      }
+      fetchData();
+   },[]);
+
+    
     let components = mapCinemaList(cinemaState);
 
     useEffect(()=>{const fetchData = async ()=>{
         setLoading(true);
-        let res = await cinemaList;
-        setCinemaState(res);
+        setCinemaState(cinemaList);
         setLoading(false);
     }
     fetchData();
@@ -65,7 +67,9 @@ export function CinemaList() {
         return(
           <Dropdown.Item onClick = {(e)=>{
             e.preventDefault();
+            console.log(cinemaList,cinemaState);
             cinemaList = cinemaList.filter((cinema)=>cinema.CineplexId === cineplex.id);
+
             setCinemaState(cinemaList);
             console.log(cinemaList);
           }}>

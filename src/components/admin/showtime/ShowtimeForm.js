@@ -6,6 +6,9 @@ import { getCinemaAsync, selectCinema } from '../../../features/cinema/cinemaSli
 import { getMovieAsync, selectMovie } from '../../../features/movie/movieSlice';
 import { getCineplexAsync, selectCineplex } from "features/cineplex/cineplexSlice";
 import { getShowtimeAsync } from "features/showtime/showtimeSlice";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+
 export function ShowtimeForm(curr,action) {
    const dispatch = useDispatch();
    let history = useHistory();
@@ -21,6 +24,7 @@ export function ShowtimeForm(curr,action) {
    const movieList = useSelector(selectMovie);
    const [MovieName, setMovieName] = useState("");
    const cineplexList = useSelector(selectCineplex);
+   const [startDate, setStartDate] = useState(new Date());
    useEffect(()=>{
    const fetchData = async ()=>{
       if(cineplexList.length < 1){
@@ -84,16 +88,19 @@ export function ShowtimeForm(curr,action) {
          e.preventDefault();
          let data = {
             id: curr.id,
-            TimeBegin: TimeBegin,
-            DateShow : DateShow,
+            TimeBegin: moment(TimeBegin).format('h:mm:ss a'),
+            DateShow : moment(DateShow).format('DD-MMM-YYYY'),
             Price : Price,
             CinemaId : CinemaId,
             MovieId : MovieId,
          }
          console.log(data);
          dispatch(action({...data}));
-         dispatch(getShowtimeAsync());
-         history.push("/admin/showtime");   
+         setTimeout(() => {
+            dispatch(getShowtimeAsync());
+            history.push("/admin/showtime");  
+         }, 100);
+          
       }
       }>
       <div className="row">
@@ -101,25 +108,26 @@ export function ShowtimeForm(curr,action) {
             <div className="row">
                <div className="col-12 form-group">
                   <label htmlFor="TimeBegin">TimeBegin</label>
-                  <input 
-                     id="TimeBegin"
-                     name="TimeBegin"
-                     type="text" 
-                     className="form-control" 
-                     placeholder={TimeBegin}
-                     value={TimeBegin}
-                     onChange={e => setTimeBegin(e.target.value)}
+                  <DatePicker
+                     selected={TimeBegin}
+                     placeholder="Not selected"
+                     className="form-control"
+                     onChange={(date) => setTimeBegin(date)}
+                     showTimeSelect
+                     showTimeSelectOnly
+                     timeIntervals={15}
+                     timeCaption="Time"
+                     dateFormat="h:mm aa"
                   />
                </div>
                <div className="col-12 form_gallery form-group">
                   <label htmlFor="DateShow">DateShow</label>
-                  <input 
-                     id="DateShow"
-                     type="text" 
-                     className="form-control" 
-                     placeholder="DateShow" 
-                     value={DateShow}
-                     onChange={e => setDateShow(e.target.value)}
+                  <DatePicker
+                     className="form-control"
+                     placeholder="Not selected"
+                     DatePicker 
+                     selected={DateShow} 
+                     onChange={(date) => setDateShow(date)} 
                   />
                </div>
                <div className="col-12 form_gallery form-group">

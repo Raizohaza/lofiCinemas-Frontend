@@ -1,7 +1,7 @@
 import {Table,Button} from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux';
 import { Link,useHistory } from 'react-router-dom';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { selectShowtime , getShowtimeAsync,deleteShowtimeAsync} from '../../../features/showtime/showtimeSlice';
 import DatePicker from "react-datepicker"; //import reat-datepicker module
 import "react-datepicker/dist/react-datepicker.css"; //import reat-datepicker module css
@@ -9,13 +9,15 @@ import { FiCalendar } from "react-icons/fi";
 export function ShowtimeList() {
     const dispatch = useDispatch();
     const showtimeList = useSelector(selectShowtime);
-    console.log(showtimeList);
     const DatePickerCustomInput = React.forwardRef(
       ({ onClick }, ref) => (<div className="calendar_icon"><FiCalendar onClick={onClick} /></div>));
-    if(showtimeList.length === 0 || showtimeList.length ===1){
-      dispatch(getShowtimeAsync());
-      
-    }
+    useEffect(()=>{
+      const fetchData = async ()=>{
+        dispatch(getShowtimeAsync());
+      }
+      fetchData();
+    },[]);
+    
     let dem = 1;
     const ref = React.createRef();
     let history = useHistory();
@@ -42,7 +44,10 @@ export function ShowtimeList() {
             <Button onClick={(e)=>{
               e.preventDefault();
               dispatch(deleteShowtimeAsync({id:showtime.id}));
-              history.push('/admin/showtime');
+              setTimeout(() => {
+                dispatch(getShowtimeAsync());
+                history.push('/admin/showtime');
+              }, 100);
             }}>Delete</Button>
           </td>
         </tr>
@@ -51,12 +56,12 @@ export function ShowtimeList() {
     );
     return (
       <div>
+        <Button onClick={handleClick}>
+        Add
+        </Button>
         <DatePicker
         customInput={<DatePickerCustomInput ref={ref} />}
         />
-        <Button onClick={handleClick}>
-        Add
-        </Button>   
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>
