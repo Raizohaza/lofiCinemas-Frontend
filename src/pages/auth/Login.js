@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { 
     faFacebook,
+    faGoogle
     } from '@fortawesome/free-brands-svg-icons'
 import FacebookLogin from 'react-facebook-login';
 
@@ -61,9 +62,9 @@ class login extends Component {
             <form className="login" onSubmit={this.handleSubmit}>
                 <img className="logo-login" src={logo} alt=""></img>
                 <div className="field-input">
-                    <p>Email:</p>
+                    <p className="texture">Email:</p>
                     <input  onChange={e =>this.Email=e.target.value}  className="input" type="email"  />
-                    <p>Password:</p>
+                    <p className="texture">Password:</p>
                     <input  onChange={e =>this.Password=e.target.value} className="input" type="password" />
                 </div>
                 <p> OR </p>
@@ -72,17 +73,21 @@ class login extends Component {
                             appId="835649640710124"
                             fields="name,email,picture"
                             callback={this.responseFacebook}
-                            icon={<FontAwesomeIcon icon={faFacebook}/>}
+                            size="small"
+                            textButton=""
+                            icon={<FontAwesomeIcon icon={faFacebook} />}
                             onClick={()=>{<Link to={`/`}/>}}
                         />
                         <GoogleLogin
                             clientId="552583281067-aeqqgkbg4kdutpdfh5venrvanplmhaev.apps.googleusercontent.com"
-                            buttonText="Login"
                             onSuccess={this.responseGoogle}
                             onFailure={this.responseGoogle}
                             cookiePolicy={'single_host_origin'}
+                            buttonText=""
                             icon={true}
+                            
                         />
+                        
                 </div>
                 <button  type='submit' className="btn-login">
                     <p className="text-in-button">Login</p>
