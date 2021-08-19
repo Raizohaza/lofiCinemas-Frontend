@@ -39,11 +39,6 @@ class RsPassword extends Component{
                 <button  type='submit' onClick={this.handleSubmit}  className="btn-request">
                     <p className="text-in-button">Send request</p>
                 </button>
-                <Link to="/login">
-                    <button  type='submit' className="btn-cancel">
-                        <p className="text-in-button">Cancel</p>
-                    </button>
-                </Link>
                 
             </div>
         );
