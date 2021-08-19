@@ -23,7 +23,7 @@ export function MovieList() {
                 alt="..."/></td>
           <td>{movie.ReleaseDate}</td>
           <td>{movie.Duration}</td>
-          <td>{movie.Description}</td>
+          {/* <td>{movie.Description}</td> */}
           <td>{movie.Status}</td>
           <td>
             <Button>
@@ -50,7 +50,7 @@ export function MovieList() {
               <th>Poster</th>
               <th>Release Date</th>
               <th>Duration</th>
-              <th>Description</th>
+              {/* <th>Description</th> */}
               <th>Status</th>
               <th>Action</th>
               <th>Delete</th>

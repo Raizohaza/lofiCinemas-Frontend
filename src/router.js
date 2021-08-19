@@ -36,17 +36,17 @@ const sideBarRoutes = [
     layout: "/admin",
   },
   {
-    path: "/showtime",
-    name: "Showtime List",
-    icon: "nc-icon nc-layers-3",
-    component: ShowtimeList,
-    layout: "/admin",
-  },
-  {
     path: "/cinema",
     name: "Cinema List",
     icon: "nc-icon nc-tablet-2",
     component: CinemaList,
+    layout: "/admin",
+  },
+  {
+    path: "/showtime",
+    name: "Showtime List",
+    icon: "nc-icon nc-layers-3",
+    component: ShowtimeList,
     layout: "/admin",
   },
   {

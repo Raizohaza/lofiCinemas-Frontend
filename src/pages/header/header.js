@@ -51,22 +51,22 @@ export function Header(){
                       <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
                         {cUser.loggedIn?
                         <>                          
-                        <Dropdown.Item>
-                          <Link to={`/profile/${cUser.User.id}`}>Profile</Link>
-                        </Dropdown.Item>
-                        <Dropdown.Item>
-                          <Link to={`/history`}>History</Link>
-                        </Dropdown.Item>
-                        {cUser.Role == "admin" ?
-                        <Dropdown.Item>
-                        <Link to={`/admin/dashboard`}>Admin</Link>
-                      </Dropdown.Item> :<div></div>
-                        }
-                        <Dropdown.Item>
-                          <Link to={`/`} onClick={(e)=>{
-                            dispatch(logOut());
-                          }} >Log out</Link>
-                        </Dropdown.Item>
+                          <Dropdown.Item>
+                            <Link to={`/profile/${cUser.User.id}`}>Profile</Link>
+                          </Dropdown.Item>
+                          <Dropdown.Item>
+                            <Link to={`/history`}>History</Link>
+                          </Dropdown.Item>
+                          {cUser.role === "admin" ?
+                            <Dropdown.Item>
+                              <Link to={`/admin/dashboard`}>Admin</Link>
+                            </Dropdown.Item> :<div></div>
+                          }
+                          <Dropdown.Item>
+                            <Link to={`/`} onClick={(e)=>{
+                              dispatch(logOut());
+                            }} >Log out</Link>
+                          </Dropdown.Item>
                         </>
                         :
                         <>

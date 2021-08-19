@@ -2,8 +2,8 @@ import { useState,useEffect } from "react";
 import {Dropdown,ButtonGroup} from 'react-bootstrap';
 import { useDispatch,useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { selectCinema} from '../../../features/cinema/cinemaSlice';
-import { selectCineplex } from '../../../features/cineplex/cineplexSlice';
+import { getCinemaAsync, selectCinema} from '../../../features/cinema/cinemaSlice';
+import { selectCineplex,getCineplexAsync } from '../../../features/cineplex/cineplexSlice';
 export function CinemaForm(curr,action) {
     const dispatch = useDispatch();
     let history = useHistory();
@@ -16,6 +16,16 @@ export function CinemaForm(curr,action) {
     const cineplexList = useSelector(selectCineplex);
     let cinemaList = useSelector(selectCinema);
     const [cinemaState, setCinemaState] = useState(cinemaList);
+    useEffect(()=>{
+      const fetchData = async ()=>{
+         console.log(cineplexList);
+         if(cineplexList.length < 1){
+            dispatch(getCineplexAsync());
+         }
+      }
+      fetchData();
+   },[]);
+
     let dropdownItem = cineplexList.map((cineplex)=>{
       return(
         <Dropdown.Item onClick = {(e)=>{
@@ -27,9 +37,10 @@ export function CinemaForm(curr,action) {
         </Dropdown.Item>
       )
     });
-    useEffect(()=>{const fetchData = async ()=>{
-      let res = await cinemaList;     
-      setCinemaState(res);
+    
+    useEffect(()=>{
+      const fetchData = async ()=>{   
+         setCinemaState(cinemaList);
       }
       fetchData();
    },[cinemaList]);
@@ -44,9 +55,11 @@ export function CinemaForm(curr,action) {
             CineplexId: CineplexId,
          }
          e.preventDefault();
-         console.log(data);
-         dispatch( action({...data}));
-         history.push("/admin/cinema",{update:true});   
+         dispatch(action({...data}));
+         setTimeout(() => {
+            dispatch(getCinemaAsync());
+            history.push("/admin/cinema");   
+         }, 100);
        }
        }>
        <div className="row">

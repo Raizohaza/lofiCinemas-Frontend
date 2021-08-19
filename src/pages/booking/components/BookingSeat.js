@@ -4,13 +4,13 @@ import '../styles.css'
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import Checkout from '../checkout';
 export default function BookingSeat(selectedShowtime){
     const [bookedSeat, setBookedSeat] = useState([]);
     const [selectedSeat, setSelectedSeat] = useState([]);
+    const [payingState, setPayingState] = useState(false);
     let history = useHistory();
-    let curUser =  useSelector(state=> state.user);
-    // console.log(selectedSeat);
+
 
     useEffect(() => { 
         async function fetchData(){
@@ -82,18 +82,17 @@ export default function BookingSeat(selectedShowtime){
 
     return(
         <>
-            <div className="screen-wrapper">
-              <div className="seat-area couple">
-                <div className="seat-line">
-                  {renderSeat()}
+            {payingState?<Checkout/>:
+              <div className="screen-wrapper">
+                <div className="seat-area couple">
+                  <div className="seat-line">
+                    {renderSeat()}
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {selectedShowtime&&localStorage.UID && <button className="btn-book" onClick={()=>{
+            }
+            {selectedShowtime&&!payingState&&localStorage.UID && <button className="btn-book" onClick={()=>{
             let prices = selectedSeat.map(item =>45000);
-            let sumPrice = 0;
-            // console.log(sumPrice);
             let data = {
             DateTime: new Date(),
             createdAt: new Date(),
@@ -103,15 +102,20 @@ export default function BookingSeat(selectedShowtime){
             Seats: selectedSeat,
             Price: prices
             }
+            localStorage.setItem('DateTime',data.DateTime)
+            localStorage.setItem('ShowTimeId',data.ShowTimeId)
+            localStorage.setItem('Seats',data.Seats)
+            localStorage.setItem('Price',prices)
+            setPayingState(true);
             // console.log(data);
-            API.post('/booking/add',data).then(res =>{
-                localStorage.setItem('DateTime',data.DateTime)
-                localStorage.setItem('ShowTimeId',data.ShowTimeId)
-                localStorage.setItem('Seats',data.Seats)
-                localStorage.setItem('Price',sumPrice)
-                console.log(res.data)
-            });
-            history.push('checkout');
+            // API.post('/booking/add',data).then(res =>{
+            //     localStorage.setItem('DateTime',data.DateTime)
+            //     localStorage.setItem('ShowTimeId',data.ShowTimeId)
+            //     localStorage.setItem('Seats',data.Seats)
+            //     localStorage.setItem('Price',sumPrice)
+            //     console.log(res.data)
+            // });
+            //history.push('checkout');
             } 
         }>
         Đặt vé
