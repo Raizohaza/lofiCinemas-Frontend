@@ -3,11 +3,13 @@ import API from 'api';
 import '../styles.css'
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function BookingSeat(selectedShowtime){
     const [bookedSeat, setBookedSeat] = useState([]);
     const [selectedSeat, setSelectedSeat] = useState([]);
     let history = useHistory();
+    let curUser =  useSelector(state=> state.user);
     // console.log(selectedSeat);
 
     useEffect(() => { 

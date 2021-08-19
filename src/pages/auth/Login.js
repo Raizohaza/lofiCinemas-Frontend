@@ -12,8 +12,8 @@ import FacebookLogin from 'react-facebook-login';
 
 import './login.css'
 import logo from '../../assets/img/login.jpg'
-import { userLogin } from "features/user/userSlice";
-import api from "api";
+import { userLogin, userLoginFacebook, userLoginGoogle } from "features/user/userSlice";
+
 import GoogleLogin from "react-google-login";
 
 class login extends Component {
@@ -23,52 +23,30 @@ class login extends Component {
       }
     componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    if (this.props.User !== prevProps.User) {
-        localStorage.setItem('UID',this.props.User.id);
-        localStorage.setItem('Email',this.props.User.Email);
-        localStorage.setItem('Name',this.props.User.Name);
-        localStorage.setItem('Tel',this.props.User.Tel);
-        localStorage.setItem('Role',this.props.User.Role);
-        this.setState({
-            loggedIn:this.props.loggedIn,
-            Role: this.props.role,
-        });
-        this.setState(this.props.User);
-        console.log(this.props.User);
-        
-    }
+        if (this.props.User !== prevProps.User) {
+            
+            this.setState({
+                loggedIn:this.props.loggedIn,
+                Role: this.props.role,
+            });
+            this.setState(this.props.User);
+            // console.log(this.props.User);
+        }
     }
     responseFacebook(res) {
-        localStorage.setItem('UID',res.id);
-        localStorage.setItem('Email',res.email);
-        localStorage.setItem('Name',res.name);
-        localStorage.setItem('Role',res.Role);
-        localStorage.setItem('fbId',res.userID);
-        console.log(res);
-        api.post('/user/auth/loginFacebook',{Email:res.email,Name:res.name,Role:res.role,facebookId:res.userID,Verify:true})
+        this.props.dispatch(userLoginFacebook({Email:res.email,Name:res.name,Role:'user',facebookId:res.userID,Verify:true}));
     }
     responseGoogle = (res) => {
-        localStorage.setItem('UID',res.ct.KS);
-        localStorage.setItem('Role',res.Role);
-        localStorage.setItem('Email',res.ct.Mt);
-        localStorage.setItem('Name',res.ct.Ue);
-        localStorage.setItem('ggId',res.googleId);
-        api.post('/user/auth/loginGoogle',{Email:res.ct.Mt,Name:res.ct.Ue,Role:res.role,googleId:res.googleId,Verify:true})
+        this.props.dispatch(userLoginGoogle({Email:res.ct.Mt,Name:res.ct.Ue,Role:'user',googleId:res.googleId,Verify:true}));
       }
     handleSubmit = e =>{
         e.preventDefault();
         const User ={
             Email:this.Email,
             Password:this.Password,
-            Role:this.Role
+            Role:'user'
         };
         this.props.dispatch(userLogin(User));
-        console.log(this.props);
-        // this.setState({
-        //     loggedIn:this.props.loggedIn,
-        //     Role: this.props.role,
-        // });
-        // this.setState(this.props.User);
     };
 
     render(){
