@@ -8,9 +8,9 @@ const initialState = {
       Email: localStorage.Email,
       Name: localStorage.Name,
       Tel: localStorage.Tel,      
-    }|{},
+    }||{},
     loggedIn:localStorage.UID? true:false,
-    role:localStorage.Role|''
+    role:localStorage.Role||''
 }
 console.log(localStorage);
 export const userLogin = createAsyncThunk(
@@ -48,27 +48,28 @@ export const UserSlice = createSlice({
       localStorage.clear();
     },
     setUser: (state,action) => {
-      console.log(action.payload);
-      state.User = action.payload;
+      console.log(action);
+      localStorage.setItem('UID',action.id);
+      localStorage.setItem('Email',action.Email);
+      localStorage.setItem('Name',action.Name);
+      localStorage.setItem('Tel',action.Tel);
+      localStorage.setItem('Role',action.Role);
+      state.User = action;
       state.loggedIn = true;
-      state.role = action.payload;
-      localStorage.setItem('UID',action.payload.id);
-      localStorage.setItem('Email',action.payload.Email);
-      localStorage.setItem('Name',action.payload.Name);
-      localStorage.setItem('Tel',action.payload.Tel);
-      localStorage.setItem('Role',action.payload.Role);
+      state.role = action.Role;
+      
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(userLogin.fulfilled, (state, action) => {
-        setUser(action.payload.user);
+        UserSlice.caseReducers.setUser(state,action.payload.user);
       })
       .addCase(userLoginFacebook.fulfilled, (state, action) => {
-        setUser(action.payload.user);
+        UserSlice.caseReducers.setUser(state,action.payload.user);
       })
       .addCase(userLoginGoogle.fulfilled, (state, action) => {
-        setUser(action.payload.user);
+        UserSlice.caseReducers.setUser(state,action.payload.user);
       });
   },
 });
