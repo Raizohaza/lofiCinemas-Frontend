@@ -1,3 +1,4 @@
+import { getMovieAsync } from "features/movie/movieSlice";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -26,6 +27,7 @@ export function MovieForm(curr,action) {
          e.preventDefault();
          console.log(data);
          dispatch(action({...data}));
+         dispatch(getMovieAsync());
          history.push("/admin/table");
        }
        }>

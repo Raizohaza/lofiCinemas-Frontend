@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-
+import { getCineplexAsync } from "features/cineplex/cineplexSlice";
 export function CineplexForm(curr,action) {
     const dispatch = useDispatch();
     let history = useHistory();
@@ -17,6 +17,7 @@ export function CineplexForm(curr,action) {
          e.preventDefault();
          console.log(data);
          dispatch(action({...data}));
+         dispatch(getCineplexAsync());
          history.push("/admin/cineplex");   
        }
        }>

@@ -6,17 +6,12 @@ import { selectBooking , getBookingAsync} from '../../../features/booking/bookin
 export function BookingList() {
     const dispatch = useDispatch();
     const bookingList = useSelector(selectBooking);
-    //console.log(bookingList);
     if(bookingList.length === 0 || bookingList.length ===1){
       dispatch(getBookingAsync());
-      
     }
     let dem = 1;
-  let history = useHistory();
+    let history = useHistory();
 
-  function handleClick() {
-    history.push("/admin/booking/add");
-  }
     let components = bookingList.map((booking) =>
     {
       return(
@@ -32,9 +27,6 @@ export function BookingList() {
     );
     return (
       <div>
-        <Button onClick={handleClick}>
-        Add
-        </Button>
         <Table striped bordered hover variant="dark">
           <thead>
             <tr>

@@ -41,18 +41,13 @@ export function CinemaList() {
     const cineplexList = useSelector(selectCineplex);
     const [cinemaState, setCinemaState] = useState(cinemaList);
     const [loading, setLoading] = useState(true);
-    // let selectedCineplex = null;
+
     if(cinemaList.length === 0 || cinemaList.length ===1){
         dispatch(getCineplexAsync());
         dispatch(getCinemaAsync());
     }
     let components = mapCinemaList(cinemaState);
-    // useEffect(()=>{const fetchData = async()=>{
-    //     let res = await API.get(`http://localhost:5000/cinemas`);     
-    //     setCinemaState(res);
-    // }
-    // fetchData();
-    // },[]);
+
     useEffect(()=>{const fetchData = async ()=>{
         setLoading(true);
         let res = await cinemaList;
@@ -77,10 +72,10 @@ export function CinemaList() {
               {cineplex.Name}
           </Dropdown.Item>
         )
-      });
-      if (loading) {
-        return <p>loading..</p>;
-      }  
+    });
+    if (loading) {
+      return <p>loading..</p>;
+    }  
     return (
       <Fragment>
       <div>
