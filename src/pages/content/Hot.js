@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
 
 import "swiper/components/pagination/pagination.min.css";
+import 'swiper/components/navigation/navigation.scss';
 import "swiper/swiper.min.css";
 
 
@@ -18,7 +19,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import API from 'api';
 import './style.css'
-import { Typography } from '@material-ui/core';
+import { Card, Typography } from '@material-ui/core';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -61,7 +62,7 @@ export default function Hot(){
     moviesList = moviesList.map((moviesList)=>{
        data.push(moviesList);
     })
-    console.log(data);
+
     return(
         <div className="col-lg-12">
             {data && Object.values(data).length > 0 && (
@@ -73,16 +74,18 @@ export default function Hot(){
                   <Swiper                 
                     navigation
                     pagination
-                    slidesPerView={6}
+                    slidesPerView={5}
                     spaceBetween={0}
                     allowTouchMove={true}
                     lazy={true}
-                    slidesPerGroup={6}
+                    slidesPerGroup={5}
                   >
                     {data &&
                       data.map((item, index) => ( 
                         <SwiperSlide key={index}>
+                          <Card className="root">
                           <SwiperComponent movie={item} />
+                          </Card>
                         </SwiperSlide>
                       ))}
                   </Swiper>

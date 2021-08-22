@@ -1,7 +1,7 @@
 .swipercomponent {
     .movie-thumb {
       img {
-        height: 420px;
+        height: 380px;
         object-fit: cover;
         object-position: center;
         @media (max-width: 768px) {
@@ -9,19 +9,53 @@
         }
       }
     }
+    .media {
+      display: flex;
+      flex-direction: column;
+      width: 200px;
+      padding: 5px;
+      margin: 5px 0;
+      background-color: #282c34;
+      border-radius: 10px;
+      position: relative;
+      font-family: "Montserrat", sans-serif;
+    }
 
+    .subTitle {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 3px;
+      padding: 0 15px;
+      padding-bottom: 3px;
+    }
     .movie-grid{
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      background-color: #282c34;
+      position: relative;
+      font-family: "Montserrat", sans-serif;
     }
+    .movie-grid:hover {
+      background-color: white;
+      color: black;
+    }
+    .hover-btn {
+      background: rgb(59, 78, 97);
+      color: #000;
+      padding: 8px 10px;
+      border-radius: 5px;
+      display: inline-block;
+  }
     .bg-one {
       height: unset;
     }
     .title {
-      font-size: 15px !important;
+      width: 100%;
       text-align: center;
+      font-size: 20px;
+      padding: 8px 0;
     }
 
     .text-align{
@@ -48,4 +82,5 @@
         padding-left: 0;
       }
     }
+    
   }

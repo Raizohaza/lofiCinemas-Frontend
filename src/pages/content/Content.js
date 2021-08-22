@@ -10,10 +10,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getNowPlayingMovieAsync } from 'features/movie/movieSlice';
 
 import "swiper/components/pagination/pagination.min.css";
+import 'swiper/components/navigation/navigation.scss';
 import "swiper/swiper.min.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './style.css'
+import { Card } from '@material-ui/core';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -38,18 +40,20 @@ export default function Content(){
                   <Swiper                 
                     navigation
                     pagination
-                    slidesPerView={6}
+                    slidesPerView={5}
                     spaceBetween={0}
                     allowTouchMove={true}
                     lazy={true}
-                    slidesPerGroup={6}
+                    slidesPerGroup={5}
                   >
                     {movies &&
                       movies.map((item, index) => (
                         <SwiperSlide 
                           key={index}                        
                         >
+                          <Card className="root">
                           <SwiperComponent movie={item} />
+                          </Card>
                         </SwiperSlide>
                       ))}
                   </Swiper>

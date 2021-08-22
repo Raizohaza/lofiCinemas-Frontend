@@ -30,7 +30,7 @@ function Routers() {
   }, []);
 
   return (
-    <div>
+    <div className="home-bg2">
     <Router>
       <Header/>
       <LoginRoute/>

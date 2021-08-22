@@ -8,8 +8,8 @@ function SwiperComponent({ movie }) {
   return (
     <div className="swipercomponent">
       {movie && (
-        <>
         <div className="movie-grid">
+        <div >
           <div className="movie-thumb c-thumb">
             <Link to={`detail/${movie.id}`}>
               <img src={movie.Poster} alt="movie" />
@@ -22,25 +22,19 @@ function SwiperComponent({ movie }) {
           </div>
         </div>
         <div className="detail-background">
-            <CardContent className="content">
-              <Typography component="h5" variant="h5">
-                Status:{movie.Status} 
-              </Typography>
-              <Typography variant="subtitle1" color="textSecondary">
-                Duration:{movie.Duration}
-              </Typography>
-            </CardContent>
+            <span className="subTitle">
+            {movie.Status}
+              <span className="subTitle"> Time:{movie.Duration} min</span>
+            </span>
             <div className="controls">
-              <Button >
-                <Card>
+              <Button className="hover-btn">
                   <Link to={`detail/booking/${movie.id}`}>
                     Book Ticket
                     </Link>
-                </Card>
               </Button>
             </div>
           </div>
-        </>
+        </div>
       )}
       
     </div>

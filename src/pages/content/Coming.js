@@ -8,16 +8,10 @@ import SwiperCore, { Pagination, Navigation } from "swiper/core";
 
 import "swiper/components/pagination/pagination.min.css";
 import "swiper/swiper.min.css";
+import 'swiper/components/navigation/navigation.scss';
 
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 
-import { selectMovie , getMovieAsync} from '../../features/movie/movieSlice';
+import { selectMovie , getMovieAsync,getComingMovieAsync} from '../../features/movie/movieSlice';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getMovies as listMovies } from "../../redux/action/movieAction";
@@ -35,7 +29,7 @@ export default function Coming(){
     const Loading = useSelector((state) => state.movie.isLoading);
     let data =[];
     if(moviesList.length <1 ){
-      dispatch(getMovieAsync());
+      dispatch(getComingMovieAsync());
     }
     moviesList = moviesList.map((moviesList)=>{
       if(moviesList.Status == "Comming Soon")
@@ -51,11 +45,11 @@ export default function Coming(){
                   <Swiper                 
                     navigation
                     pagination
-                    slidesPerView={6}
+                    slidesPerView={5}
                     spaceBetween={0}
                     allowTouchMove={true}
                     lazy={true}
-                    slidesPerGroup={6}
+                    slidesPerGroup={5}
                   >
                     {data &&
                       data.map((item, index) => ( 

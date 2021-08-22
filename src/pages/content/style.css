@@ -48,13 +48,12 @@
   background: #f4f4f4 !important;
 }
 .title {
-  color: black;
+  color: white;
   position: relative;
   width: 100%;
   padding: 10px 0;
   z-index: 1;
 }
-
 .section-header-1{
   margin-bottom: 3rem;
 }
