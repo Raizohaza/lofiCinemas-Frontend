@@ -3,13 +3,12 @@ import Content from '../content/Content'
 import './home.css'
 import Coming from "pages/content/Coming";
 import Hot from "pages/content/Hot";
-import CinemaIMG from "assets/img/CinemaIMG.jpg"
 export default function Home(props){
     return(
         <div>
             <Content/>
-            <Coming/>
             <Hot/>
+            <Coming/>
         </div>
     );
 }

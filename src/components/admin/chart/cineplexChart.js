@@ -64,11 +64,9 @@ export function CineplexChart(){
 
   let dateTimePicker = <div>
   <DatePicker  selected={startDate} onChange={(date) => {
-      console.log(date.toLocaleDateString('vi'))  ;
       setStartDate(date)
-    }} />
+  }} />
     <DatePicker   format='DD-MM-YYYY' selected={endDate} onChange={(date) => {
-      console.log(date.toLocaleDateString('vi'))  ;
       setEndDate(date)
     }} />
   </div>

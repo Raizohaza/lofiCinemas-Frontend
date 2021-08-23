@@ -12,8 +12,9 @@ import moment from "moment";
 export function ShowtimeForm(curr,action) {
    const dispatch = useDispatch();
    let history = useHistory();
-   const [TimeBegin, setTimeBegin] = useState(curr.TimeBegin);
-   const [DateShow, setDateShow] = useState(curr.DateShow);
+   
+   const [TimeBegin, setTimeBegin] = useState()//moment(curr.TimeBegin).format('h:mm:ss a'));
+   const [DateShow, setDateShow] = useState();
    const [Price, setPrice] = useState(curr.Price);
    const [CinemaId, setCinemaId] = useState(curr.CinemaId);
    const [MovieId, setMovieId] = useState(curr.MovieId);
@@ -24,24 +25,32 @@ export function ShowtimeForm(curr,action) {
    const movieList = useSelector(selectMovie);
    const [MovieName, setMovieName] = useState("");
    const cineplexList = useSelector(selectCineplex);
-   const [startDate, setStartDate] = useState(new Date());
+
+   
    useEffect(()=>{
-   const fetchData = async ()=>{
-      if(cineplexList.length < 1){
-         dispatch(getCineplexAsync());
+      const fetchData = async ()=>{
+         if(cineplexList.length < 1){
+            dispatch(getCineplexAsync());
+         }
+         if(movieList.length < 1){
+            dispatch(getMovieAsync());
+         }
+         if(cinemaList.length < 1){
+            dispatch(getCinemaAsync());
+         }
+         let currDateTime = new Date(curr.DateShow + ' ' + curr.TimeBegin)? new Date(curr.DateShow + ' ' + curr.TimeBegin) : new Date();
+         console.log(currDateTime);
+         if(currDateTime !== "Invalid Date"){
+            setTimeBegin(currDateTime);
+            setDateShow(currDateTime);
+         }
+         
       }
-      if(movieList.length < 1){
-         dispatch(getMovieAsync());
-      }
-      if(cinemaList.length < 1){
-         dispatch(getCinemaAsync());
-      }
-   }
-   fetchData();
-},[]);
+      fetchData();
+   },[dispatch]);
    let dropdownCineplex = cineplexList.map((cineplex)=>{
       return(
-      <Dropdown.Item onClick = {(e)=>{
+      <Dropdown.Item key={cineplex.id} onClick = {(e)=>{
          e.preventDefault();
          setCineplexId(cineplex.id);
          setCineplexName(cineplex.Name);
@@ -50,10 +59,10 @@ export function ShowtimeForm(curr,action) {
       </Dropdown.Item>
       )
    });
-   let dropdownCinema = cinemaList.map((Cinema)=>{
+   let dropdownCinema = cinemaList.forEach((Cinema)=>{
       if(CineplexId && CineplexId === Cinema.CineplexId)
       return(
-         <Dropdown.Item onClick = {(e)=>{
+         <Dropdown.Item key={Cinema.id} onClick = {(e)=>{
             e.preventDefault();
             setCinemaId(Cinema.id);
             setCinemaName(Cinema.Name);
@@ -63,7 +72,7 @@ export function ShowtimeForm(curr,action) {
       )
       if(!(CineplexId))
       return(
-         <Dropdown.Item onClick = {(e)=>{
+         <Dropdown.Item key={Cinema.id} onClick = {(e)=>{
             e.preventDefault();
             setCinemaId(Cinema.id);
             setCinemaName(Cinema.Name);
@@ -74,7 +83,7 @@ export function ShowtimeForm(curr,action) {
    });
    let dropdownItemMovie = movieList.map((Movie)=>{
    return(
-      <Dropdown.Item onClick = {(e)=>{
+      <Dropdown.Item key={Movie.id} onClick = {(e)=>{
          e.preventDefault();
          setMovieId(Movie.id);
          setMovieName(Movie.Name);

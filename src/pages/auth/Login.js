@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
 import { 
     faFacebook,
-    faGoogle
+    // faGoogle
     } from '@fortawesome/free-brands-svg-icons'
 import FacebookLogin from 'react-facebook-login';
 
@@ -30,7 +30,6 @@ class login extends Component {
                 Role: this.props.role,
             });
             this.setState(this.props.User);
-            // console.log(this.props.User);
         }
     }
     responseFacebook(res) {

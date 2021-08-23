@@ -19,7 +19,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import API from 'api';
 import './style.css'
-import { Card, Typography } from '@material-ui/core';
+import { Card } from '@material-ui/core';
 
 SwiperCore.use([Pagination, Navigation]);
 
@@ -28,7 +28,7 @@ export default function Hot(){
     const dispatch = useDispatch();
     let moviesList = useSelector(selectMovie);
     const [listSale, setListSale] = useState([]);
-    let data =[];
+
     let temp = [];
     let tempp= [];
     if(moviesList.length <1 ){
@@ -49,7 +49,7 @@ export default function Hot(){
         temp.push(listSale[i].MovieId);
     }
     function count(arr) {
-      return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), [])
+      return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1), [])
     }
     let countMovieId = count(temp);
     for(let i = 0;i<countMovieId.length;i++)
@@ -59,18 +59,15 @@ export default function Hot(){
           tempp.push(res.data);
         })
     }
-    moviesList = moviesList.map((moviesList)=>{
-       data.push(moviesList);
-    })
 
     return(
         <div className="col-lg-12">
-            {data && Object.values(data).length > 0 && (
+            {moviesList && Object.values(moviesList).length > 0 && (
                 <div className="article-section padding-bottom">
                   
-                  <Typography className="section-header-1" color="inherit">
+                  <div className="section-header-1">
                     <h2 className="title">Hot</h2>
-                  </Typography>
+                  </div>
                   <Swiper                 
                     navigation
                     pagination
@@ -80,8 +77,8 @@ export default function Hot(){
                     lazy={true}
                     slidesPerGroup={5}
                   >
-                    {data &&
-                      data.map((item, index) => ( 
+                    {moviesList &&
+                      moviesList.map((item, index) => ( 
                         <SwiperSlide key={index}>
                           <Card className="root">
                           <SwiperComponent movie={item} />

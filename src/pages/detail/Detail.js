@@ -20,8 +20,6 @@ export default function Detail()
           dispatch(getMovieByIdAsync(id));
         }
       }, [dispatch, id]);
-    console.log(movies);
-    console.log(id);
     return(
         <div className="aw">
             {isLoading ? (

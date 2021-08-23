@@ -106,7 +106,7 @@ export const movieSlice = createSlice({
       .addCase(editMovieAsync.fulfilled, (state, action) => {
         state.isLoading = false;
         
-        let obj = state.movies.findIndex(item => item.id == action.payload.id);
+        let obj = state.movies.findIndex(item => item.id === parseInt(action.payload.id));
         state.movies[obj] = action.payload;
       });
   },

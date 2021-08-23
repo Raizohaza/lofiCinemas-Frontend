@@ -28,7 +28,7 @@ export default function Content(){
         dispatch(getNowPlayingMovieAsync());
       }
       fn();
-      }, []);
+      }, [dispatch]);
 
     return(
         <div className="col-lg-12">

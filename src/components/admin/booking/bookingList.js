@@ -1,16 +1,19 @@
-import {Table,Button} from 'react-bootstrap'
+import { useEffect } from 'react';
+import {Table} from 'react-bootstrap'
 import { useSelector, useDispatch} from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { selectBooking , getBookingAsync} from '../../../features/booking/bookingSlice';
 
 export function BookingList() {
     const dispatch = useDispatch();
     const bookingList = useSelector(selectBooking);
-    if(bookingList.length === 0 || bookingList.length ===1){
-      dispatch(getBookingAsync());
-    }
+    useEffect(()=>{
+      const fetchData = async ()=>{
+        dispatch(getBookingAsync());
+      }
+      fetchData();
+    },[dispatch]);
+    
     let dem = 1;
-    let history = useHistory();
 
     let components = bookingList.map((booking) =>
     {

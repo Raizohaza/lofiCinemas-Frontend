@@ -16,7 +16,7 @@ export function ShowtimeList() {
         dispatch(getShowtimeAsync());
       }
       fetchData();
-    },[]);
+    },[dispatch]);
     
     let dem = 1;
     const ref = React.createRef();

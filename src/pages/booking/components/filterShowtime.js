@@ -24,7 +24,7 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
         })
         }
         fetchData()
-    }, []);
+    }, [id]);
 
     useEffect(() => { 
         async function filteredData(){
@@ -42,7 +42,7 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
           
         }
         filteredData()
-    }, [selectedDay]);
+    }, [selectedDay,showtime]);
     
     const DateShow = showtime.map((ite)=>
     {
@@ -55,7 +55,7 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
         )
     });
 
-    fShowtime.map(x => uniCineplex.filter(a => a.CineplexId == x.CineplexId).length > 0 ? null : uniCineplex.push(x));
+    fShowtime.map(x => uniCineplex.filter(a => a.CineplexId === x.CineplexId).length > 0 ? null : uniCineplex.push(x));
     const cineplexes = uniCineplex.map((cineplex)=>{
         return(
         <Dropdown.Item key={cineplex.CineplexId} onClick={(e) => {
@@ -66,8 +66,8 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
         )
     });
 
-    fShowtime.map(x => uniCinema.filter(a => a.CinemaId == x.CinemaId).length > 0 ? null : uniCinema.push(x));
-    const cinemas = selectedCineplex ? uniCinema.map((cinema)=>{
+    fShowtime.map(x => uniCinema.filter(a => a.CinemaId === x.CinemaId).length > 0 ? null : uniCinema.push(x));
+    const cinemas = selectedCineplex ? uniCinema.forEach((cinema)=>{
         if(cinema.CineplexId === selectedCineplex.id)
         return(
         <Dropdown.Item key={cinema.CinemaId} onClick={(e) => {
@@ -78,8 +78,8 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
         )
     }):<div>Please select cineplex</div>;
 
-    const showtimes = selectedCinema ? fShowtime.map((showtime)=>{
-      if(showtime.CinemaId == selectedCinema.id)
+    const showtimes = selectedCinema ? fShowtime.forEach((showtime)=>{
+      if(showtime.CinemaId === selectedCinema.id)
       return(
         <button key={showtime.id} className="btn-st" onClick={ (e) =>{setSelectedShowtimeMain(showtime); }}>
             <span>{showtime.TimeBegin}</span>

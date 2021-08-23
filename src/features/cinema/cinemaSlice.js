@@ -31,7 +31,6 @@ export const getCinemaAsync = createAsyncThunk(
   async () => {
       const response = await API.get(`/cinemas/`)
       response.data.sort((a,b)=> a.id - b.id);
-      console.log(response.data);
       return response.data;
   }
 );
@@ -57,7 +56,7 @@ export const cinemaSlice = createSlice({
       .addCase(editCinemaAsync.fulfilled, (state, action) => {
         state.isLoading = false;
 
-        let obj = state.cinemas.findIndex(item => item.id == action.payload.id);
+        let obj = state.cinemas.findIndex(item => item.id === parseInt(action.payload.id));
         state.cinemas[obj] = action.payload;
       });
   },

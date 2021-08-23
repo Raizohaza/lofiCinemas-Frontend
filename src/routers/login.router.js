@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import { URL } from "../constant/URL";
 import LoginPage from '../pages/auth/Login'
-import Auth from 'pages/auth/auth'
+
 function LoginRoute(props) {
     return (
       <Switch>
