@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import {Dropdown,ButtonGroup} from 'react-bootstrap';
 import { useDispatch,useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getCinemaAsync, selectCinema} from '../../../features/cinema/cinemaSlice';
+import { getCinemaAsync} from '../../../features/cinema/cinemaSlice';
 import { selectCineplex,getCineplexAsync } from '../../../features/cineplex/cineplexSlice';
 export function CinemaForm(curr,action) {
     const dispatch = useDispatch();
@@ -14,21 +14,16 @@ export function CinemaForm(curr,action) {
     const [CineplexId, setCineplexId] = useState(curr.CinenplexId);
     const [CineplexName, setCineplexName] = useState("");
     const cineplexList = useSelector(selectCineplex);
-    let cinemaList = useSelector(selectCinema);
-    const [cinemaState, setCinemaState] = useState(cinemaList);
     useEffect(()=>{
       const fetchData = async ()=>{
-         console.log(cineplexList);
-         if(cineplexList.length < 1){
             dispatch(getCineplexAsync());
-         }
       }
       fetchData();
-   },[]);
+   },[dispatch]);
 
     let dropdownItem = cineplexList.map((cineplex)=>{
       return(
-        <Dropdown.Item onClick = {(e)=>{
+        <Dropdown.Item key={cineplex.id} onClick = {(e)=>{
           e.preventDefault();
           setCineplexId(cineplex.id);
           setCineplexName(cineplex.Name);
@@ -37,13 +32,6 @@ export function CinemaForm(curr,action) {
         </Dropdown.Item>
       )
     });
-    
-    useEffect(()=>{
-      const fetchData = async ()=>{   
-         setCinemaState(cinemaList);
-      }
-      fetchData();
-   },[cinemaList]);
     return(
        <form onSubmit={(e) => {
          let data = {

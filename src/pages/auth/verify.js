@@ -35,7 +35,6 @@ export default function Verify() {
           </Typography>
           <Button onClick={()=>{
             api.get('/user/verify'+query).then((res)=>{
-              console.log(res.data);
               dispatch(setUser(res.data.user));
               if(res.status === 200){
                 history.push('/');

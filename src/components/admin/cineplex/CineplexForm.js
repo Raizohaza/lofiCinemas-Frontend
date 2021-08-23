@@ -15,7 +15,6 @@ export function CineplexForm(curr,action) {
             Address: Address,
          }
          e.preventDefault();
-         console.log(data);
          dispatch(action({...data}));
          dispatch(getCineplexAsync());
          history.push("/admin/cineplex");   

@@ -29,7 +29,7 @@ export function EditShowtimeForm(){
       dispatch(getShowtimeAsync());
    }
    if(id && showtimes.length !== 0){
-      curr = showtimes.find(mov => mov.id == id);
+      curr = showtimes.find(mov => mov.id === parseInt(id));
    }
    return(ShowtimeForm(curr,editShowtimeAsync));
 }

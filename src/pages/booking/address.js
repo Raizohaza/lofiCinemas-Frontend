@@ -6,7 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useSelector } from 'react-redux';
 export default function AddressForm() {
-  let curUser =  useSelector(state=> state.user);
+  let curUser = useSelector(state=> state.user);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>

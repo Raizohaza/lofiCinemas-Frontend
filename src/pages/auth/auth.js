@@ -1,5 +1,3 @@
-import React, { Component } from 'react';
-
 export default function auth() {
     const user = localStorage.getItem('UID')
     if(!user) {

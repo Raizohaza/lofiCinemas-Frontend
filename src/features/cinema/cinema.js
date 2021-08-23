@@ -28,7 +28,8 @@ export function EditCinemaForm(){
       dispatch(getCinemaAsync());
    }
    if(id && cinemas.length !== 0){
-      curr = cinemas.find(mov => mov.id == id);
+      // console.log(cinemas,id);
+      curr = cinemas.find(mov => mov.id === parseInt(id));
    }
    return(CinemaForm(curr,editCinemaAsync));
 }

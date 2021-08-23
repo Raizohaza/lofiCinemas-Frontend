@@ -3,7 +3,7 @@ import './styles.css'
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {FilterShowtime} from './components/filterShowtime';
-import FilterShowtimeByCinema from './components/filterShowtimeByCinema';
+// import FilterShowtimeByCinema from './components/filterShowtimeByCinema';
 import BookingSeat from './components/BookingSeat';
 export default function BookingPage()
 {

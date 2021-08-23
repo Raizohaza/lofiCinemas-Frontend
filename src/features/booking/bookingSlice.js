@@ -32,7 +32,6 @@ export const getBookingAsync = createAsyncThunk(
   async () => {
       const response = await API.get(`/booking/`)
       response.data.sort((a,b)=> a.id - b.id);
-      console.log(response.data);
       return response.data;
   }
 );

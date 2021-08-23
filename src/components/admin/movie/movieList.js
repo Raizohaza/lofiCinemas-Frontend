@@ -1,16 +1,19 @@
+import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import Table from 'react-bootstrap/Table'
 import { useSelector, useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
-import { selectMovie , getMovieAsync, deleteMovieAsync, reloadMovieList} from '../../../features/movie/movieSlice';
+import { Link } from 'react-router-dom';
+import { selectMovie , getMovieAsync, deleteMovieAsync} from '../../../features/movie/movieSlice';
 export function MovieList() {
     const dispatch = useDispatch();
-    const history = useHistory();
     const moviesList = useSelector(selectMovie);
-    const Loading = useSelector((state) => state.movie.isLoading);
-    if(moviesList.length <1 ){
-      dispatch(getMovieAsync());
-    }
+    useEffect(()=>{
+      const fetchData = async ()=>{
+        dispatch(getMovieAsync());
+      }
+      fetchData();
+   },[dispatch]);
+    
     let dem = 1;
     let components = moviesList.map((movie) =>
     {

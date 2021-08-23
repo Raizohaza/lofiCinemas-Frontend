@@ -12,7 +12,6 @@ function AdminRoute(props) {
   return (
         <Switch>
             <Route path={URL.ADMIN} render={(props) => {
-                console.log('props:',props);
                 return <AdminLayout {...props} />
                 }} />
         </Switch>

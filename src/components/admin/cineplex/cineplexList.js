@@ -1,17 +1,20 @@
+import { useEffect } from 'react';
 import {Table,Button} from 'react-bootstrap'
 import { useSelector, useDispatch} from 'react-redux';
 import { Link,useHistory } from 'react-router-dom';
 import { selectCineplex , getCineplexAsync,deleteCineplexAsync} from '../../../features/cineplex/cineplexSlice';
 
 export function CineplexList() {
-    const dispatch = useDispatch();
-    const cineplexList = useSelector(selectCineplex);
-    //console.log(cineplexList);
-    if(cineplexList.length === 0 || cineplexList.length ===1){
+  const dispatch = useDispatch();
+  const cineplexList = useSelector(selectCineplex);
+  useEffect(()=>{
+    const fetchData = async ()=>{
       dispatch(getCineplexAsync());
-      
     }
-    let dem = 1;
+    fetchData();
+  },[dispatch]);
+    
+  let dem = 1;
   let history = useHistory();
 
   function handleClick() {

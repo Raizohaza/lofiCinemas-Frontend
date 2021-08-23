@@ -2,15 +2,14 @@ import API from 'api';
 
 import '../styles.css'
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Checkout from '../checkout';
 export default function BookingSeat(selectedShowtime){
     const [bookedSeat, setBookedSeat] = useState([]);
     const [selectedSeat, setSelectedSeat] = useState([]);
     const [payingState, setPayingState] = useState(false);
-    let history = useHistory();
-
+    
+    let userState = useSelector(state => state.user.User)
 
     useEffect(() => { 
         async function fetchData(){
@@ -47,7 +46,6 @@ export default function BookingSeat(selectedShowtime){
             <div key={_index} style={{ width: `calc(100%/${selectedShowtime.Width} - 2rem)`, margin: "1rem" }}>
               <div  className="single-seat ">
                 <span onClick={()=>{
-                  // console.log(elm.seat);
                 }} className="sit-num " style={{ background: "gray" }}>{elm.seat}</span>
               </div>
             </div>)
@@ -91,31 +89,30 @@ export default function BookingSeat(selectedShowtime){
                 </div>
               </div>
             }
-            {selectedShowtime&&!payingState&&localStorage.UID && <button className="btn-book" onClick={()=>{
-            let prices = selectedSeat.map(item =>45000);
-            let data = {
-            DateTime: new Date(),
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            UserId: localStorage.UID,
-            ShowTimeId: selectedShowtime.id,
-            Seats: selectedSeat,
-            Price: prices
-            }
-            localStorage.setItem('DateTime',data.DateTime)
-            localStorage.setItem('ShowTimeId',data.ShowTimeId)
-            localStorage.setItem('Seats',data.Seats)
-            localStorage.setItem('Price',prices)
-            setPayingState(true);
-            // console.log(data);
-            // API.post('/booking/add',data).then(res =>{
-            //     localStorage.setItem('DateTime',data.DateTime)
-            //     localStorage.setItem('ShowTimeId',data.ShowTimeId)
-            //     localStorage.setItem('Seats',data.Seats)
-            //     localStorage.setItem('Price',sumPrice)
-            //     console.log(res.data)
-            // });
-            //history.push('checkout');
+            {selectedShowtime&&!payingState&&userState.id && <button className="btn-book" onClick={()=>{
+              let prices = selectedSeat.map(item =>45000);
+              let data = {
+                DateTime: new Date(),
+                createdAt: new Date(),
+                updatedAt: new Date(),
+                UserId: userState.id,
+                ShowTimeId: selectedShowtime.id,
+                Seats: selectedSeat,
+                Price: prices
+              }
+              console.log('bookingData',data);
+              localStorage.setItem('DateTime',data.DateTime)
+              localStorage.setItem('ShowTimeId',data.ShowTimeId)
+              localStorage.setItem('Seats',data.Seats)
+              localStorage.setItem('Price',prices)
+              setPayingState(true);
+              // API.post('/booking/add',data).then(res =>{
+              //     localStorage.setItem('DateTime',data.DateTime)
+              //     localStorage.setItem('ShowTimeId',data.ShowTimeId)
+              //     localStorage.setItem('Seats',data.Seats)
+              //     localStorage.setItem('Price',sumPrice)
+              // });
+              //history.push('checkout');
             } 
         }>
         Đặt vé

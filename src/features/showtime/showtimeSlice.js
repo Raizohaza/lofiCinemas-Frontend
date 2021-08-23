@@ -33,7 +33,6 @@ export const getShowtimeAsync = createAsyncThunk(
   async () => {
       const response = await API.get(`/showtimes/`)
       response.data.sort((a,b)=> a.id - b.id);
-      console.log(response.data);
       return response.data;
   }
 );

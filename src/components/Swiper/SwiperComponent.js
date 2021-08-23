@@ -1,4 +1,4 @@
-import { Button, CardContent, Typography,Card } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Swiper.scss";

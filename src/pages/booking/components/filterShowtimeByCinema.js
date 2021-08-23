@@ -55,8 +55,7 @@ export default function FilterShowtimeByCinema(id,setSelectedShowtimeMain){
         )
     });
 
-    fShowtime.map(x => uniMovie.filter(a => a.MovieId == x.MovieId).length > 0 ? null : uniMovie.push(x));
-    //console.log(uniMovie);
+    fShowtime.map(x => uniMovie.filter(a => a.MovieId === x.MovieId).length > 0 ? null : uniMovie.push(x));
     const movies = fShowtime.map((movie)=>{
         return(
         <Dropdown.Item key={movie.MovieId} onClick={(e) => {
@@ -67,8 +66,8 @@ export default function FilterShowtimeByCinema(id,setSelectedShowtimeMain){
         )
     });
 
-    const showtimes = selectedMovie ? fShowtime.map((showtime)=>{
-      if(showtime.MovieID == selectedMovie.id)
+    const showTimes = selectedMovie ? fShowtime.map((showtime)=>{
+      if(showtime.MovieID === selectedMovie.id)
       return(
           <div className="col">
             <button key={showtime.id} className="btn-st" onClick={ (e) =>{setSelectedShowtimeMain(showtime); }}>
@@ -79,7 +78,6 @@ export default function FilterShowtimeByCinema(id,setSelectedShowtimeMain){
       )
   
     }): <div className="col">Please select cinema</div>;
-
     return(
       <>
         <div className=" col">
@@ -114,7 +112,7 @@ export default function FilterShowtimeByCinema(id,setSelectedShowtimeMain){
           </Dropdown>
         </div>
         <div className="row" style={{width:'75%'}}>
-          {showtimes}
+          {showTimes}
         </div>
       </>
 

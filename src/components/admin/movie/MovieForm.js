@@ -25,7 +25,6 @@ export function MovieForm(curr,action) {
             MID:MID
          }
          e.preventDefault();
-         console.log(data);
          dispatch(action({...data}));
          dispatch(getMovieAsync());
          history.push("/admin/table");
@@ -83,7 +82,7 @@ export function MovieForm(curr,action) {
                         setTrailer(e.target.value);
                       }}
                    />
-                   <iframe src={Trailer} width="420" height="315"/>
+                   <iframe title="Trailer" src={Trailer} width="420" height="315"/>
                    <p>Upload video</p>
                 </div>
              </div>

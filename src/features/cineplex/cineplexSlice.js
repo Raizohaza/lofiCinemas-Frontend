@@ -63,7 +63,7 @@ export const cineplexSlice = createSlice({
       .addCase(editCineplexAsync.fulfilled, (state, action) => {
         state.isLoading = false;
 
-        let obj = state.cineplexes.findIndex(item => item.id == action.payload.id);
+        let obj = state.cineplexes.findIndex(item => item.id === parseInt(action.payload.id));
         state.cineplexes[obj] = action.payload;
       });
   },

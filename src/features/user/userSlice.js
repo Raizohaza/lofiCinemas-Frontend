@@ -1,18 +1,18 @@
 
 import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import API from 'api';
-
+const localData = JSON.parse(localStorage.getItem('userInfo'));
 const initialState = {
     User:{
-      id:localStorage.UID,
-      Email: localStorage.Email,
-      Name: localStorage.Name,
-      Tel: localStorage.Tel,      
+      id:localData.id,
+      Email: localData.Email,
+      Name: localData.Name,
+      Tel: localData.Tel,      
     }||{},
-    loggedIn:localStorage.UID? true:false,
-    role:localStorage.Role||''
+    loggedIn:localData.id? true:false,
+    role:localData.Role||''
 }
-console.log(localStorage);
+
 export const userLogin = createAsyncThunk(
   '/user/login',
   async (action) => {
@@ -48,12 +48,7 @@ export const UserSlice = createSlice({
       localStorage.clear();
     },
     setUser: (state,action) => {
-      console.log(action);
-      localStorage.setItem('UID',action.id);
-      localStorage.setItem('Email',action.Email);
-      localStorage.setItem('Name',action.Name);
-      localStorage.setItem('Tel',action.Tel);
-      localStorage.setItem('Role',action.Role);
+      localStorage.setItem('userInfo',JSON.stringify(action));
       state.User = action;
       state.loggedIn = true;
       state.role = action.Role;
