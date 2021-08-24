@@ -1,28 +1,23 @@
 import { useEffect } from 'react';
 import {Table} from 'react-bootstrap'
 import { useSelector, useDispatch} from 'react-redux';
-import { selectBooking , getBookingAsync} from '../../features/booking/bookingSlice';
+import { selectBooking , getBookingByIdAsync} from '../../features/booking/bookingSlice';
 
 export default function BookingList() {
   const dispatch = useDispatch();
   let bookingList = useSelector(selectBooking);
   let curUser =  useSelector(state=> state.user);
+  console.log(curUser);
   useEffect(()=>{
     const fetchData = async ()=>{
-      if(bookingList.length < 1){
-        dispatch(getBookingAsync());
-      }
+      dispatch(getBookingByIdAsync({id:curUser.User.id}));
     }
     fetchData();
- },[dispatch,bookingList.length]);
+  },[dispatch,curUser.User.id]);
 
   let dem = 1;
-  let data =[];
-  bookingList.forEach((bookingList)=>{
-    if(curUser.User.id === bookingList.UserId)
-        data.push(bookingList);
-  })
-  let components = data.map((booking) =>
+
+  let components = bookingList.map((booking) =>
   {
     return(
       <tr key={booking.id}>

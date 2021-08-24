@@ -67,25 +67,28 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
     });
 
     fShowtime.map(x => uniCinema.filter(a => a.CinemaId === x.CinemaId).length > 0 ? null : uniCinema.push(x));
-    const cinemas = selectedCineplex ? uniCinema.forEach((cinema)=>{
-        if(cinema.CineplexId === selectedCineplex.id)
-        return(
+    const cinemas = selectedCineplex ? uniCinema.map((cinema)=>{
+      if(cinema.CineplexId === selectedCineplex.id)
+      return(
         <Dropdown.Item key={cinema.CinemaId} onClick={(e) => {
             setSelectedCinema({id:cinema.CinemaId,name:cinema.CinemaName});
         }}>
             {cinema.CinemaName}
         </Dropdown.Item>
-        )
+      )
+      else
+      return null;
     }):<div>Please select cineplex</div>;
 
-    const showtimes = selectedCinema ? fShowtime.forEach((showtime)=>{
+    const showtimes = selectedCinema ? fShowtime.map((showtime)=>{
       if(showtime.CinemaId === selectedCinema.id)
-      return(
-        <button key={showtime.id} className="btn-st" onClick={ (e) =>{setSelectedShowtimeMain(showtime); }}>
-            <span>{showtime.TimeBegin}</span>
-        </button>
-      )
-  
+        return(
+          <button key={showtime.id} className="btn-st" onClick={ (e) =>{setSelectedShowtimeMain(showtime); }}>
+              <span>{showtime.TimeBegin}</span>
+          </button>
+        )
+      else
+      return null;
     }): <div>Please select cinema</div>;
 
     return(
