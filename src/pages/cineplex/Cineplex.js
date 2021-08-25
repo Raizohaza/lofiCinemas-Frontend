@@ -4,8 +4,7 @@ import "swiper/components/pagination/pagination.min.css";
 import "swiper/swiper.min.css";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
 import API from 'api';
 import './home.css'
 

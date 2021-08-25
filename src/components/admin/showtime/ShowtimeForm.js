@@ -59,7 +59,7 @@ export function ShowtimeForm(curr,action) {
       </Dropdown.Item>
       )
    });
-   let dropdownCinema = cinemaList.forEach((Cinema)=>{
+   let dropdownCinema = cinemaList.map((Cinema)=>{
       if(CineplexId && CineplexId === Cinema.CineplexId)
       return(
          <Dropdown.Item key={Cinema.id} onClick = {(e)=>{
