@@ -1,15 +1,15 @@
-
-import React, { Component } from 'react';
-
+import React, { useState } from 'react';
 import './login.css';
 import api from 'api';
 
-class RsPassword extends Component{
-    handleSubmit = e =>{
+export default function RsPassword(){
+   
+    const [email,setemail]= useState('');
+    let handleSubmit = e =>{
         e.preventDefault();
         alert("Your new pass in your email")
         const data = {
-            Email:this.email
+            Email:email
         };
         api.post('/user/reset',data).then(
             res=>{
@@ -21,7 +21,6 @@ class RsPassword extends Component{
             }
         )
     };
-    render(){
         return(
             <div className="login">
                 <p className="title">Forgot Password</p>
@@ -32,14 +31,13 @@ class RsPassword extends Component{
                 </div>
                 <div className="field-input">
                     <p>Email:</p>
-                    <input onChange={e =>this.email=e.target.value} className="input" type="text"  />
+                    <input onChange={e =>setemail(e.target.value)} className="input" type="text"  />
                 </div>
-                <button  type='submit' onClick={this.handleSubmit}  className="btn-request">
+                <button  type='submit' onClick={handleSubmit}  className="btn-request">
                     <p className="text-in-button">Send request</p>
                 </button>
                 
             </div>
         );
     }
-}
-export default RsPassword;
+
