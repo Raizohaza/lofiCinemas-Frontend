@@ -30,9 +30,17 @@ export const deleteBookingAsync = createAsyncThunk(
 export const getBookingAsync = createAsyncThunk(
   'booking/fetchBooking',
   async () => {
-      const response = await API.get(`/booking/`)
+      const response = await API.get(`/booking/`);
       response.data.sort((a,b)=> a.id - b.id);
       return response.data;
+  }
+);
+export const getBookingByIdAsync = createAsyncThunk(
+  'booking/fetchBookingById',
+  async (action) => {
+    const response = await API.get(`/booking/`+action.id+`/history`);
+    response.data.sort((a,b)=> a.id - b.id);
+    return response.data;
   }
 );
 export const bookingSlice = createSlice({
@@ -45,7 +53,10 @@ export const bookingSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-        .addCase(getBookingAsync.fulfilled, (state, action) => {
+      .addCase(getBookingAsync.fulfilled, (state, action) => {
+        state.bookings = action.payload;
+      })
+      .addCase(getBookingByIdAsync.fulfilled, (state, action) => {
         state.bookings = action.payload;
       });
   },

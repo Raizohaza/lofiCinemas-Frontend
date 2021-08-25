@@ -49,7 +49,7 @@ export default function Hot(){
         temp.push(listSale[i].MovieId);
     }
     function count(arr) {
-      return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1), [])
+      return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || prev), [])
     }
     let countMovieId = count(temp);
     for(let i = 0;i<countMovieId.length;i++)

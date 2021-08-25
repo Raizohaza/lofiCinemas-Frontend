@@ -3,14 +3,14 @@ import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import API from 'api';
 const localData = JSON.parse(localStorage.getItem('userInfo'));
 const initialState = {
-    User:{
+    User:localData?{
       id:localData.id,
       Email: localData.Email,
       Name: localData.Name,
       Tel: localData.Tel,      
-    }||{},
-    loggedIn:localData.id? true:false,
-    role:localData.Role||''
+    }:{},
+    loggedIn:localData&&localData.id? true:false,
+    role:localData&&localData.Role?localData.Role:''
 }
 
 export const userLogin = createAsyncThunk(
