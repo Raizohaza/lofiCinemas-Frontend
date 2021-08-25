@@ -1,20 +1,26 @@
-import React, { Component } from 'react';
+import React, {  useState } from 'react';
 import { Link } from "react-router-dom";
-
 import './login.css'
 import api from 'api';
+import { useSelector } from 'react-redux';
 
-class register extends Component 
+export default function Register()
 {
-    handleSubmit = e =>{
+    const [Email,setEmail]= useState('');
+    const [Tel,setTel]= useState('');
+    const [Name,setName]= useState('');
+    const [Password,setPassword]= useState('');
+    const [ConfirmPassword,setConfirmPassword]= useState('');
+    let User = useSelector(state=>state.user.User);
+    let handleSubmit = e =>{
         
         e.preventDefault();
         const User ={
-            Email:this.Email,
-            Tel:this.Tel,
-            Name:this.Name,
-            Password:this.Password,
-            ConfirmPassword:this.ConfirmPassword,
+            Email:Email,
+            Tel:Tel,
+            Name:Name,
+            Password:Password,
+            ConfirmPassword:ConfirmPassword,
             Role:'user'
         };
         api.post('/user/register',{...User}).then(
@@ -28,26 +34,25 @@ class register extends Component
             }
         )
     };
-    render()
-    {
+   
        return(
-            <form className="login" onSubmit={this.handleSubmit}>
+            <form className="login" onSubmit={handleSubmit}>
                <p className="title">Register</p>
                 <div className="field-input">
                     <p>Email</p>
-                    <input onChange={e =>this.Email=e.target.value}  className="input" type="email"  />
+                    <input onChange={e =>setEmail(e.target.value)}  className="input" type="email"  />
                     <p>Name</p>
-                    <input onChange={e =>this.Name=e.target.value}  className="input" type="text"  />
+                    <input onChange={e =>setName(e.target.value)}  className="input" type="text"  />
                     <p>Tel</p>
-                    <input onChange={e =>this.Tel=e.target.value}  className="input" type="text"  />
+                    <input onChange={e =>setTel(e.target.value)}  className="input" type="text"  />
                     <p>Password</p>
-                    <input onChange={e =>this.Password=e.target.value} className="input" type="password" />
+                    <input onChange={e =>setPassword(e.target.value)} className="input" type="password" />
                     <p>Confirm Password</p>
-                    <input onChange={e =>this.ConfirmPassword=e.target.value} className="input" type="password" />
+                    <input onChange={e =>setConfirmPassword(e.target.value)} className="input" type="password" />
                 </div>
                
                 <button type='submit' className="btn-register" onClick={()=>{
-                    this.User?alert("Account create complete"):alert("check you email to complete")
+                 User?alert("Account create complete"):alert("check you email to complete")
                 }}>
                     <p className="text-in-button">Register</p>
                 </button>
@@ -58,8 +63,3 @@ class register extends Component
        );
    }
 
-
-
-}
-
-export default register;
