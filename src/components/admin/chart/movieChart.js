@@ -18,7 +18,7 @@ const state = (labels,data) =>{
 }
 function analyzeData(bookings,startDate,endDate){
     let numOr0 = n => isNaN(n) ? 0 : n
-    let revenue = new Array(30).fill(0);
+    let revenue = new Array(bookings.length).fill(0);
     let labels = [];
     let data = [];
     for (let i = 0; i < bookings.length; i++) {
@@ -29,7 +29,8 @@ function analyzeData(bookings,startDate,endDate){
         revenue[booking.MovieId] += numOr0(booking.TotalPrice);
       }
     }
-    for (let i = 0; i < revenue.length; i++) {
+    console.log(revenue,bookings);
+    for (let i = 0; i < bookings.length; i++) {
       if(revenue[i] !== 0){
         labels.push(bookings[i].MovieName);
         data.push(revenue[i]);
@@ -42,8 +43,8 @@ export function MovieChart(){
     const [labels, setLabels] = useState([]);
     const [data, setData] = useState([]);
 
-    const [startDate, setStartDate] = useState(new Date('2021-7-10'));
-    const [endDate, setEndDate] = useState(new Date('2021-7-20'));
+    const [startDate, setStartDate] = useState(new Date().setDate(new Date().getDate() - 7));
+    const [endDate, setEndDate] = useState(new Date().setDate(new Date().getDate() + 7));
     useEffect(() => { 
       async function fetchData() {
         const getUserAPI = '/bookingRevenueMovie';

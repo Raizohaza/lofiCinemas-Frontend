@@ -39,8 +39,8 @@ export function ShowtimeForm(curr,action) {
             dispatch(getCinemaAsync());
          }
          let currDateTime = new Date(curr.DateShow + ' ' + curr.TimeBegin)? new Date(curr.DateShow + ' ' + curr.TimeBegin) : new Date();
-         console.log(currDateTime);
-         if(currDateTime !== "Invalid Date"){
+         
+         if(currDateTime.toString() !== "Invalid Date"){
             setTimeBegin(currDateTime);
             setDateShow(currDateTime);
          }
