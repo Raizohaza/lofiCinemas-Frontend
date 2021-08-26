@@ -39,7 +39,7 @@ export default function Coming(){
                 {moviesList && Object.values(moviesList).length > 0 && (
                     <div className="article-section padding-bottom">
                       <div className="section-header-1">
-                        <h2 className="title">Coming soon</h2>
+                        <h2 className="title-content">Coming soon</h2>
                       </div>
                       <Swiper
                         navigation

@@ -64,7 +64,7 @@ export default function Hot(){
                 <div className="article-section padding-bottom">
                   
                   <div className="section-header-1">
-                    <h2 className="title">Hot</h2>
+                    <h2 className="title-content">Hot</h2>
                   </div>
                   <Swiper                 
                     navigation

@@ -39,7 +39,7 @@ export default function Content(){
             {movies && Object.values(movies).length > 0 && movies.length > 0 && (
                 <div className="article-section padding-bottom">
                   <div className="section-header-1">
-                    <h2 className="title">Now Playing</h2>
+                    <h2 className="title-content">Now Playing</h2>
                   </div>
                   <Swiper                 
                     navigation

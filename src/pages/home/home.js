@@ -7,8 +7,9 @@ export default function Home(props){
     return(
         <div>
             <Content/>
-            <Hot/>
             <Coming/>
+            <Hot/>
+            
         </div>
     );
 }
