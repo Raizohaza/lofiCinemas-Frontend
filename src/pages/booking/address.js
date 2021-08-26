@@ -7,6 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { useSelector } from 'react-redux';
 export default function AddressForm() {
   let curUser = useSelector(state=> state.user);
+  const prepareBookingData = useSelector((state) => state.booking.prepareData);
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -35,7 +36,7 @@ export default function AddressForm() {
           <TextField
             required
             id="address1"
-            value={localStorage.DateTime}
+            value={prepareBookingData.DateTime}
             fullWidth
             autoComplete="shipping address-line1"
           />
@@ -44,7 +45,7 @@ export default function AddressForm() {
           <TextField
             required
             id="city"
-            value={localStorage.Seats}
+            value={prepareBookingData.Seats}
             fullWidth
             autoComplete="shipping address-level2"
           />
@@ -53,7 +54,7 @@ export default function AddressForm() {
           <TextField
             required
             id="country"
-            value={localStorage.Price}
+            value={prepareBookingData.Price}
             fullWidth
             autoComplete="shipping country"
           />

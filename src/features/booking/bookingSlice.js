@@ -3,7 +3,8 @@ import API from 'api';
 
 const initialState = {
     bookings:[],
-    selectedBooking: null
+    selectedBooking: null,
+    prepareData:{}
 }
 
 export const addBookingAsync = createAsyncThunk(
@@ -50,6 +51,9 @@ export const bookingSlice = createSlice({
     getBooking (state, action) {
       state.selectedBooking = state.bookings.find(obj => obj.id === action.payload.id);
     },
+    prepareForBooking (state, action) {
+      state.prepareData = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -64,6 +68,6 @@ export const bookingSlice = createSlice({
 
 export const selectBooking = (state) => state.booking.bookings;
 
-export const { getBooking } = bookingSlice.actions;
+export const { getBooking,prepareForBooking } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

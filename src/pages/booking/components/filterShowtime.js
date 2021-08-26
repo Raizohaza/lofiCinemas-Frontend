@@ -13,12 +13,18 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
     const [selectedCinema, setSelectedCinema] = useState();
     let uniCineplex = [];
     let uniCinema = [];
+    let uniDateTime = [];
 
     useEffect(() => { 
         async function fetchData() {
         const getUserAPI = `/showtime/${id}/movie`;
         API.get(getUserAPI).then((res) => {
             res.data = res.data.sort((a,b)=> new Date(a.DateShow) - new Date(b.DateShow));
+            let curDate = new Date();
+            res.data= res.data.filter((item)=>{
+              let dateShow = new Date(item.DateShow);
+              return curDate.getTime() <= dateShow.getTime();
+            })
             setShowtime(res.data);
             setFShowtime(res.data);
         })
@@ -33,7 +39,7 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
             let selectedDayClone = new Date(selectedDay);
             filteredShowTime = showtime.filter(st=>{
             let dateShow = new Date(st.DateShow);
-            return dateShow.getDate() === selectedDayClone.getDate() ? st: "";
+            return dateShow.getTime() === selectedDayClone.getTime() ? st: "";
             })
             setSelectedCineplex({name:'cineplexes'});
             setSelectedCinema({name:'Cinemas'});
@@ -43,8 +49,8 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
         }
         filteredData()
     }, [selectedDay,showtime]);
-    
-    const DateShow = showtime.map((ite)=>
+    fShowtime.map(x => uniDateTime.filter(a => a.DateShow === x.DateShow).length > 0 ? null : uniDateTime.push(x));
+    const DateShow = uniDateTime.map((ite)=>
     {
         return(
         <Dropdown.Item key={ite.DateShow}onClick={(e) => {

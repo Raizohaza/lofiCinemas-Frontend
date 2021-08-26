@@ -12,6 +12,7 @@ import AddressForm from './address';
 import PaymentForm from './Payment';
 import Review from './review';
 import api from 'api';
+import { useSelector } from 'react-redux';
 
 function Copyright() {
   return (
@@ -81,6 +82,7 @@ function getStepContent(step) {
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const prepareBookingData = useSelector((state) => state.booking.prepareData);
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -128,27 +130,18 @@ export default function Checkout() {
                   color="primary"
                   className={classes.button}
                   onClick={()=>{
-                    let data = {
-                      DateTime: new Date(),
-                      createdAt: new Date(),
-                      updatedAt: new Date(),
-                      UserId: localStorage.UID,
-                      ShowTimeId: localStorage.ShowTimeId,
-                      Seats: localStorage.Seats,
-                      TotalPrice: localStorage.TotalPrice
-                    }
-                    console.log('bookingData',data);
-                    api.post('/booking',{...data}).then(
+                    // console.log('bookingData',prepareBookingData);
+                    api.post('/booking/add',{...prepareBookingData}).then(
                       res=>{
                           console.log(res);
                           handleNext();
                       }
-                  ).catch(
-                      err=>{
-                          console.log(err);
-                          handleNext();
-                      }
-                  )
+                    ).catch(
+                        err=>{
+                            console.log(err);
+                            handleNext();
+                        }
+                    );
                   }
                   
               }

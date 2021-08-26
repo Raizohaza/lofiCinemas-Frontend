@@ -2,15 +2,16 @@ import API from 'api';
 
 import '../styles.css'
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Checkout from '../checkout';
+import { prepareForBooking } from 'features/booking/bookingSlice';
 
 export default function BookingSeat(selectedShowtime){
     const [bookedSeat, setBookedSeat] = useState([]);
     const [selectedSeat, setSelectedSeat] = useState([]);
     const [payingState, setPayingState] = useState(false);
-    
-    let userState = useSelector(state => state.user.User)
+    const dispatch = useDispatch();
+    let userState = useSelector(state => state.user.User);
 
     useEffect(() => { 
         async function fetchData(){
@@ -19,6 +20,7 @@ export default function BookingSeat(selectedShowtime){
             API.get(getShowTimeAPI).then((res) => {
               setBookedSeat(res.data);
               setSelectedSeat([]);
+              setPayingState(false);
             });
           }
         }
@@ -101,22 +103,11 @@ export default function BookingSeat(selectedShowtime){
                 UserId: userState.id,
                 ShowTimeId: selectedShowtime.id,
                 Seats: selectedSeat,
-                TotalPrice: totalPrice
+                TotalPrice: totalPrice,
+                Price : prices
               }
-              console.log('bookingData',data);
-              localStorage.setItem('DateTime',data.DateTime)
-              localStorage.setItem('ShowTimeId',data.ShowTimeId)
-              localStorage.setItem('Seats',data.Seats)
-              localStorage.setItem('Price',prices)
-              localStorage.setItem('TotalPrice',totalPrice)
+              dispatch(prepareForBooking(data));
               setPayingState(true);
-              // API.post('/booking/add',data).then(res =>{
-              //     localStorage.setItem('DateTime',data.DateTime)
-              //     localStorage.setItem('ShowTimeId',data.ShowTimeId)
-              //     localStorage.setItem('Seats',data.Seats)
-              //     localStorage.setItem('Price',sumPrice)
-              // });
-              //history.push('checkout');
             } 
         }>
         Đặt vé

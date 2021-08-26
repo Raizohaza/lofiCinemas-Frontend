@@ -4,16 +4,9 @@ import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { useSelector } from 'react-redux';
 
-let length = 0;
-if(localStorage.Seats)
-{
-  length = localStorage.Seats.split(",").length;
-}
-const products = [
-  { name: localStorage.Email, desc: localStorage.Seats, price: 45000+'x'+length},
-  { name: 'Shipping', desc: '', price: 'Free' },
-];
+
 const useStyles = makeStyles((theme) => ({
   listItem: {
     padding: theme.spacing(1, 0),
@@ -28,7 +21,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review() {
   const classes = useStyles();
-
+  const prepareBookingData = useSelector((state) => state.booking.prepareData);
+  let length = 0;
+  console.log(prepareBookingData);
+  if(prepareBookingData.Seats)
+  {
+    length = prepareBookingData.Seats.length;
+  }
+  let products = [
+    { name: 'Seats', desc: prepareBookingData.Seats.join(','), price: 45000+'x'+length},
+  ];
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
