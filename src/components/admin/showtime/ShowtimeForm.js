@@ -39,8 +39,8 @@ export function ShowtimeForm(curr,action) {
             dispatch(getCinemaAsync());
          }
          let currDateTime = new Date(curr.DateShow + ' ' + curr.TimeBegin)? new Date(curr.DateShow + ' ' + curr.TimeBegin) : new Date();
-         console.log(currDateTime);
-         if(currDateTime !== "Invalid Date"){
+         
+         if(currDateTime.toString() !== "Invalid Date"){
             setTimeBegin(currDateTime);
             setDateShow(currDateTime);
          }
@@ -59,7 +59,7 @@ export function ShowtimeForm(curr,action) {
       </Dropdown.Item>
       )
    });
-   let dropdownCinema = cinemaList.forEach((Cinema)=>{
+   let dropdownCinema = cinemaList.map((Cinema)=>{
       if(CineplexId && CineplexId === Cinema.CineplexId)
       return(
          <Dropdown.Item key={Cinema.id} onClick = {(e)=>{

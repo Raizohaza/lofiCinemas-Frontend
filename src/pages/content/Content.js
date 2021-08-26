@@ -12,8 +12,7 @@ import { getNowPlayingMovieAsync } from 'features/movie/movieSlice';
 import "swiper/components/pagination/pagination.min.css";
 import 'swiper/components/navigation/navigation.scss';
 import "swiper/swiper.min.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
 import './style.css'
 import { Card } from '@material-ui/core';
 

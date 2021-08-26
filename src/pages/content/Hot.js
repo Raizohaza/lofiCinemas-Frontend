@@ -6,8 +6,7 @@ import SwiperComponent from '../../components/Swiper/SwiperComponent'
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
 
-import "swiper/components/pagination/pagination.min.css";
-import 'swiper/components/navigation/navigation.scss';
+
 import "swiper/swiper.min.css";
 
 
@@ -15,8 +14,7 @@ import { selectMovie , getMovieAsync} from '../../features/movie/movieSlice';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
 import API from 'api';
 import './style.css'
 import { Card } from '@material-ui/core';

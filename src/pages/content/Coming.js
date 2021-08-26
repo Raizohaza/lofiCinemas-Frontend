@@ -15,8 +15,6 @@ import { getComingMovieAsync} from '../../features/movie/movieSlice';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import {  Card } from '@material-ui/core';
 import './style.css'
 
