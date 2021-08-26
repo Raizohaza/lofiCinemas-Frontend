@@ -29,7 +29,7 @@ export default function Register()
                 console.log(res.data)
                 setAlertInfo({ 
                     notification:res.data,
-                    show:true
+                    show:true,
                 });
             }
         ).catch(
@@ -47,15 +47,15 @@ export default function Register()
                 <p className="title">Register</p>
                 <div className="field-input">
                     <p>Email</p>
-                    <input onChange={e =>this.Email=e.target.value}  className="input" type="email" required />
+                    <input onChange={e =>setEmail(e.target.value)}  className="input" type="email" required/>
                     <p>Name</p>
-                    <input onChange={e =>this.Name=e.target.value}  className="input" type="text" required />
+                    <input onChange={e =>setName(e.target.value)}  className="input" type="text" required/>
                     <p>Tel</p>
-                    <input onChange={e =>this.Tel=e.target.value}  className="input" type="text" required />
+                    <input onChange={e =>setTel(e.target.value)}  className="input" type="text" required/>
                     <p>Password</p>
-                    <input onChange={e =>this.Password=e.target.value} className="input" type="password" required />
+                    <input onChange={e =>setPassword(e.target.value)} className="input" type="password" required/>
                     <p>Confirm Password</p>
-                    <input onChange={e =>this.ConfirmPassword=e.target.value} className="input" type="password" required />
+                    <input onChange={e =>setConfirmPassword(e.target.value)} className="input" type="password" required/>
                 </div>
                 
                 <button type='submit' className="btn-register">

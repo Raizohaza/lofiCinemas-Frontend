@@ -42,7 +42,7 @@ export default function AlertBT(alertInfo){
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>Okay</Button>
+            <Button variant="primary" type="submit" autoFocus onClick={handleClose}>Okay</Button>
           </Modal.Footer>
         </Modal>
       </>

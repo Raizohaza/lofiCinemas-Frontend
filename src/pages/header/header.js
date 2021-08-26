@@ -5,8 +5,6 @@ import { Nav,Dropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {logOut} from "features/user/userSlice";
 import { 
-    faHome,
-    faMap,
     faUser
 } from '@fortawesome/free-solid-svg-icons'
 

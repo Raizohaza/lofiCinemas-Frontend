@@ -4,7 +4,7 @@ import '../styles.css'
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Checkout from '../checkout';
-import api from 'api';
+
 export default function BookingSeat(selectedShowtime){
     const [bookedSeat, setBookedSeat] = useState([]);
     const [selectedSeat, setSelectedSeat] = useState([]);
