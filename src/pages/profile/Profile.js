@@ -2,7 +2,7 @@ import {  useState } from "react";
 import {   useSelector } from "react-redux";
 import './profile.css'
 import api from "api";
-
+import AlertBT from 'components/alerts';
 
 export default function Profile (){
 
@@ -12,7 +12,7 @@ export default function Profile (){
     const [oldPassword,setOldPassword]= useState('');
     const [newPassword,setNewPassword]= useState('');
     const [confirmPassword,setConfirmPassword] = useState({});
-
+    const [alertInfo,setAlertInfo] = useState({});
     let User = useSelector(state=>state.user.User);
     let  handleSubmit = e =>{
         e.preventDefault();
@@ -27,6 +27,10 @@ export default function Profile (){
         api.post('/user/'+User.id+'/profile',data).then(
             res=>{
                 console.log(res)
+                setAlertInfo({ 
+                    notification:res.data,
+                    show:true,
+                });
          }
         ).catch(
             err=>{
@@ -36,6 +40,9 @@ export default function Profile (){
     };
  
       return(
+        <>
+        <AlertBT data={alertInfo}>
+        </AlertBT>
           <form className='profile' onSubmit={handleSubmit}>
               <h3>Change profile</h3>        
               <div className='info-user'>
@@ -64,5 +71,6 @@ export default function Profile (){
               <button className='btn-submit'>
                 Ok</button>
           </form>
+          </>
       )
   }

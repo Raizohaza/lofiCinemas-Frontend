@@ -11,7 +11,7 @@ import FacebookLogin from 'react-facebook-login';
 import './login.css'
 import logo from '../../assets/img/login.jpg'
 import { userLogin, userLoginFacebook, userLoginGoogle } from "features/user/userSlice";
-
+import AlertBT from 'components/alerts';
 import GoogleLogin from "react-google-login";
 
 export default function Login() {
@@ -20,6 +20,7 @@ export default function Login() {
     const [Password,setPassword]= useState('');
     let loggedIn =  useSelector(state=>state.user.loggedIn);
     let Role = useSelector(state=>state.user.role);
+    const [alertInfo,setAlertInfo] = useState({});
    
     function responseFacebook(res) {
         dispatch(userLoginFacebook({Email:res.email,Name:res.name,Role:'user',facebookId:res.userID,Verify:true}));
@@ -34,6 +35,10 @@ export default function Login() {
             Password:Password,
             Role:'user'
         };
+        setAlertInfo({ 
+            notification:"please check your account or password",
+            show:true,
+        });
         dispatch(userLogin(User));
     };
 
@@ -46,6 +51,10 @@ export default function Login() {
     }
     else
         return(
+            <>
+            <AlertBT data={alertInfo}>
+
+            </AlertBT>
             <form className="login" onSubmit={handleSubmit}>
                 <img className="logo-login" src={logo} alt=""></img>
                 <div className="field-input">
@@ -83,6 +92,7 @@ export default function Login() {
                     <p className="stroke-font">Forgot password?</p>
                 </Link>
             </form>
+            </>
         );
 }
 

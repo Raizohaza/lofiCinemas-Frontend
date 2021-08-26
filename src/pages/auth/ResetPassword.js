@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import './login.css';
 import api from 'api';
-
+import AlertBT from 'components/alerts';
 export default function RsPassword(){
    
     const [email,setemail]= useState('');
+    const [alertInfo,setAlertInfo] = useState({});
     let handleSubmit = e =>{
         e.preventDefault();
-        alert("Your new pass in your email")
         const data = {
             Email:email
         };
         api.post('/user/reset',data).then(
             res=>{
                 console.log(res)
+                setAlertInfo({ 
+                    notification:res.data,
+                    show:true,
+                });
             }
         ).catch(
             err =>{
@@ -22,6 +26,10 @@ export default function RsPassword(){
         )
     };
         return(
+            <>
+            <AlertBT data={alertInfo}>
+
+            </AlertBT>
             <div className="login">
                 <p className="title-auth">Forgot Password</p>
                 <div className="note">
@@ -38,6 +46,7 @@ export default function RsPassword(){
                 </button>
                 
             </div>
+            </>
         );
     }
 

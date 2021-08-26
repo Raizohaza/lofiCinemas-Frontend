@@ -13,7 +13,7 @@ import PaymentForm from './Payment';
 import Review from './review';
 import api from 'api';
 import { useSelector } from 'react-redux';
-
+import Barcode from 'react-barcode';
 function Copyright() {
   return (
     <Typography variant="body2">
@@ -86,11 +86,10 @@ export default function Checkout() {
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
-
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
-
+  const [bookingId,setBookingId] = React.useState("");
   return (
     <React.Fragment>
 
@@ -113,6 +112,7 @@ export default function Checkout() {
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
                 </Typography>
+                <Barcode value={bookingId}/>
                 <Copyright />
               </React.Fragment>
             ) : (
@@ -134,6 +134,8 @@ export default function Checkout() {
                     api.post('/booking/add',{...prepareBookingData}).then(
                       res=>{
                           console.log(res);
+                          let dataBookingShowTime = new Date(res.data.booking.DateTime);
+                          setBookingId(res.data.booking.id+dataBookingShowTime.getTime());
                           handleNext();
                       }
                     ).catch(
