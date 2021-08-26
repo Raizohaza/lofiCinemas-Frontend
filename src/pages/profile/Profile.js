@@ -1,21 +1,30 @@
-import { Component } from "react";
-import { connect } from "react-redux";
+import {  useState } from "react";
+import {   useSelector } from "react-redux";
 import './profile.css'
 import api from "api";
 
 
-class Profile extends Component{
-    handleSubmit = e =>{
+export default function Profile (){
+
+    const [Email,setEmail]= useState('');
+    const [Tel,setTel]= useState('');
+    const [Name,setName]= useState('');
+    const [oldPassword,setOldPassword]= useState('');
+    const [newPassword,setNewPassword]= useState('');
+    const [confirmPassword,setConfirmPassword] = useState({});
+
+    let User = useSelector(state=>state.user.User);
+    let  handleSubmit = e =>{
         e.preventDefault();
-        const User ={
-            Email:this.Email,
-            Name:this.Name,
-            Tel:this.Tel,
-            oldPassword:this.oldPassword,
-            newPassword:this.newPassword,
-            confirmPassword:this.confirmPassword
+        const data ={
+            Email:Email,
+            Tel:Tel,
+            Name:Name,
+            oldPassword:oldPassword,
+            newPassword:newPassword,
+            confirmPassword:confirmPassword
         };
-        api.post('/user/'+this.props.User.id+'/profile',User).then(
+        api.post('/user/'+User.id+'/profile',data).then(
             res=>{
                 console.log(res)
          }
@@ -25,30 +34,30 @@ class Profile extends Component{
             }
         )
     };
-  render(){
+ 
       return(
-          <form className='profile' onSubmit={this.handleSubmit}>
+          <form className='profile' onSubmit={handleSubmit}>
               <h3>Change profile</h3>        
               <div className='info-user'>
                 <div className="form-group">
                     <label>New name:</label>
-                    <input type="text" value={this.props.User.Name} onChange={e =>this.Name=e.target.value} className="form-control" placeholder="Name" />
+                    <input type="text" value={User.Name} onChange={e =>setName(e.target.value)} className="form-control" placeholder="Name" />
                 </div>
                 <div className="form-group">
                     <label>Tel</label>
-                    <input type="text" value={this.props.User.Tel} onChange={e =>this.Tel=e.target.value} className="form-control" placeholder="Tel" />
+                    <input type="text" value={User.Tel} onChange={e =>setTel(e.target.value)} className="form-control" placeholder="Tel" />
                 </div>
                 <div className="form-group">
                     <label>Old Password</label>
-                    <input type="password" onChange={e =>this.oldPassword=e.target.value} className="form-control" placeholder="Password" />
+                    <input type="password" onChange={e =>setOldPassword(e.target.value)} className="form-control" placeholder="Password" />
                 </div>
                 <div className="form-group">
                     <label>New Password</label>
-                    <input type="password" onChange={e =>this.newPassword=e.target.value} className="form-control" placeholder="New password" />
+                    <input type="password" onChange={e =>setNewPassword(e.target.value)} className="form-control" placeholder="New password" />
                 </div>
                 <div className="form-group">
                     <label>Confirm Password</label>
-                    <input type="password" onChange={e =>this.confirmPassword=e.target.value} className="form-control" placeholder="Confirm Password" />
+                    <input type="password" onChange={e =>setConfirmPassword(e.target.value)} className="form-control" placeholder="Confirm Password" />
                 </div>
               </div>
              
@@ -57,10 +66,3 @@ class Profile extends Component{
           </form>
       )
   }
-}
-const mapStateToProps = (state) => ({
-    User: {...state.user.User},
-    loggedIn: state.user.loggedIn,
-    role: state.user.role
-});
-export default connect(mapStateToProps)(Profile);
