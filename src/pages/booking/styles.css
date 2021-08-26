@@ -25,6 +25,16 @@
   justify-content: left;
   border: 1px solid rgb(71, 71, 71);
   background-color: white;
+  margin-left: 1rem;
+  width: 10rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  font-size: 20px;
+}
+
+.btn-st:hover{
+  background-color: blue;
+  color: white;
 }
 
 
@@ -111,7 +121,7 @@
 
 
 .seat-area .seat-line .single-seat {
-    width: 35px;
+    width: 50px;
     padding: 2px !important;
   }
   .seat-area .seat-line .single-seat img {
@@ -126,19 +136,19 @@
   
   /*  zzzz  */
   .seat-area.couple .seat-line .single-seat {
-    width: 70px;
-    padding: 4px !important;
+    width: 280%;
+    padding-left: 10px !important;
   }
-  
+
   .single-seat {
     cursor: pointer;
     position: relative;
   }
   .single-seat .sit-num {
     content: "";
-    width: 25px;
-    height: 20px;
-    border-radius: 12px;
+
+    height: 35px;
+    border-radius: 10px;
     /* Safari 3-4, iOS 1-3.2, Android 1.6- */
     -webkit-border-radius: 12px;
     /* Firefox 1-3.6 */
@@ -156,13 +166,14 @@
   
   .single-seat .sit-num {
     width: 100%;
-    font-size: 12px;
+    font-size: 20px;
     text-align: center;
   }
 
 
   .single-seat:hover .sit-num {
-    background-color: rgb(124, 163, 214);
+    background-color: rgb(41, 129, 245);
+    color: white;
   }
 
 

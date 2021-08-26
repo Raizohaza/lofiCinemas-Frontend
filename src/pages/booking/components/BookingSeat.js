@@ -57,7 +57,6 @@ export default function BookingSeat(selectedShowtime){
           return (
             <div key={_index} style={{ width: `calc(100%/${selectedShowtime.Width} - 2rem)`, margin: "1rem" }}>
               <div  className="single-seat ">
-              
                 <span onClick={()=>{
                   let arr = [];
                   arr.push(...selectedSeat);
