@@ -62,9 +62,9 @@ class login extends Component {
                 <img className="logo-login" src={logo} alt=""></img>
                 <div className="field-input">
                     <p className="texture">Email:</p>
-                    <input  onChange={e =>this.Email=e.target.value}  className="input" type="email"  />
+                    <input  onChange={e =>this.Email=e.target.value}  className="input" type="email" required />
                     <p className="texture">Password:</p>
-                    <input  onChange={e =>this.Password=e.target.value} className="input" type="password" />
+                    <input  onChange={e =>this.Password=e.target.value} className="input" type="password" required />
                 </div>
                 <p> OR </p>
                 <div className="login-with">

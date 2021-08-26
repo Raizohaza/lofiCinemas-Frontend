@@ -23,6 +23,7 @@ export default function Content(){
 
     const dispatch = useDispatch();
     const movies = useSelector((state) => state.movie.nowPlaying);
+    const isLoading = useSelector((state) => state.movie.isLoading);
     useEffect(() => {
       async function fn(){
         dispatch(getNowPlayingMovieAsync());
@@ -31,7 +32,11 @@ export default function Content(){
       }, [dispatch]);
 
     return(
-        <div className="col-lg-12">
+      <div className="content">
+         {isLoading ? (
+              <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            ) : (
+        <div className="col-lg-12">        
             {movies && Object.values(movies).length > 0 && movies.length > 0 && (
                 <div className="article-section padding-bottom">
                   <div className="section-header-1">
@@ -52,7 +57,7 @@ export default function Content(){
                           key={index}                        
                         >
                           <Card className="root">
-                          <SwiperComponent movie={item} />
+                              <SwiperComponent movie={item} />
                           </Card>
                         </SwiperSlide>
                       ))}
@@ -61,6 +66,8 @@ export default function Content(){
                 </div>
               )}
         </div>
+      )}
+      </div>
             
         
     );

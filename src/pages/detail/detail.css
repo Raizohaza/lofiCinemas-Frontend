@@ -7,17 +7,106 @@
 
 .aw{
     margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 50rem;
+  }
+  .lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 40px 40px;
+  }
+  .lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    margin: -4px 0 0 -4px;
+  }
+  .lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+  }
+  .lds-roller div:nth-child(1):after {
+    top: 63px;
+    left: 63px;
+  }
+  .lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+  }
+  .lds-roller div:nth-child(2):after {
+    top: 68px;
+    left: 56px;
+  }
+  .lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+  }
+  .lds-roller div:nth-child(3):after {
+    top: 71px;
+    left: 48px;
+  }
+  .lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+  }
+  .lds-roller div:nth-child(4):after {
+    top: 72px;
+    left: 40px;
+  }
+  .lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+  }
+  .lds-roller div:nth-child(5):after {
+    top: 71px;
+    left: 32px;
+  }
+  .lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+  }
+  .lds-roller div:nth-child(6):after {
+    top: 68px;
+    left: 24px;
+  }
+  .lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+  }
+  .lds-roller div:nth-child(7):after {
+    top: 63px;
+    left: 17px;
+  }
+  .lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+  }
+  .lds-roller div:nth-child(8):after {
+    top: 56px;
+    left: 12px;
+  }
+  @keyframes lds-roller {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  
 
 .item-info{
     
     display: flex;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     width: 80%;
-    height: auto;
+    height: 25rem;
     margin-bottom: 2rem;
-    background-color: #4d4949;
-    border-radius: 1rem;
+    background-color: #2d2e35;
     background-size: cover;
     padding: 0.5rem;
     -webkit-box-decoration-break: clone;
@@ -28,18 +117,21 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-top: 2rem;
 }
 
 .poster-avatar{
     width: 20rem;
     height: 20rem;
     border-radius: 1rem;
+    margin-top: 2rem;
 }
 
 .item-name{
     font-size: 2rem;
     font-weight: bolder;
     margin-left: 2rem;
+    color: rgb(197, 192, 192);
 }
 
 
@@ -59,6 +151,7 @@
     font-size: 15px;
     margin-left: 1.8rem;
     font-weight: 2rem;
+    color: rgb(197, 192, 192);
 }
 
 .trailer{
@@ -74,7 +167,8 @@
     width: 7rem;
     height: 2rem;
     font-size: 1rem;
-    background-color: white;
+    background-color: rgb(224, 211, 22);
+    color: rgb(43, 40, 40);
     border-radius: 1rem;
     text-align: center;
     border: 0.5px solid #000;
@@ -84,7 +178,7 @@
     background-color: rgb(11, 176, 241);
     color: azure;
     width: 8rem;
-    height: 4rem;
+    height: 3rem;
     font-size: 2rem;
 }
 
@@ -93,5 +187,6 @@
     font-size: 15px;
     margin-left: 1.8rem;
     font-weight: 2rem;
+    color: rgb(197, 192, 192);
 
 }

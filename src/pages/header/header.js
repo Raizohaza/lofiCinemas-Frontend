@@ -27,12 +27,16 @@ export function Header(){
                 <img src={LofiCinemas} alt=""></img>
             </div>
             <div className="tool">
-                <Link to='/'>
-                    <i className="icon-color"><FontAwesomeIcon icon={faHome}/></i>
+                <Link className="icon-color" to='/'>
+                    Home
                 </Link>
-                <Link to='/cineplex'>
-                <i className="icon-color"><FontAwesomeIcon icon={faMap}/></i>
-                  </Link>               
+                <Link className="icon-color" to='/'>
+                    Movies
+                </Link>
+                <Link className="icon-color" to='/'>
+                    Cineplexs
+                </Link>
+                         
             </div>
             <div className="tool2" >
               <i className="icon-color-so2">
@@ -46,7 +50,7 @@ export function Header(){
                         variant="default"
                         className="m-0"
                       >
-                        <FontAwesomeIcon icon={faUser} /> 
+                        <i className="icon-color"> <FontAwesomeIcon icon={faUser} /> </i>
                       </Dropdown.Toggle>
                       <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
                         {cUser.loggedIn?

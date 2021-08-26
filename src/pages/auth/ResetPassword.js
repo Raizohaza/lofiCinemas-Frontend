@@ -32,7 +32,7 @@ class RsPassword extends Component{
                 </div>
                 <div className="field-input">
                     <p>Email:</p>
-                    <input onChange={e =>this.email=e.target.value} className="input" type="text"  />
+                    <input onChange={e =>this.email=e.target.value} className="input" type="text" required  />
                 </div>
                 <button  type='submit' onClick={this.handleSubmit}  className="btn-request">
                     <p className="text-in-button">Send request</p>
