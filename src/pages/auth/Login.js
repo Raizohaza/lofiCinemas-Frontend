@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Redirect } from "react-router";
 import {  useDispatch, useSelector } from "react-redux";
@@ -16,12 +16,27 @@ import GoogleLogin from "react-google-login";
 
 export default function Login() {
     const dispatch = useDispatch();
+    const [click,setClick]= useState(false);
     const [Email,setEmail]= useState('');
     const [Password,setPassword]= useState('');
     let loggedIn =  useSelector(state=>state.user.loggedIn);
+    let notification =  useSelector(state=>state.user.notification);
     let Role = useSelector(state=>state.user.role);
     const [alertInfo,setAlertInfo] = useState({});
-   
+    
+    useEffect(()=>{
+        if(notification!== '' && !loggedIn)
+            setAlertInfo({ 
+                notification:notification,
+                show:true,
+            });
+        else if(loggedIn)
+            setAlertInfo({ 
+                notification:notification,
+                show:false,
+            });
+        setClick(false);
+    },[notification,click]);
     function responseFacebook(res) {
         dispatch(userLoginFacebook({Email:res.email,Name:res.name,Role:'user',facebookId:res.userID,Verify:true}));
     }
@@ -35,11 +50,8 @@ export default function Login() {
             Password:Password,
             Role:'user'
         };
-        setAlertInfo({ 
-            notification:"please check your account or password",
-            show:true,
-        });
         dispatch(userLogin(User));
+        setClick(true);
     };
 
     if(loggedIn&&Role!=="admin"){
@@ -59,9 +71,9 @@ export default function Login() {
                 <img className="logo-login" src={logo} alt=""></img>
                 <div className="field-input">
                     <p className="texture">Email:</p>
-                    <input  onChange={e =>setEmail(e.target.value)}  className="input" type="email" require />
+                    <input  onChange={e =>setEmail(e.target.value)}  className="input" type="email"  />
                     <p className="texture">Password:</p>
-                    <input  onChange={e =>setPassword(e.target.value)} className="input" type="password" require />
+                    <input  onChange={e =>setPassword(e.target.value)} className="input" type="password"  />
                 </div>
                 <p> OR </p>
                 <div className="login-with">

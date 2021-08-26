@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactPlayer from 'react-player';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -15,6 +15,8 @@ export default function Detail()
     let {id} = useParams();
     const movies = useSelector((state) => state.movie.selectedMovie);
     const isLoading = useSelector((state) => state.movie.isLoading);
+    let loggedIn =  useSelector(state=>state.user.loggedIn);
+    const history = useHistory();
     useEffect(() => {
         if (id) {
           dispatch(getMovieByIdAsync(id));
@@ -36,7 +38,12 @@ export default function Detail()
                                 {movies.Description}
                             </div>
                         <Link to={`booking/${movies.id}`}>
-                          <button className="cart">Đặt vé</button>
+                          <button className="cart" onClick={(e)=>{
+                            if(!loggedIn){
+                              e.preventDefault();
+                              history.push('/login');
+                            }
+                          }}>Đặt vé</button>
                         </Link>
                     </div>
                 </div>

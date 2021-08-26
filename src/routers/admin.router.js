@@ -6,14 +6,15 @@ import "../assets/scss/light-bootstrap-dashboard-react.scss?v=2.0.0";
 import "../assets/css/demo.css";
 
 import { URL } from "../constant/URL";
-import AdminLayout from "../layouts/layout.js";
-
+import Auth from 'pages/auth/auth';
 function AdminRoute(props) {
   return (
         <Switch>
             <Route path={URL.ADMIN} render={(props) => {
-                return <AdminLayout {...props} />
-                }} />
+                
+                return <Auth {...props}></Auth>
+                // <AdminLayout {...props} />
+            }} />
         </Switch>
   );
 }

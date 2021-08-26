@@ -1,7 +1,7 @@
 
 import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import API from 'api';
-const localData = localStorage.userInfo!==undefined?JSON.parse(localStorage.getItem('userInfo')).payload:undefined;
+const localData = 'userInfo' in localStorage && localStorage.userInfo!=='undefined'?JSON.parse(localStorage.getItem('userInfo')):undefined;
 const initialState = {
     User:localData!==undefined?{
       id:localData.id,
@@ -10,7 +10,8 @@ const initialState = {
       Tel: localData.Tel,      
     }:{},
     loggedIn:localData&&localData.id!==undefined? true:false,
-    role:localData&&localData.Role!==undefined?localData.Role:''
+    role:localData&&localData.Role!==undefined?localData.Role:'',
+    notification:''
 }
 
 export const userLogin = createAsyncThunk(
@@ -45,9 +46,11 @@ export const UserSlice = createSlice({
       state.User = {};
       state.loggedIn = false;
       state.role = '';
+      state.notification = '';
       localStorage.clear();
     },
     setUser: (state,action) => {
+      state.notification = '';
       localStorage.setItem('userInfo',JSON.stringify(action));
       state.User = action;
       state.loggedIn = true;
@@ -57,22 +60,32 @@ export const UserSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(userLogin.fulfilled, (state, action) => {
-        if(typeof action.payload !== 'string')
+        if(typeof action.payload !== 'string' && typeof action.payload !== undefined && Object.keys(action.payload).length >0)
+        {
+          state.notification = '';  
           UserSlice.caseReducers.setUser(state,action.payload.user);
-        else
+        }
+        
+        else{
+          state.notification = 'login fail:' + action.payload;
           console.log('login fail:',action.payload);
+        }
       })
       .addCase(userLoginFacebook.fulfilled, (state, action) => {
-        if(typeof action.payload !== 'string')
+        if(typeof action.payload !== 'string' && typeof action.payload !== undefined && Object.keys(action.payload).length >0)
           UserSlice.caseReducers.setUser(state,action.payload.user);
-        else
+        else{
+          state.notification = 'login fail:' + action.payload;
           console.log('login fail:',action.payload);
+        }
       })
       .addCase(userLoginGoogle.fulfilled, (state, action) => {
-        if(typeof action.payload !== 'string')
+        if(typeof action.payload !== 'string' && typeof action.payload !== undefined && Object.keys(action.payload).length >0)
           UserSlice.caseReducers.setUser(state,action.payload.user);
-        else
+        else{
+          state.notification = 'login fail:' + action.payload;
           console.log('login fail:',action.payload);
+        }
       });
   },
 });
