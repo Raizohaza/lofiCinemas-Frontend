@@ -47,15 +47,16 @@
 .swiper-pagination-bullet {
   background: #f4f4f4 !important;
 }
-.title {
+.title-content {
   color: white;
   position: relative;
   width: 100%;
   padding: 10px 0;
   z-index: 1;
+  margin-left: 5%;
 }
 .section-header-1{
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .content{

@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {Table} from 'react-bootstrap'
 import { useSelector, useDispatch} from 'react-redux';
 import { selectBooking , getBookingByIdAsync} from '../../features/booking/bookingSlice';
 import moment from "moment";
+import Barcode from 'react-barcode';
 export default function BookingList() {
   const dispatch = useDispatch();
   let bookingList = useSelector(selectBooking);
@@ -20,6 +21,7 @@ export default function BookingList() {
   let components = bookingList.map((data) =>
   {
     let dateTime = moment(data.booking.DateTime).format('h:mm:ss a DD-MM-YYYY');
+    let dateTimeById = new Date(data.booking.DateTime);
     let currDateTime = new Date(data.showtimes.DateShow + ' ' + data.showtimes.TimeBegin)? new Date(data.showtimes.DateShow + ' ' + data.showtimes.TimeBegin) : new Date();
     let timeBegin = moment(currDateTime).format('h:mm:ss a');
     let timeEnd = moment(currDateTime).add(data.showtimes.Movie.Duration, 'm').format('h:mm:ss a');
@@ -27,6 +29,7 @@ export default function BookingList() {
     return(
       <tr key={data.booking.id}>
         <td>{dem++}</td>
+        <td>{<Barcode value={data.booking.id+dateTimeById.getTime()}/>}</td>
         <td>{dateTime}</td>             
         <td>{data.booking.TotalPrice}</td>
         <td>{timeBegin + ' - ' + timeEnd}</td>
@@ -43,6 +46,7 @@ export default function BookingList() {
         <thead>
           <tr>
             <th>#</th>
+            <th>Barcode</th>
             <th>Booking Time</th>
             <th>TotalPrice</th>
             <th>Showtime</th>
