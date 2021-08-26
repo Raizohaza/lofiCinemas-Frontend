@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import './login.css'
 import api from 'api';
 import { useSelector } from 'react-redux';
-
+import AlertBT from 'components/alerts';
 export default function Register()
 {
     const [Email,setEmail]= useState('');
@@ -11,7 +11,8 @@ export default function Register()
     const [Name,setName]= useState('');
     const [Password,setPassword]= useState('');
     const [ConfirmPassword,setConfirmPassword]= useState('');
-    let User = useSelector(state=>state.user.User);
+    const [alertInfo,setAlertInfo] = useState({});
+    let curUser = useSelector(state=>state.user.User);
     let handleSubmit = e =>{
         
         e.preventDefault();
@@ -25,8 +26,11 @@ export default function Register()
         };
         api.post('/user/register',{...User}).then(
             res=>{
-                console.log(res)
-                
+                console.log(res.data)
+                setAlertInfo({ 
+                    notification:res.data,
+                    show:true
+                });
             }
         ).catch(
             err=>{
@@ -34,10 +38,13 @@ export default function Register()
             }
         )
     };
-   
-       return(
+    return(
+        <>
+            <AlertBT data={alertInfo}>
+
+            </AlertBT>
             <form className="login" onSubmit={handleSubmit}>
-               <p className="title">Register</p>
+                <p className="title">Register</p>
                 <div className="field-input">
                     <p>Email</p>
                     <input onChange={e =>setEmail(e.target.value)}  className="input" type="email"  />
@@ -50,16 +57,15 @@ export default function Register()
                     <p>Confirm Password</p>
                     <input onChange={e =>setConfirmPassword(e.target.value)} className="input" type="password" />
                 </div>
-               
-                <button type='submit' className="btn-register" onClick={()=>{
-                 User?alert("Account create complete"):alert("check you email to complete")
-                }}>
+                
+                <button type='submit' className="btn-register">
                     <p className="text-in-button">Register</p>
                 </button>
-               <Link to='/login'>
+                <Link to='/login'>
                     <p className="stroke-font">Have Account?</p>
-               </Link>
+                </Link>
             </form>
-       );
+        </>
+    );
    }
 
