@@ -23,7 +23,7 @@ export default function RsPassword(){
     };
         return(
             <div className="login">
-                <p className="title">Forgot Password</p>
+                <p className="title-auth">Forgot Password</p>
                 <div className="note">
                     <p>Lưu ý: </p>
                     <p>Loli Cinemas sẽ không đảm bảo gửi email nếu bạn cung cấp thông tin không chính xác. 

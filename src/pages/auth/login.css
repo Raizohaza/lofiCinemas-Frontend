@@ -14,12 +14,13 @@
     margin-top: 10%;
 }
 
-.title{
+.title-auth{
     align-items: center;
     text-align: center;
     font-size: 2rem;
     font-weight: normal;
-    margin-top: 1rem;
+    margin-top: 2rem;
+    color: rgb(14, 13, 13);
 }
     
 .logo-login {
@@ -45,7 +46,6 @@ border-radius: 15px;
 font-size: 1rem;
 padding: 0.5rem 1rem;
 margin-bottom: 1rem;
-
 }
 
 .input:focus{

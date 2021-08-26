@@ -45,7 +45,6 @@ function Routers() {
       <VerifyRoute/>
       <CheckoutRoute/>
       <Cineplexrouter/>
-      {/* <Footer/> */}
     </Router>
     </div>
 

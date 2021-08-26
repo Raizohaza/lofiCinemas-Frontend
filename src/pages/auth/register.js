@@ -44,7 +44,7 @@ export default function Register()
 
             </AlertBT>
             <form className="login" onSubmit={handleSubmit}>
-                <p className="title">Register</p>
+                <p className="title-auth">Register</p>
                 <div className="field-input">
                     <p>Email</p>
                     <input onChange={e =>setEmail(e.target.value)}  className="input" type="email" required/>
