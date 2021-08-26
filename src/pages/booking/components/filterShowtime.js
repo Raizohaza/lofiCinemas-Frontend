@@ -95,7 +95,7 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
         )
       else
       return null;
-    }): <div>Please select cinema</div>;
+    }): <div style={{ color: 'white' }}>Please select cinema</div>;
 
     return(
       <>

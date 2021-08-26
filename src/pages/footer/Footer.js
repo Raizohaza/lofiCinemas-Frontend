@@ -5,14 +5,14 @@ class Footer extends Component {
  
     render() {
       return (
-        <div>
+        <>
           <title>Footer Design</title>
-          <meta charSet="utf-8" />
+          {/* <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="stylesheet" href="css/style.css" />
-          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+          <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" /> */}
           <footer className="footer">
-            <div className="container">
+            {/* <div className="container">
               <div className="row">
                 <div className="footer-col">
                   <h4>company</h4>
@@ -43,9 +43,9 @@ class Footer extends Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </footer>
-        </div>
+        </>
       );
     }
  
