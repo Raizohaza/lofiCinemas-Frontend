@@ -4,6 +4,7 @@ import '../styles.css'
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Checkout from '../checkout';
+import api from 'api';
 export default function BookingSeat(selectedShowtime){
     const [bookedSeat, setBookedSeat] = useState([]);
     const [selectedSeat, setSelectedSeat] = useState([]);
@@ -60,7 +61,7 @@ export default function BookingSeat(selectedShowtime){
                   arr.push(...selectedSeat);
                   arr = arr.filter(item => item !== elm.seat);
                   setSelectedSeat(arr);
-                }} className="sit-num " style={{ background: "blue" }}>{elm.seat}</span>
+                }} className="sit-num " style={{ background: "yellow" }}>{elm.seat}</span>
               </div>
             </div>)
         }
@@ -91,6 +92,8 @@ export default function BookingSeat(selectedShowtime){
             }
             {selectedShowtime&&!payingState&&userState.id && <button className="btn-book" onClick={()=>{
               let prices = selectedSeat.map(item =>45000);
+              let totalPrice = 45000*selectedSeat.length;
+              console.log(totalPrice);
               let data = {
                 DateTime: new Date(),
                 createdAt: new Date(),
@@ -98,13 +101,14 @@ export default function BookingSeat(selectedShowtime){
                 UserId: userState.id,
                 ShowTimeId: selectedShowtime.id,
                 Seats: selectedSeat,
-                Price: prices
+                TotalPrice: totalPrice
               }
               console.log('bookingData',data);
               localStorage.setItem('DateTime',data.DateTime)
               localStorage.setItem('ShowTimeId',data.ShowTimeId)
               localStorage.setItem('Seats',data.Seats)
               localStorage.setItem('Price',prices)
+              localStorage.setItem('TotalPrice',totalPrice)
               setPayingState(true);
               // API.post('/booking/add',data).then(res =>{
               //     localStorage.setItem('DateTime',data.DateTime)
