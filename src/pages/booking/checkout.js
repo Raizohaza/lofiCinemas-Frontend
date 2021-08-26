@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import AddressForm from './address';
 import PaymentForm from './Payment';
 import Review from './review';
+import api from 'api';
 
 function Copyright() {
   return (
@@ -62,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Booking detail', 'Payment details', 'Review your order'];
 
 function getStepContent(step) {
   switch (step) {
@@ -80,7 +81,6 @@ function getStepContent(step) {
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
-
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -122,14 +122,49 @@ export default function Checkout() {
                       Back
                     </Button>
                   )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
+                  {activeStep === steps.length - 1 ?
+                  <Button 
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={()=>{
+                    let data = {
+                      DateTime: new Date(),
+                      createdAt: new Date(),
+                      updatedAt: new Date(),
+                      UserId: localStorage.UID,
+                      ShowTimeId: localStorage.ShowTimeId,
+                      Seats: localStorage.Seats,
+                      TotalPrice: localStorage.TotalPrice
+                    }
+                    console.log('bookingData',data);
+                    api.post('/booking',{...data}).then(
+                      res=>{
+                          console.log(res);
+                          handleNext();
+                      }
+                  ).catch(
+                      err=>{
+                          console.log(err);
+                          handleNext();
+                      }
+                  )
+                  }
+                  
+              }
+              
+              >
+                {'place order'}
+              </Button>:
+              <Button
+              variant="contained"
+              color="primary"
+              onClick={handleNext}
+              className={classes.button}
+            >
+              {'Next'}
+            </Button>
+              }
                 </div>
               </React.Fragment>
             )}
