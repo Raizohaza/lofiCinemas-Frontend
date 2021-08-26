@@ -40,7 +40,6 @@ export default function Register()
                <p className="title">Register</p>
                 <div className="field-input">
                     <p>Email</p>
-<<<<<<< HEAD
                     <input onChange={e =>this.Email=e.target.value}  className="input" type="email" required />
                     <p>Name</p>
                     <input onChange={e =>this.Name=e.target.value}  className="input" type="text" required />
@@ -50,17 +49,6 @@ export default function Register()
                     <input onChange={e =>this.Password=e.target.value} className="input" type="password" required />
                     <p>Confirm Password</p>
                     <input onChange={e =>this.ConfirmPassword=e.target.value} className="input" type="password" required />
-=======
-                    <input onChange={e =>setEmail(e.target.value)}  className="input" type="email"  />
-                    <p>Name</p>
-                    <input onChange={e =>setName(e.target.value)}  className="input" type="text"  />
-                    <p>Tel</p>
-                    <input onChange={e =>setTel(e.target.value)}  className="input" type="text"  />
-                    <p>Password</p>
-                    <input onChange={e =>setPassword(e.target.value)} className="input" type="password" />
-                    <p>Confirm Password</p>
-                    <input onChange={e =>setConfirmPassword(e.target.value)} className="input" type="password" />
->>>>>>> bdddb92af50cee1f661b57ab4445dc907e32e94f
                 </div>
                
                 <button type='submit' className="btn-register" onClick={()=>{
