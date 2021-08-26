@@ -23,7 +23,6 @@ SwiperCore.use([Pagination, Navigation]);
 export default function Coming(){
   const dispatch = useDispatch();
   let moviesList = useSelector(state => state.movie.coming);
-  // const Loading = useSelector((state) => state.movie.isLoading);
   useEffect(()=>{
     const fetchData = async ()=>{
       if(moviesList.length <1 ){
@@ -35,34 +34,36 @@ export default function Coming(){
 
 
   return(
-      <div className="col-lg-12">
-          {moviesList && Object.values(moviesList).length > 0 && (
-              <div className="article-section padding-bottom">
-                <div className="section-header-1">
-                  <h2 className="title">Coming soon</h2>
-                </div>
-                <Swiper
-                  navigation
-                  pagination
-                  slidesPerView={5}
-                  spaceBetween={0}
-                  allowTouchMove={true}
-                  lazy={true}
-                  slidesPerGroup={5}
-                >
-                  {moviesList &&
-                    moviesList.map((item, index) => ( 
-                      <SwiperSlide key={index}>
-                        <Card className="root">
-                          <SwiperComponent movie={item} />
-                          
-                        </Card>
-                      </SwiperSlide>
-                    ))}
-                </Swiper>
-                <div className="row mb-30-none justify-content-center"></div>
-              </div>
-            )}
-      </div>
+    
+            <div className="col-lg-12">
+                {moviesList && Object.values(moviesList).length > 0 && (
+                    <div className="article-section padding-bottom">
+                      <div className="section-header-1">
+                        <h2 className="title">Coming soon</h2>
+                      </div>
+                      <Swiper
+                        navigation
+                        pagination
+                        slidesPerView={5}
+                        spaceBetween={0}
+                        allowTouchMove={true}
+                        lazy={true}
+                        slidesPerGroup={5}
+                      >
+                        {moviesList &&
+                          moviesList.map((item, index) => ( 
+                            <SwiperSlide key={index}>
+                              <Card className="root">
+                                <SwiperComponent movie={item} />
+                                
+                              </Card>
+                            </SwiperSlide>
+                          ))}
+                      </Swiper>
+                      <div className="row mb-30-none justify-content-center"></div>
+                    </div>
+                  )}
+            </div>
+     
   );
 }

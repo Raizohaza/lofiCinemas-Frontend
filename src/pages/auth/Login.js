@@ -50,9 +50,9 @@ export default function Login() {
                 <img className="logo-login" src={logo} alt=""></img>
                 <div className="field-input">
                     <p className="texture">Email:</p>
-                    <input  onChange={e =>setEmail(e.target.value)}  className="input" type="email"  />
+                    <input  onChange={e =>setEmail(e.target.value)}  className="input" type="email" require />
                     <p className="texture">Password:</p>
-                    <input  onChange={e =>setPassword(e.target.value)} className="input" type="password" />
+                    <input  onChange={e =>setPassword(e.target.value)} className="input" type="password" require />
                 </div>
                 <p> OR </p>
                 <div className="login-with">

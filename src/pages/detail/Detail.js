@@ -23,7 +23,7 @@ export default function Detail()
     return(
         <div className="aw">
             {isLoading ? (
-              <h2 >Loading...</h2>
+              <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             ) : (
             <div className='detail'>
                 <div className="item-info">

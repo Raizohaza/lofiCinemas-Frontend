@@ -31,7 +31,7 @@ export default function RsPassword(){
                 </div>
                 <div className="field-input">
                     <p>Email:</p>
-                    <input onChange={e =>setemail(e.target.value)} className="input" type="text"  />
+                    <input onChange={e =>this.email=e.target.value} className="input" type="text" required  />
                 </div>
                 <button  type='submit' onClick={handleSubmit}  className="btn-request">
                     <p className="text-in-button">Send request</p>
