@@ -2,7 +2,6 @@ import React, {  useState } from 'react';
 import { Link } from "react-router-dom";
 import './login.css'
 import api from 'api';
-import { useSelector } from 'react-redux';
 import AlertBT from 'components/alerts';
 export default function Register()
 {
@@ -12,7 +11,6 @@ export default function Register()
     const [Password,setPassword]= useState('');
     const [ConfirmPassword,setConfirmPassword]= useState('');
     const [alertInfo,setAlertInfo] = useState({});
-    let curUser = useSelector(state=>state.user.User);
     let handleSubmit = e =>{
         
         e.preventDefault();
