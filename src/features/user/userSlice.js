@@ -1,16 +1,16 @@
 
 import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import API from 'api';
-const localData = JSON.parse(localStorage.getItem('userInfo'));
+const localData = localStorage.userInfo!==undefined?JSON.parse(localStorage.getItem('userInfo')):undefined;
 const initialState = {
-    User:localData?{
+    User:localData!==undefined?{
       id:localData.id,
       Email: localData.Email,
       Name: localData.Name,
       Tel: localData.Tel,      
     }:{},
-    loggedIn:localData&&localData.id? true:false,
-    role:localData&&localData.Role?localData.Role:''
+    loggedIn:localData&&localData.id!==undefined? true:false,
+    role:localData&&localData.Role!==undefined?localData.Role:''
 }
 
 export const userLogin = createAsyncThunk(
@@ -52,19 +52,27 @@ export const UserSlice = createSlice({
       state.User = action;
       state.loggedIn = true;
       state.role = action.Role;
-      
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(userLogin.fulfilled, (state, action) => {
-        UserSlice.caseReducers.setUser(state,action.payload.user);
+        if(typeof action.payload !== 'string')
+          UserSlice.caseReducers.setUser(state,action.payload.user);
+        else
+          console.log('login fail:',action.payload);
       })
       .addCase(userLoginFacebook.fulfilled, (state, action) => {
-        UserSlice.caseReducers.setUser(state,action.payload.user);
+        if(typeof action.payload !== 'string')
+          UserSlice.caseReducers.setUser(state,action.payload.user);
+        else
+          console.log('login fail:',action.payload);
       })
       .addCase(userLoginGoogle.fulfilled, (state, action) => {
-        UserSlice.caseReducers.setUser(state,action.payload.user);
+        if(typeof action.payload !== 'string')
+          UserSlice.caseReducers.setUser(state,action.payload.user);
+        else
+          console.log('login fail:',action.payload);
       });
   },
 });
