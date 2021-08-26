@@ -108,15 +108,7 @@ export default function BookingSeat(selectedShowtime){
               localStorage.setItem('ShowTimeId',data.ShowTimeId)
               localStorage.setItem('Seats',data.Seats)
               localStorage.setItem('Price',prices)
-              api.post('/booking',{...data}).then(
-                res=>{
-                    console.log(res)
-                }
-            ).catch(
-                err=>{
-                    console.log(err)
-                }
-            )
+              localStorage.setItem('TotalPrice',totalPrice)
               setPayingState(true);
               // API.post('/booking/add',data).then(res =>{
               //     localStorage.setItem('DateTime',data.DateTime)
