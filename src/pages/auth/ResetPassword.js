@@ -34,7 +34,7 @@ export default function RsPassword(){
                 <p className="title-auth">Forgot Password</p>
                 <div className="note">
                     <p>Lưu ý: </p>
-                    <p>Loli Cinemas sẽ không đảm bảo gửi email nếu bạn cung cấp thông tin không chính xác. 
+                    <p>Lofi Cinemas sẽ không đảm bảo gửi email nếu bạn cung cấp thông tin không chính xác. 
                     Hãy kiểm tra trong hòm Spam, Thư Rác, Junk... nếu như không tìm thấy thư đến.</p>
                 </div>
                 <div className="field-input">

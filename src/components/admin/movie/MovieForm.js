@@ -22,6 +22,7 @@ export function MovieForm(curr,action) {
             Description: Description,
             ReleaseDate: ReleaseDate,
             Duration: Duration,
+            Trailer:Trailer,
             MID:MID
          }
          e.preventDefault();

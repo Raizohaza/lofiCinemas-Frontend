@@ -1,10 +1,13 @@
 import { Button } from "@material-ui/core";
 import React from "react";
-import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import "./Swiper.scss";
 SwiperComponent.propTypes = {};
 
 function SwiperComponent({ movie }) {
+  let loggedIn =  useSelector(state=>state.user.loggedIn);
+  const history = useHistory();
   return (
     <div className="swipercomponent">
       {movie && (
@@ -27,11 +30,16 @@ function SwiperComponent({ movie }) {
                 <span className="subTitle"> Time:{movie.Duration} min</span>
               </span>
               <div className="controls">
-                <Button className="hover-btn">
-                    <Link className="text-btn" to={`detail/booking/${movie.id}`}>
+                <Link className="text-btn" to={`detail/booking/${movie.id}`}>
+                  <Button className="hover-btn" onClick={(e)=>{
+                            if(!loggedIn){
+                              e.preventDefault();
+                              history.push('/login');
+                            }
+                  }}>
                       Book Ticket
-                    </Link>
-                </Button>
+                  </Button>
+                </Link>
               </div>
           </div>
         </div>

@@ -7,14 +7,18 @@ import Typography from '@material-ui/core/Typography';
 
 import api from 'api';
 import { useHistory, useLocation } from 'react-router-dom';
-import { setUser } from 'features/user/userSlice';
-import { useDispatch } from 'react-redux';
+import { setUser,setUser2 } from 'features/user/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import './login.css';
 
 export default function Verify() {
   let dispatch = useDispatch();
   let query = useLocation().search;
+  let loggedIn =  useSelector(state=>state.user.loggedIn);
   let history = useHistory();
+  if(loggedIn){
+    history.push('/');
+  }
   return (
     <Card className="login" >
       <CardActionArea>
@@ -24,9 +28,8 @@ export default function Verify() {
           </Typography>
           <Button onClick={()=>{
             api.get('/user/verify'+query).then((res)=>{
-              dispatch(setUser(res.data.user));
               if(res.status === 200){
-                history.push('/');
+                dispatch(setUser2(res.data.user));
               }
             });
           }}>
