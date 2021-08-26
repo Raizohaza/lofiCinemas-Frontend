@@ -20,13 +20,13 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
         const getUserAPI = `/showtime/${id}/movie`;
         API.get(getUserAPI).then((res) => {
             res.data = res.data.sort((a,b)=> new Date(a.DateShow) - new Date(b.DateShow));
+            setShowtime(res.data);
             let curDate = new Date();
-            res.data= res.data.filter((item)=>{
+            let filter = res.data.filter((item)=>{
               let dateShow = new Date(item.DateShow);
               return curDate.getTime() <= dateShow.getTime();
             })
-            setShowtime(res.data);
-            setFShowtime(res.data);
+            setFShowtime(filter);
         })
         }
         fetchData()
@@ -38,8 +38,8 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
           if(selectedDay){
             let selectedDayClone = new Date(selectedDay);
             filteredShowTime = showtime.filter(st=>{
-            let dateShow = new Date(st.DateShow);
-            return dateShow.getTime() === selectedDayClone.getTime() ? st: "";
+              let dateShow = new Date(st.DateShow);
+              return dateShow.getTime() === selectedDayClone.getTime() ? st: "";
             })
             setSelectedCineplex({name:'cineplexes'});
             setSelectedCinema({name:'Cinemas'});
@@ -49,7 +49,7 @@ export function FilterShowtime(id,setSelectedShowtimeMain){
         }
         filteredData()
     }, [selectedDay,showtime]);
-    fShowtime.map(x => uniDateTime.filter(a => a.DateShow === x.DateShow).length > 0 ? null : uniDateTime.push(x));
+    showtime.map(x => uniDateTime.filter(a => a.DateShow === x.DateShow).length > 0 ? null : uniDateTime.push(x));
     const DateShow = uniDateTime.map((ite)=>
     {
         return(

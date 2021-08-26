@@ -1,7 +1,7 @@
 
 import { createSlice , createAsyncThunk} from '@reduxjs/toolkit'
 import API from 'api';
-const localData = localStorage.userInfo!==undefined?JSON.parse(localStorage.getItem('userInfo')):undefined;
+const localData = localStorage.userInfo!==undefined?JSON.parse(localStorage.getItem('userInfo')).payload:undefined;
 const initialState = {
     User:localData!==undefined?{
       id:localData.id,
