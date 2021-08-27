@@ -43,7 +43,7 @@ export default function Detail()
                               e.preventDefault();
                               history.push('/login');
                             }
-                          }}>Đặt vé</button>
+                          }}>BOOK TICKET</button>
                         </Link>
                     </div>
                 </div>

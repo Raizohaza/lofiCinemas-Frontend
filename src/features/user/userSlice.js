@@ -51,10 +51,18 @@ export const UserSlice = createSlice({
     },
     setUser: (state,action) => {
       state.notification = '';
+      console.log(action);
       localStorage.setItem('userInfo',JSON.stringify(action));
       state.User = action;
       state.loggedIn = true;
       state.role = action.Role;
+    },
+    setUser2: (state,action) => {
+      state.notification = '';
+      localStorage.setItem('userInfo',JSON.stringify(action.payload));
+      state.User = action.payload;
+      state.loggedIn = true;
+      state.role = action.payload.Role;
     },
   },
   extraReducers: (builder) => {
@@ -92,6 +100,6 @@ export const UserSlice = createSlice({
 
 export const selectUser = (state) => state.user.User;
 
-export const { logOut,setUser } = UserSlice.actions;
+export const { logOut,setUser,setUser2 } = UserSlice.actions;
 
 export default UserSlice.reducer;

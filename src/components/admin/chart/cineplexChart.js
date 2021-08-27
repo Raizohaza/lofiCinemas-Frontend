@@ -20,20 +20,27 @@ const state = (labels,data) =>{
 function analyzeData(bookings,startDate,endDate){
     let numOr0 = n => isNaN(n) ? 0 : n
     let revenue = new Array(bookings.length).fill(0);
+    let labelName = new Array(bookings.length).fill("");
     let labels = [];
     let data = [];
     for (let i = 0; i < bookings.length; i++) {
       const booking = bookings[i];
-      let dateTime = new Date(booking.DateTime);
-      if(dateTime >= startDate && dateTime <= endDate)
+      let dateTime = new Date(booking.DateTime).getTime();
+      console.log(booking.CineplexId);
+      if(dateTime >= startDate && dateTime <= endDate){
         revenue[booking.CineplexId] += numOr0(booking.TotalPrice);
+        labelName[booking.CineplexId] = booking.CineplexName;
+      }
     }
     for (let i = 0; i < bookings.length; i++) {
       if(revenue[i] !== 0){
-        labels.push(bookings[i].CineplexName);
+        console.log(bookings[i].CineplexName,i);
+        labels.push(labelName[i]);
         data.push(revenue[i]);
       }
     }
+    console.log(revenue);
+
     return {labels,data};   
 }
 export function CineplexChart(){
@@ -97,7 +104,7 @@ export function CineplexChart(){
         <hr/>
         <button onClick={(e)=>{
           e.preventDefault();
-          let {labels, data} = analyzeData(listSale);
+          let {labels, data} = analyzeData(listSale,startDate,endDate);
           setLabels(labels);
           setData(data);
         }}>
