@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
+import './movie.css'
+
 export function MovieForm(curr,action) {
     const dispatch = useDispatch();
     let history = useHistory();
@@ -34,7 +36,7 @@ export function MovieForm(curr,action) {
           <div className="col-lg-7">
              <div className="row">
                 <div className="col-12 form-group">
-                   <label htmlFor="Name">Name</label>
+                   <p className="td1" htmlFor="Name">Name</p>
                    <input 
                       id="Name"
                       name="Name"
@@ -46,7 +48,7 @@ export function MovieForm(curr,action) {
                    />
                 </div>
                 <div className="col-12 form_gallery form-group">
-                   <label htmlFor="Poster">Poster</label>
+                   <p className="td1" htmlFor="Poster">Poster</p>
                    <input 
                       id="Poster"
                       type="text" 
@@ -58,7 +60,7 @@ export function MovieForm(curr,action) {
                 </div>
                 
                 <div className="col-12 form-group">
-                   <label htmlFor="Description">Description</label>
+                   <p className="td1" htmlFor="Description">Description</p>
                    <textarea 
                       id="Description" 
                       name="text" 
@@ -83,14 +85,14 @@ export function MovieForm(curr,action) {
                       }}
                    />
                    <iframe title="Trailer" src={Trailer} width="420" height="315"/>
-                   <p>Upload video</p>
+                   <p className="td1">Upload video</p>
                 </div>
              </div>
           </div>
        </div>
        <div className="row">
           <div className="col-sm-7 form-group">
-                <label htmlFor="ReleaseDate">ReleaseDate</label>
+                <p className="td1" htmlFor="ReleaseDate">ReleaseDate</p>
                 <input 
                    id="ReleaseDate"
                    type="text" 
@@ -101,7 +103,7 @@ export function MovieForm(curr,action) {
                 />
           </div>
           <div className="col-sm-7 form-group">
-                <label htmlFor="MID">MID</label>
+                <p className="td1" htmlFor="MID">MID</p>
                 <input 
                    id="ReleaseDate"
                    type="text" 
@@ -112,7 +114,7 @@ export function MovieForm(curr,action) {
                 />
           </div>
           <div className="col-sm-7 form-group">
-                <label htmlFor="Duration">Duration</label>
+                <p className="td1" htmlFor="Duration">Duration</p>
                 <input 
                    id="Duration"
                    type="number" 

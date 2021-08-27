@@ -44,27 +44,27 @@ export default function Profile (){
         <AlertBT data={alertInfo}>
         </AlertBT>
           <form className='profile' onSubmit={handleSubmit}>
-              <h3>Change profile</h3>        
+              <div className="td">Change profile</div>        
               <div className='info-user'>
                 <div className="form-group">
-                    <label>New name:</label>
+                    <p className="hd">New name: </p>
                     <input type="text" value={User.Name} onChange={e =>setName(e.target.value)} className="form-control" placeholder="Name" />
                 </div>
                 <div className="form-group">
-                    <label>Tel</label>
+                    <p  className="hd">Tel</p>
                     <input type="text" value={User.Tel} onChange={e =>setTel(e.target.value)} className="form-control" placeholder="Tel" />
                 </div>
                 <div className="form-group">
-                    <label>Old Password</label>
-                    <input type="password" onChange={e =>setOldPassword(e.target.value)} className="form-control" placeholder="Password" />
+                    <p  className="hd">Password</p>
+                    <input type="password" onChange={e =>setOldPassword(e.target.value)} className="form-control" />
                 </div>
                 <div className="form-group">
-                    <label>New Password</label>
-                    <input type="password" onChange={e =>setNewPassword(e.target.value)} className="form-control" placeholder="New password" />
+                    <p  className="hd"> New Password</p>
+                    <input type="password" onChange={e =>setNewPassword(e.target.value)} className="form-control" />
                 </div>
                 <div className="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" onChange={e =>setConfirmPassword(e.target.value)} className="form-control" placeholder="Confirm Password" />
+                    <p  className="hd">Confirm Password</p>
+                    <input type="password" onChange={e =>setConfirmPassword(e.target.value)} className="form-control" />
                 </div>
               </div>
              

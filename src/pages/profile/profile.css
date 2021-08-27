@@ -6,6 +6,24 @@
     flex-direction: column;
 }
 
+.td
+{
+    align-items: center;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: normal;
+    margin-top: 2rem;
+    color: rgb(243, 239, 239);
+}
+
+.hd{
+    
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin-top: 2rem;
+    color: rgb(243, 239, 239);
+}
+
 .avatar{
     width: 8rem;
     height: 8rem;
